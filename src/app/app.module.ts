@@ -39,6 +39,7 @@ import { OverviewComponent} from "./tournament/get-factory/overview/overview.com
 import {MatTreeModule} from "@angular/material/tree";
 import {NgTournamentTreeModule} from "ng-tournament-tree";
 import { SingleMatchComponent } from './single-match/single-match.component';
+import { SingleMatchPreviewComponent } from './single-match-preview/single-match-preview.component';
 
 registerLocaleData(localeRu);
 
@@ -52,6 +53,7 @@ registerLocaleData(localeRu);
     GetTournamentComponent,
     OverviewComponent,
     SingleMatchComponent,
+    SingleMatchPreviewComponent,
   ],
     imports: [
         BrowserModule,
