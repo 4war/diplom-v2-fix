@@ -1,0 +1,45 @@
+<div class="row">
+  <mat-card class="color-dark col-md-12 my-4">
+    <mat-card-header>Турниры</mat-card-header>
+    <mat-card-content>
+      <div class="factory-container container-fluid my-2 col-11">
+        <div class="row">
+          <div *ngFor="let tournament of factory.tournaments" class="col-md-3 my-3">
+            <a mat-button color="primary" class="tournament-card" routerLink="../tournament">
+              <mat-card class="full-width">
+                <mat-card-header [textContent]="getStage(tournament.stage)"
+                                 class="d-flex justify-content-between full-width">
+                </mat-card-header>
+                <hr>
+                <mat-card-content>
+                  <h2>{{getGender(tournament.gender)}}</h2>
+                  <h2>{{getAge(tournament.age)}}</h2>
+                  <h4>{{tournament.dateStart | date: 'dd.MM.YYYY'}} - {{tournament.dateEnd | date: 'dd.MM.YYYY'}}</h4>
+                  <h6>Подача заявок до: {{tournament.dateRequest | date: 'dd.MM.YYYY'}}</h6>
+                </mat-card-content>
+              </mat-card>
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="col-md-12 px-0 my-4">
+    <mat-card class="color-dark">
+      <mat-card-header>{{factory.tennisCenter.name}}</mat-card-header>
+      <mat-card-content>
+        <h5><i>Адрес: </i>{{factory.tennisCenter.address}}</h5>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-md-12 px-0 my-4">
+    <mat-card class="color-dark">
+      <mat-card-header>Правила</mat-card-header>
+      <mat-card-content>
+        Типа правила
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

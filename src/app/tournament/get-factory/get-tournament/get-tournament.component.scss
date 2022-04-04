@@ -1,0 +1,24 @@
+mat-nav-list.list-horizontal {
+  padding: 0;
+
+  .mat-list-item {
+    display: inline-block;
+    height: auto;
+    width: auto;
+  }
+}
+
+.div-side-bar{
+  width: min(250px, 15%);
+  padding: 0;
+}
+
+.side-bar{
+  background-color: #071823;
+  height: 100%;
+}
+
+.full-height{
+  height: 100%;
+}
+

@@ -1,0 +1,49 @@
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.top-padding {
+  padding-top: 3px;
+}
+
+.margin-left mat-radio-button:not(:first-child) {
+  margin-left: 10px;
+}
+
+.form-container {
+  margin: 100px;
+}
+
+.custom {
+  margin-left: 20px;
+}
+
+.pin {
+  position: center;
+  font-size: 200%;
+}
+
+.off {
+  color: #0c2a40;
+}
+
+.on {
+  color: #49a4ff;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.date-request {
+  color: #49a4ff;
+}

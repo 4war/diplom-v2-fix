@@ -1,0 +1,131 @@
+<form [formGroup]="form" class="container-fluid my-5 col-7" xmlns="http://www.w3.org/1999/html">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Турнир</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="full-width" color="accent">
+            <input [(ngModel)]="factory.name" formControlName="name" matInput placeholder="Название турнира"
+                   autocomplete="off">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field color="accent" class="full-width">
+            <mat-label>Категория</mat-label>
+            <mat-select [(value)]="form.value.categoryDigit"
+                        (valueChange)="categoryDigitValueChanged($event)">
+              <mat-option *ngFor="let digit of getCategoryDigits()" [value]="digit">
+                {{digit}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field color="accent" class="full-width">
+            <mat-label>Подкатегория</mat-label>
+            <mat-select [(value)]="form.value.categoryLetter"
+                        (click)="categoryLetterClicked()"
+                        (valueChange)="categoryLetterValueChanged($event)">
+              <mat-option *ngFor="let letter of categoryLetters"
+                          [value]="letter">
+                {{letter}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-2">
+          <mat-form-field class="full-width" color="accent">
+            <mat-label >Возраст</mat-label>
+            <mat-select [(value)]="firstAge" (valueChange)="firstAgeValueChanged($event)">
+              <mat-option *ngFor="let age of ages" [value]="age.max">
+                {{age.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <button mat-icon-button color="accent" *ngIf="!secondAgeIsNeeded">
+          <mat-icon [ngClass]="!secondAgeIsNeeded ? 'on' : 'off'" (click)="addSecondAge()" color="accent">
+            add icon
+          </mat-icon>
+        </button>
+
+        <div class="col-md-2" *ngIf="secondAgeIsNeeded">
+          <mat-form-field class="full-width" color="accent">
+            <mat-label >Возраст</mat-label>
+            <mat-select [(value)]="secondAge" (valueChange)="secondAgeValueChanged($event)">
+              <mat-option *ngFor="let age of secondAges" [value]="age.max">
+                {{age.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <button mat-icon-button color="accent" *ngIf="secondAgeIsNeeded">
+          <mat-icon [ngClass]="secondAgeIsNeeded ? 'on' : 'off'" (click)="removeSecondAge()" color="accent">
+            clear icon
+          </mat-icon>
+        </button>
+
+      </div>
+
+      <div class="row">
+        <div class="col-5 top-padding">
+          <mat-form-field class="no-padding full-width" appearance="fill" color="accent">
+            <mat-label>Дата начала турнира</mat-label>
+            <input formControlName="dateStart" (dateChange)="updateDateEnd()" matInput
+                   [matDatepicker]="pickerStart" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+          </mat-form-field>
+         <label class="small no-margin">Дата окончания подачи заявок: <span
+            class="date-request">{{factory.dateRequest | date:"dd.MM.YYYY"}}</span></label>
+        </div>
+
+        <button mat-icon-button color="accent" class="pin">
+          <mat-icon [ngClass]="pinned ? 'on' : 'off'" (click)="updatePinStartEndDate()" color="accent">
+            attachment
+          </mat-icon>
+        </button>
+
+        <div class="col-5 top-padding">
+          <mat-form-field class="full-width" appearance="fill" color="accent">
+            <mat-label>Дата завершения турнира</mat-label>
+            <input formControlName="dateEnd" matInput [matDatepicker]="pickerEnd" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-8 top-padding">
+          <mat-form-field color="accent" class="full-width">
+            <mat-label>Теннисный Центр</mat-label>
+            <mat-select (click)="listTennisCenters()" [(value)]="factory.tennisCenter"
+                        (valueChange)="tennisCenterValueChanged($event)">
+              <mat-option *ngFor="let tc of tennisCenters" [value]="tc">
+                {{tc.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <a mat-button [disabled]="!form.valid" (click)="confirm()" mat-raised-button color="accent">ОК</a>
+    </mat-card-actions>
+
+  </mat-card>
+</form>
