@@ -104,7 +104,6 @@ export class PostFactoryComponent implements OnInit {
 
   categoryLetterClicked(): void {
     this.categoryLetters = this.getCategoryLetters(this.form.value.categoryDigit);
-    this.updateCategory();
   }
 
   firstAgeValueChanged(event: any): void {
@@ -142,7 +141,9 @@ export class PostFactoryComponent implements OnInit {
   categoryLetterValueChanged(event: any): void {
     this.form.patchValue({
       categoryLetter: event,
-    })
+    });
+
+    this.updateCategory();
   }
 
   updatePinStartEndDate(): void {

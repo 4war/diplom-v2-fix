@@ -16,8 +16,8 @@
 
       <!-- Date Column -->
       <ng-container matColumnDef="Date">
-        <th mat-header-cell *matHeaderCellDef>Дата начала</th>
-        <td mat-cell *matCellDef="let element">{{element.dateStart | date: 'dd.MM.YYYY'}}</td>
+        <th mat-header-cell *matHeaderCellDef>Начало - Конец ОТ</th>
+        <td mat-cell *matCellDef="let element">{{element.dateStart | date: 'dd.MM.YYYY'}} - {{element.dateEnd | date: 'dd.MM.YYYY'}}</td>
       </ng-container>
 
       <!-- City Column -->
@@ -39,7 +39,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
+      <tr style="vertical-align: middle"
         mat-row
         *matRowDef="let row; columns: displayedColumns;"
         (click)="open(row.firstTournamentId)"

@@ -10,13 +10,13 @@ import {GeneralService} from "../../services/general.service";
 @Component({
   selector: 'app-get-tournament',
   templateUrl: './get-factory-list.component.html',
-  styleUrls: ['./get-factory-list.component.css', '../../../styles.scss']
+  styleUrls: ['./get-factory-list.component.scss', '../../../styles.scss']
 })
 export class GetFactoryListComponent implements OnInit {
   factories: TournamentFactory[] = [];
   response: any;
 
-  displayedColumns: string[] = ['FirstTournamentId', 'Name', 'City', 'Date', 'Category', 'Ages'];
+  displayedColumns: string[] = ['Name', 'City', 'Date', 'Category', 'Ages'];
 
   constructor(private tournamentService: TournamentService, private general: GeneralService) {
   }

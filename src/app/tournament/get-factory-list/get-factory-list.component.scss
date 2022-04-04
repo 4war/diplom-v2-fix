@@ -4,6 +4,11 @@
 
 .tournament-table {
   width: 100%;
+
+  td, th{
+    vertical-align: middle;
+    border-width: 0.1px;
+  }
 }
 
 .tournament-row-is-clicked {
@@ -20,5 +25,9 @@
 
 .create-button{
   margin-top: 25px;
+}
+
+.cell{
+  vertical-align: middle;
 }
 

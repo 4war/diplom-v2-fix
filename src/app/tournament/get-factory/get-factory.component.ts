@@ -7,7 +7,7 @@ import Enumerable from "linq";
 @Component({
   selector: 'app-get-factory',
   templateUrl: './get-factory.component.html',
-  styleUrls: ['./get-factory.component.scss', '../../../styles.css']
+  styleUrls: ['./get-factory.component.scss', '../../../styles.scss']
 })
 export class GetFactoryComponent implements OnInit {
 
