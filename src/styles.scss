@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-tournament-tree/styles/ngtt-styles';
+
 //@import 'my-tree-configuration';
 
 html, body {
@@ -8,6 +9,11 @@ html, body {
 
 body {
   background-size: cover;
+  background: #1a2a3d;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.full-height{
+  height: 100%;
 }

@@ -1,5 +1,5 @@
 ﻿import {Routes} from "@angular/router";
-import {PostFactoryComponent} from "./app/tournament/post/post-factory.component";
+import {PostFactoryComponent} from "./app/tournament/post-factory/post-factory.component";
 import {GetPlayerListComponent} from "./app/player/get-player-list.component";
 import {GetFactoryListComponent} from "./app/tournament/get-factory-list/get-factory-list.component";
 import {GetFactoryComponent} from "./app/tournament/get-factory/get-factory.component";

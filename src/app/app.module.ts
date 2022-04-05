@@ -4,7 +4,7 @@ import {appRoutes} from "../routes";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {PostFactoryComponent} from './tournament/post/post-factory.component';
+import {PostFactoryComponent} from "./tournament/post-factory/post-factory.component";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatListModule} from "@angular/material/list";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -33,13 +33,15 @@ import {MatTableModule} from "@angular/material/table";
 import {CustomDateAdapter} from "./shared/viewModels/CustomDateAdapter";
 import {GeneralService} from "./services/general.service";
 import {MatSortModule} from "@angular/material/sort";
-import { GetFactoryComponent } from './tournament/get-factory/get-factory.component';
-import { GetTournamentComponent} from "./tournament/get-factory/get-tournament/get-tournament.component";
-import { OverviewComponent} from "./tournament/get-factory/overview/overview.component";
+import {GetFactoryComponent} from './tournament/get-factory/get-factory.component';
+import {GetTournamentComponent} from "./tournament/get-factory/get-tournament/get-tournament.component";
+import {OverviewComponent} from "./tournament/get-factory/overview/overview.component";
 import {MatTreeModule} from "@angular/material/tree";
 import {NgTournamentTreeModule} from "ng-tournament-tree";
-import { SingleMatchComponent } from './single-match/single-match.component';
-import { SingleMatchPreviewComponent } from './single-match-preview/single-match-preview.component';
+import {SingleMatchComponent} from './single-match/single-match.component';
+import {SingleMatchPreviewComponent} from './single-match-preview/single-match-preview.component';
+import {MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
+import { GetComponent } from './player/get/get.component';
 
 registerLocaleData(localeRu);
 
@@ -54,33 +56,36 @@ registerLocaleData(localeRu);
     OverviewComponent,
     SingleMatchComponent,
     SingleMatchPreviewComponent,
+    GetComponent,
+
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        RouterModule.forRoot(appRoutes),
-        MatMenuModule,
-        MatListModule,
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatSelectModule,
-        HttpClientModule,
-        MatTableModule,
-        MatSortModule,
-        MatTreeModule,
-        NgTournamentTreeModule
-    ],
+  imports: [
+    MatSidenavModule,
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes),
+    MatMenuModule,
+    MatListModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSelectModule,
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatTreeModule,
+    NgTournamentTreeModule,
+  ],
   providers:
-    [FormBuilder, RouterModule, GeneralService,
+    [FormBuilder, RouterModule, GeneralService, MatDrawerContainer,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},

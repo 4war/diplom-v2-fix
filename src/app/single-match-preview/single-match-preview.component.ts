@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-single-match-preview',
@@ -9,7 +9,17 @@ export class SingleMatchPreviewComponent implements OnInit {
 
   constructor() { }
 
+  testMatch: any = [{
+    teams: [
+      { name: 'Team  A', score: 1 },
+      { name: 'Team  B', score: 2 }]
+  },];
+
+  @Input() match: any;
+
   ngOnInit(): void {
   }
+
+
 
 }
