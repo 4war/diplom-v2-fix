@@ -43,6 +43,8 @@ import {GetFactoryComponent} from "./factory/get/get-factory.component";
 import {OverviewComponent} from "./factory/get/overview/overview.component";
 import {GetTournamentComponent} from "./tournament/get/get-tournament.component";
 import {DragScrollModule} from "ngx-drag-scroll";
+import { PostComponent } from './player/post/post.component';
+import { PostPlayerComponent } from './player/post-player/post-player.component';
 
 registerLocaleData(localeRu);
 
@@ -58,6 +60,8 @@ registerLocaleData(localeRu);
     SingleMatchComponent,
     SingleMatchPreviewComponent,
     GetComponent,
+    PostComponent,
+    PostPlayerComponent,
 
   ],
   imports: [
