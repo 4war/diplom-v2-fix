@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {GeneralService} from "../../../services/general.service";
-import {Tournament} from "../../../shared/Tournament";
+import {Component, OnInit} from '@angular/core';
+import {GeneralService} from "../../services/general.service";
+import {Tournament} from "../../shared/Tournament";
 import {NgttTournament} from "ng-tournament-tree";
-import {TestTournament} from "../../../shared/viewModels/TestTournament";
-import {MatSidenavModule} from "@angular/material/sidenav";
-import {MatDrawerContainer} from "@angular/material/sidenav";
-import {MatDrawer} from "@angular/material/sidenav";
-
+import {TestTournament} from "../../shared/viewModels/TestTournament";
 
 @Component({
   selector: 'app-get-single-tournament',

@@ -1,3 +1,11 @@
+@import "node_modules/ng-tournament-tree/styles/ngtt-variables";
+
+$ngtt-match-wrapper-width: 1000px !important;
+
+::ng-deep {
+  $ngtt-match-wrapper-width: 2500px;
+}
+
 mat-nav-list.list-horizontal {
   padding: 0;
 
@@ -22,3 +30,11 @@ mat-nav-list.list-horizontal {
   height: 100%;
 }
 
+.net{
+  height: 800px;
+
+  ngtt-single-elimination-tree{
+    width: fit-content;
+  }
+
+}

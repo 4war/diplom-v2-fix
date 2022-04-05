@@ -1,10 +1,10 @@
 ﻿import {Routes} from "@angular/router";
-import {PostFactoryComponent} from "./app/tournament/post-factory/post-factory.component";
-import {GetPlayerListComponent} from "./app/player/get-player-list.component";
-import {GetFactoryListComponent} from "./app/tournament/get-factory-list/get-factory-list.component";
-import {GetFactoryComponent} from "./app/tournament/get-factory/get-factory.component";
-import {OverviewComponent} from "./app/tournament/get-factory/overview/overview.component";
-import {GetTournamentComponent} from "./app/tournament/get-factory/get-tournament/get-tournament.component";
+import {PostFactoryComponent} from "./app/factory/post/post-factory.component";
+import {GetPlayerListComponent} from "./app/player/list/get-player-list.component";
+import {GetFactoryListComponent} from "./app/factory/list/get-factory-list.component";
+import {GetFactoryComponent} from "./app/factory/get/get-factory.component";
+import {OverviewComponent} from "./app/factory/get/overview/overview.component";
+import {GetTournamentComponent} from "./app/tournament/get/get-tournament.component";
 
 export const appRoutes: Routes = [
   {path: 'factory/list', component: GetFactoryListComponent},

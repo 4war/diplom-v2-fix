@@ -1,0 +1,30 @@
+.single-match{
+  display: inline-block;
+  margin: 0 auto;
+  align-self: center;
+  text-align: left;
+  width: 90%;
+  padding: 15px;
+
+  .score{
+    display: flex;
+    float: right;
+    font-size: 150%;
+  }
+
+  &:hover{
+    color: #d1ebff;
+  }
+
+}
+
+.player{
+  margin: 2px;
+  &:hover{
+    color: #49a4ff;
+  }
+}
+
+.line{
+  margin: 0;
+}
