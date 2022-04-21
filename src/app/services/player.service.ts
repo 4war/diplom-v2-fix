@@ -17,4 +17,8 @@ export class PlayerService {
   getPlayerList(): Observable<Player[]>{
     return this.httpClient.get<Player[]>(`${server}/player`);
   }
+
+  getPlayer(rni: number): Observable<Player>{
+    return this.httpClient.get<Player>(`${server}/player/${rni}`);
+  }
 }

@@ -55,6 +55,6 @@ export class GetTournamentComponent implements OnInit {
   }
 
   redirectToPlayer(rni: number): void{
-    this.router.navigate([''])
+    this.router.navigateByUrl("../../player/:id");
   }
 }

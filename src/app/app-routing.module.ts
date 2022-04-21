@@ -7,6 +7,7 @@ import {OverviewComponent} from "./factory/get/overview/overview.component";
 import {GetTournamentComponent} from "./tournament/get/get-tournament.component";
 import {GetPlayerListComponent} from "./player/list/get-player-list.component";
 import {GetPlayerComponent} from "./player/get/get-player.component";
+import {PlayerOverviewComponent} from "./player/get/overview/overview.component";
 
 export const appRoutes: Routes = [
   {path: 'factory/list', component: GetFactoryListComponent},

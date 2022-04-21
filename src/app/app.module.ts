@@ -44,6 +44,7 @@ import {DragScrollModule} from "ngx-drag-scroll";
 import {PostPlayerComponent} from "./player/post/post-player.component";
 import { GetPlayerComponent} from "./player/get/get-player.component";
 import {PlayerService} from "./services/player.service";
+import {PlayerOverviewComponent} from "./player/get/overview/overview.component";
 
 registerLocaleData(localeRu);
 
@@ -60,6 +61,7 @@ registerLocaleData(localeRu);
     SingleMatchPreviewComponent,
     PostPlayerComponent,
     GetPlayerComponent,
+    PlayerOverviewComponent,
   ],
   imports: [
     MatSidenavModule,

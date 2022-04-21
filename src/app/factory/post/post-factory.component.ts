@@ -178,6 +178,6 @@ export class PostFactoryComponent implements OnInit {
         console.log(x);
       });
 
-    this.general.router.navigateByUrl('tournaments/get');
+    this.general.router.navigateByUrl('tournament');
   }
 }
