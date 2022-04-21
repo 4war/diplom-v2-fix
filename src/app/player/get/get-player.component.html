@@ -1,9 +1,10 @@
-<div class="container-fluid full-height">
+<div class="container-fluid full-height p-0">
   <mat-drawer-container class="full-height">
     <mat-drawer mode="side" opened disableClose>
       <mat-nav-list class="text-white side-bar full-height">
-        <mat-list-item routerLink="../overview">Обзор</mat-list-item>
-        <mat-list-item>Расписание</mat-list-item>
+        <mat-list-item routerLink="overview">Обзор</mat-list-item>
+        <mat-list-item>Матчи</mat-list-item>
+        <mat-list-item routerLink="tournaments">Турниры</mat-list-item>
         <mat-list-item routerLink="../.." class="my-4">
           <mat-icon color="accent">keyboard_backspace</mat-icon>
         </mat-list-item>
@@ -12,10 +13,10 @@
     <mat-drawer-content>
       <div class="col-md-8 mx-lg-5 full-height">
         <h1 class="text-white text-lg-center factory-header full-width">
-          {{factory.name}}
+          {{player.surname}} {{player.name}} {{player.patronymic}}
         </h1>
         <h2 class="text-white text-lg-center factory-header full-width">
-          {{factory.category}}
+          {{player.rni}}
         </h2>
         <router-outlet></router-outlet>
       </div>

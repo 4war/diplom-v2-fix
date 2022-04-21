@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {GetFactoryListComponent} from "./factory/list/get-factory-list.component";
 import {PostFactoryComponent} from "./factory/post/post-factory.component";
 import {GetFactoryComponent} from "./factory/get/get-factory.component";
@@ -8,6 +8,7 @@ import {GetTournamentComponent} from "./tournament/get/get-tournament.component"
 import {GetPlayerListComponent} from "./player/list/get-player-list.component";
 import {GetPlayerComponent} from "./player/get/get-player.component";
 import {PlayerOverviewComponent} from "./player/get/overview/overview.component";
+import {GetPlayerTournamentsComponent} from "./player/get/tournaments/get-player-tournaments.component";
 
 export const appRoutes: Routes = [
   {path: 'factory/list', component: GetFactoryListComponent},
@@ -26,7 +27,16 @@ export const appRoutes: Routes = [
   },
 
   {path: 'player/list', component: GetPlayerListComponent},
-  {path: 'player/:id', component: GetPlayerComponent},
+  {
+    path: 'player/:rni',
+    component: GetPlayerComponent,
+    children: [
+      {path: 'overview', component: PlayerOverviewComponent},
+      //todo: {path: 'matches', component: GetPlayerMatchesComponent},
+      {path: 'tournaments', component: GetPlayerTournamentsComponent},
+      {path: '', redirectTo: 'overview', pathMatch: 'full'},
+    ],
+  },
 
   {path: '', redirectTo: '/factory/list', pathMatch: 'full'},
 ];
@@ -36,4 +46,5 @@ export const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

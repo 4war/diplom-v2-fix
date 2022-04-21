@@ -14,6 +14,7 @@ export class GeneralService {
 
   currentFactory: TournamentFactory = new TournamentFactory();
   currentTournament: Tournament = new Tournament();
+  currentPlayerRni: number = 0;
 
   constructor(private httpClient: HttpClient, public  router: Router) {
   }

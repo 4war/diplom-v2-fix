@@ -21,4 +21,8 @@ export class PlayerService {
   getPlayer(rni: number): Observable<Player>{
     return this.httpClient.get<Player>(`${server}/player/${rni}`);
   }
+
+  getTournaments(rni: number): Observable<Tournament[]>{
+    return this.httpClient.get<Tournament[]>(`${server}/player/${rni}/tournaments`);
+  }
 }

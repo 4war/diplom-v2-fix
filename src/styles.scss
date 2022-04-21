@@ -17,3 +17,21 @@ body {
 .full-height{
   height: 100%;
 }
+
+.side-bar {
+  background-color: #071823;
+}
+
+.full-width{
+  width: 100%;
+}
+
+
+.custom-table {
+  width: 100%;
+
+  td, th{
+    vertical-align: middle;
+    border-width: 0.1px;
+  }
+}

@@ -28,7 +28,7 @@ export class GetTournamentComponent implements OnInit {
 
   singleTournamentViewModel: NgttTournament = new TestTournament();
 
-  constructor(private general: GeneralService,
+  constructor(public general: GeneralService,
               private tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router) {
@@ -55,6 +55,6 @@ export class GetTournamentComponent implements OnInit {
   }
 
   redirectToPlayer(rni: number): void{
-    this.router.navigateByUrl("../../player/:id");
+    this.router.navigateByUrl(`player/${rni}`);
   }
 }

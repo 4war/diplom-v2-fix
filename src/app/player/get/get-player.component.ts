@@ -11,7 +11,24 @@ import {Player} from "../../shared/Player";
 })
 export class GetPlayerComponent implements OnInit {
 
+  player!: Player;
+  playerRni!: number;
 
+  constructor(private playerService: PlayerService,
+              private general: GeneralService,
+              private route: ActivatedRoute,
+              private router: Router) {
+
+    this.route.params.subscribe(response =>
+      this.playerRni = response["rni"],
+    );
+
+    this.general.currentPlayerRni = this.playerRni;
+
+    this.playerService.getPlayer(this.playerRni).subscribe(response =>
+      this.player = response
+    );
+  }
 
   ngOnInit(): void {
   }

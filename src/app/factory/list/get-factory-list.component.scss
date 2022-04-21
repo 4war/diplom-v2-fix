@@ -2,15 +2,6 @@
   margin: min(10%, 50px) min(20%, 100px);
 }
 
-.tournament-table {
-  width: 100%;
-
-  td, th{
-    vertical-align: middle;
-    border-width: 0.1px;
-  }
-}
-
 .tournament-row-is-clicked {
   font-weight: bold;
 }

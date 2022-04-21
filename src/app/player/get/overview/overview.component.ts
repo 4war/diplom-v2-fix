@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Player} from "../../../shared/Player";
 import {PlayerService} from "../../../services/player.service";
 import {GeneralService} from "../../../services/general.service";
@@ -12,22 +12,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class PlayerOverviewComponent implements OnInit {
 
   player!: Player;
-  playerId!: number;
 
-  constructor(private playerService: PlayerService,
-              general: GeneralService,
-              private route: ActivatedRoute,
-              private router: Router) {
-
-    this.route.params.subscribe(response =>
-      this.playerId = response["id"]
-    );
-
-    this.playerService.getPlayer(this.playerId).subscribe(response =>
+  constructor(private general: GeneralService, private playerService: PlayerService) {
+    this.playerService.getPlayer(this.general.currentPlayerRni).subscribe(response =>
       this.player = response
     );
   }
-
 
   ngOnInit(): void {
   }

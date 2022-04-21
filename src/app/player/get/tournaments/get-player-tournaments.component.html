@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-header>Турниры</mat-card-header>
+  <mat-card-content>
+
+    <!-- todo: change list to table !-->
+
+    <mat-list role="list" *ngFor="let tournament of tournaments">
+      <mat-list-item role="listitem" (click)="redirectToTournament(tournament.id)">{{tournament.name}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

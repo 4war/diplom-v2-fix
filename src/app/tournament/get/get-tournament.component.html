@@ -1,3 +1,7 @@
+<div class="text-white">
+  {{general.currentFactory | json}}
+</div>
+
 <div class="row">
   <mat-card class="color-dark col-md-12 my-4">
     <mat-card-header>Сетка</mat-card-header>
@@ -14,9 +18,9 @@
   <div class="col-md-12 px-0 my-4">
     <mat-card class="color-dark">
       <mat-card-header>Список участников</mat-card-header>
-      <mat-card-content >
+      <mat-card-content>
         <mat-list role="list" *ngFor="let player of players">
-          <mat-list-item role="listitem" routerLink="../../../../player/{{player.rni}}">{{player.surname}}</mat-list-item>
+          <mat-list-item role="listitem" (click)="redirectToPlayer(player.rni)">{{player.surname}}</mat-list-item>
         </mat-list>
       </mat-card-content>
     </mat-card>
