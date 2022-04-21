@@ -34,7 +34,6 @@ import {NgTournamentTreeModule} from "ng-tournament-tree";
 import {SingleMatchComponent} from './single-match/single-match.component';
 import {SingleMatchPreviewComponent} from './single-match-preview/single-match-preview.component';
 import {MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
-import {GetComponent} from './player/get/get.component';
 import {PostFactoryComponent} from "./factory/post/post-factory.component";
 import {GetPlayerListComponent} from "./player/list/get-player-list.component";
 import {GetFactoryListComponent} from "./factory/list/get-factory-list.component";
@@ -43,6 +42,8 @@ import {OverviewComponent} from "./factory/get/overview/overview.component";
 import {GetTournamentComponent} from "./tournament/get/get-tournament.component";
 import {DragScrollModule} from "ngx-drag-scroll";
 import {PostPlayerComponent} from "./player/post/post-player.component";
+import { GetPlayerComponent} from "./player/get/get-player.component";
+import {PlayerService} from "./services/player.service";
 
 registerLocaleData(localeRu);
 
@@ -57,8 +58,8 @@ registerLocaleData(localeRu);
     OverviewComponent,
     SingleMatchComponent,
     SingleMatchPreviewComponent,
-    GetComponent,
     PostPlayerComponent,
+    GetPlayerComponent,
   ],
   imports: [
     MatSidenavModule,
@@ -91,7 +92,7 @@ registerLocaleData(localeRu);
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
-      TournamentService],
+      TournamentService, PlayerService],
   bootstrap: [AppComponent]
 })
 

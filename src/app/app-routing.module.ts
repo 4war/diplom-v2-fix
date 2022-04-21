@@ -6,6 +6,7 @@ import {GetFactoryComponent} from "./factory/get/get-factory.component";
 import {OverviewComponent} from "./factory/get/overview/overview.component";
 import {GetTournamentComponent} from "./tournament/get/get-tournament.component";
 import {GetPlayerListComponent} from "./player/list/get-player-list.component";
+import {GetPlayerComponent} from "./player/get/get-player.component";
 
 export const appRoutes: Routes = [
   {path: 'factory/list', component: GetFactoryListComponent},
@@ -19,12 +20,12 @@ export const appRoutes: Routes = [
     children: [
       {path: '', redirectTo: 'overview', pathMatch: 'full'},
       {path: 'overview', component: OverviewComponent},
-     // {path: 'tournament', component: GetTournamentComponent},
       {path: 'tournament/:id', component: GetTournamentComponent},
     ],
   },
 
   {path: 'player/list', component: GetPlayerListComponent},
+  {path: 'player/:id', component: GetPlayerComponent},
 
   {path: '', redirectTo: '/factory/list', pathMatch: 'full'},
 ];

@@ -23,7 +23,7 @@ export class TournamentService {
   }
 
   getTournaments(): Observable<Tournament[]> {
-    return this.httpClient.get<Tournament[]>(`${server}/api/tournament/`);
+    return this.httpClient.get<Tournament[]>(`${server}/tournament/`);
   }
 
   getTournamentFactories(): Observable<TournamentFactory[]> {

@@ -16,7 +16,7 @@
       <mat-card-header (click)="update()">Список участников</mat-card-header>
       <mat-card-content >
         <mat-list role="list" *ngFor="let player of players">
-          <mat-list-item role="listitem">{{player.surname}}</mat-list-item>
+          <mat-list-item role="listitem" (click)="">{{player.surname}}</mat-list-item>
         </mat-list>
       </mat-card-content>
     </mat-card>
