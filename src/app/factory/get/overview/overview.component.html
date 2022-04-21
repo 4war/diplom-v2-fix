@@ -5,7 +5,7 @@
       <div class="factory-container container-fluid my-2 col-11">
         <div class="row">
           <div *ngFor="let tournament of factory.tournaments" class="col-md-3 my-3">
-            <a mat-button color="primary" class="tournament-card" routerLink="../tournament">
+            <a mat-button color="primary" (click)="click()" class="tournament-card" routerLink="../tournament/{{tournament.id}}">
               <mat-card class="full-width">
                 <mat-card-header [textContent]="getStage(tournament.stage)"
                                  class="d-flex justify-content-between full-width">

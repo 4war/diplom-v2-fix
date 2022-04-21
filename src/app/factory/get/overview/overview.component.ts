@@ -32,4 +32,8 @@ export class OverviewComponent implements OnInit {
   getAge(age: number): string{
     return from(ages).first(x => x.max == age).viewValue;
   }
+
+  click(){
+
+  }
 }

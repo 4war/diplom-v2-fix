@@ -5,6 +5,8 @@ import {catchError, Observable, throwError} from "rxjs";
 import {TournamentFactory} from "../shared/TournamentFactory";
 import Enumerable from "linq";
 import from = Enumerable.from;
+import {Player} from "../shared/Player";
+import {server} from "../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,30 +23,34 @@ export class TournamentService {
   }
 
   getTournaments(): Observable<Tournament[]> {
-    return this.httpClient.get<Tournament[]>('https://localhost:5001/api/tournament/');
+    return this.httpClient.get<Tournament[]>(`${server}/api/tournament/`);
   }
 
   getTournamentFactories(): Observable<TournamentFactory[]> {
-    return this.httpClient.get<TournamentFactory[]>('https://localhost:5001/api/tournamentFactory/');
+    return this.httpClient.get<TournamentFactory[]>(`${server}/tournamentFactory/`);
   }
 
   getSingleFactory(idTournament: number): Observable<TournamentFactory>{
-    return this.httpClient.get<TournamentFactory>(`https://localhost:5001/api/tournamentFactory/${idTournament}`);
+    return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/${idTournament}`);
   }
 
   getSingleTournament(id: number): Observable<Tournament> {
-    return this.httpClient.get<Tournament>(`https://localhost:5001/api/tournament/${id}`);
+    return this.httpClient.get<Tournament>(`${server}/tournament/${id}`);
+  }
+
+  getPlayerList(id: number): Observable<Player[]> {
+    return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`);
   }
 
   postTournaments(factory: TournamentFactory): Observable<any> {
     console.log(JSON.stringify(factory));
-    return this.httpClient.post('https://localhost:5001/api/tournamentFactory/',
+    return this.httpClient.post(`${server}/tournamentFactory/`,
       factory);
   }
 
   postTournament(tournament: Tournament): Observable<any> {
     console.log(JSON.stringify(tournament));
-    return this.httpClient.post('https://localhost:5001/api/tournament/',
+    return this.httpClient.post(`${server}/tournament/`,
       tournament);
   }
 

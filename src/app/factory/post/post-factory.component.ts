@@ -18,8 +18,6 @@ import {GeneralService} from "../../services/general.service";
 })
 
 export class PostFactoryComponent implements OnInit {
-
-
   secondAgeIsNeeded = false;
   factory = new TournamentFactory();
   centers: TennisCenter[] = [];

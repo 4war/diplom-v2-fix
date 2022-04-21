@@ -1,8 +1,7 @@
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {appRoutes} from "../routes";
 
-import {AppRoutingModule} from './app-routing.module';
+import {appRoutes, AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatListModule} from "@angular/material/list";
@@ -43,8 +42,7 @@ import {GetFactoryComponent} from "./factory/get/get-factory.component";
 import {OverviewComponent} from "./factory/get/overview/overview.component";
 import {GetTournamentComponent} from "./tournament/get/get-tournament.component";
 import {DragScrollModule} from "ngx-drag-scroll";
-import { PostComponent } from './player/post/post.component';
-import { PostPlayerComponent } from './player/post-player/post-player.component';
+import {PostPlayerComponent} from "./player/post/post-player.component";
 
 registerLocaleData(localeRu);
 
@@ -60,9 +58,7 @@ registerLocaleData(localeRu);
     SingleMatchComponent,
     SingleMatchPreviewComponent,
     GetComponent,
-    PostComponent,
     PostPlayerComponent,
-
   ],
   imports: [
     MatSidenavModule,

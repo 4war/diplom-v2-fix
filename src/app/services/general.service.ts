@@ -9,6 +9,7 @@ import {Tournament} from "../shared/Tournament";
 @Injectable({
   providedIn: 'root'
 })
+
 export class GeneralService {
 
   currentFactory: TournamentFactory = new TournamentFactory();
