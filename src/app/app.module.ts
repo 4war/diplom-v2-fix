@@ -37,18 +37,18 @@ import {MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
 import {PostFactoryComponent} from "./factory/post/post-factory.component";
 import {GetPlayerListComponent} from "./player/list/get-player-list.component";
 import {GetFactoryListComponent} from "./factory/list/get-factory-list.component";
-import {GetFactoryComponent} from "./factory/get/get-factory.component";
-import {OverviewComponent} from "./factory/get/overview/overview.component";
-import {GetTournamentComponent} from "./tournament/get/get-tournament.component";
+import {GetTournamentComponent} from "./tournament/get-tournament.component";
 import {DragScrollModule} from "ngx-drag-scroll";
 import {PostPlayerComponent} from "./player/post/post-player.component";
-import { GetPlayerComponent} from "./player/get/get-player.component";
+import {GetPlayerComponent} from "./player/get/get-player.component";
 import {PlayerService} from "./services/player.service";
 import {PlayerOverviewComponent} from "./player/get/overview/overview.component";
-import { GetPlayerTournamentsComponent } from './player/get/tournaments/get-player-tournaments.component';
-import { PlayerListComponent } from './tournament/player-list/player-list.component';
-import { BracketComponent } from './tournament/bracket/bracket.component';
-import { ScheduleComponent } from './tournament/schedule/schedule.component';
+import {GetPlayerTournamentsComponent} from './player/get/tournaments/get-player-tournaments.component';
+import {PlayerListComponent} from './tournament/player-list/player-list.component';
+import {BracketComponent} from './tournament/bracket/bracket.component';
+import {ScheduleComponent} from './tournament/schedule/schedule.component';
+import {GetFactoryComponent} from "./factory/get/get-factory.component";
+import {TournamentOverviewComponent} from "./tournament/overview/tournament-overview.component";
 
 registerLocaleData(localeRu);
 
@@ -58,9 +58,7 @@ registerLocaleData(localeRu);
     PostFactoryComponent,
     GetPlayerListComponent,
     GetFactoryListComponent,
-    GetFactoryComponent,
     GetTournamentComponent,
-    OverviewComponent,
     SingleMatchComponent,
     SingleMatchPreviewComponent,
     PostPlayerComponent,
@@ -70,6 +68,8 @@ registerLocaleData(localeRu);
     PlayerListComponent,
     BracketComponent,
     ScheduleComponent,
+    TournamentOverviewComponent,
+    GetFactoryComponent
   ],
   imports: [
     MatSidenavModule,

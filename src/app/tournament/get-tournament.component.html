@@ -1,0 +1,28 @@
+<div class="container-fluid full-height">
+  <mat-drawer-container class="full-height">
+    <mat-drawer mode="side" opened disableClose>
+      <mat-nav-list class="text-white side-bar full-height">
+        <mat-list-item routerLink="bracket">Сетка</mat-list-item>
+        <mat-list-item routerLink="playerList">Список участников</mat-list-item>
+        <mat-list-item routerLink="schedule">Расписание</mat-list-item>
+        <mat-list-item routerLink="overview">Обзор</mat-list-item>
+        <mat-list-item (click)="redirectToFactory()" class="my-4">
+          <mat-icon color="accent">keyboard_backspace</mat-icon>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="col-md-8 mx-lg-5 full-height">
+        <h1 class="text-white text-lg-center factory-header full-width">
+          {{factory.name}}
+        </h1>
+        <h2 class="text-white text-lg-center factory-header full-width">
+          {{factory.category}}
+        </h2>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+  <a mat-button (click)="redirectToFactory()">Другие турниры</a>
+</div>
