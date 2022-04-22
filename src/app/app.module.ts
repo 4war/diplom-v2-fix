@@ -46,6 +46,9 @@ import { GetPlayerComponent} from "./player/get/get-player.component";
 import {PlayerService} from "./services/player.service";
 import {PlayerOverviewComponent} from "./player/get/overview/overview.component";
 import { GetPlayerTournamentsComponent } from './player/get/tournaments/get-player-tournaments.component';
+import { PlayerListComponent } from './tournament/player-list/player-list.component';
+import { BracketComponent } from './tournament/bracket/bracket.component';
+import { ScheduleComponent } from './tournament/schedule/schedule.component';
 
 registerLocaleData(localeRu);
 
@@ -64,6 +67,9 @@ registerLocaleData(localeRu);
     GetPlayerComponent,
     PlayerOverviewComponent,
     GetPlayerTournamentsComponent,
+    PlayerListComponent,
+    BracketComponent,
+    ScheduleComponent,
   ],
   imports: [
     MatSidenavModule,

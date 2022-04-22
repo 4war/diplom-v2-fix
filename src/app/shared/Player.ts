@@ -5,6 +5,6 @@
   patronymic:string = '';
   dateOfBirth!: Date;
   city: string = '';
-  points: number = 0;
+  point: number = 0;
   gender!: number;
 }

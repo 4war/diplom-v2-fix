@@ -22,6 +22,8 @@ export class GetTournamentComponent implements OnInit {
     this._players = value;
   }
 
+  displayedColumns = ["Index", "FIO", "DoB", "City", "Points"];
+
   tournament!: Tournament;
   tournamentId!: number;
   private _players!: Player[];
@@ -45,16 +47,30 @@ export class GetTournamentComponent implements OnInit {
     );
   }
 
+  getFio(player: Player): string{
+    let result = `${player.surname} `;
+
+    if (player.name != null && player.name.length > 0)
+      result += `${player.name[0]}.`;
+
+    if (player.patronymic != null && player.patronymic.length > 0)
+      result += `${player.patronymic[0]}.`;
+
+    return `${player.surname} ${player.name[0]}.`;
+  }
+
 
   ngOnInit(): void {
   }
 
-  update(): void{
+  update(): void {
     let a = this.players;
     debugger;
   }
 
-  redirectToPlayer(rni: number): void{
+  redirectToPlayer(rni: number): void {
     this.router.navigateByUrl(`player/${rni}`);
   }
+
+
 }

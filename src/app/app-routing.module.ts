@@ -22,6 +22,7 @@ export const appRoutes: Routes = [
     children: [
       {path: '', redirectTo: 'overview', pathMatch: 'full'},
       {path: 'overview', component: OverviewComponent},
+
       {path: 'tournament/:id', component: GetTournamentComponent},
     ],
   },
