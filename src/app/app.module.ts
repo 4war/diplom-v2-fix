@@ -49,6 +49,7 @@ import {BracketComponent} from './tournament/bracket/bracket.component';
 import {ScheduleComponent} from './tournament/schedule/schedule.component';
 import {GetFactoryComponent} from "./factory/get/get-factory.component";
 import {TournamentOverviewComponent} from "./tournament/overview/tournament-overview.component";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 registerLocaleData(localeRu);
 
@@ -71,32 +72,33 @@ registerLocaleData(localeRu);
     TournamentOverviewComponent,
     GetFactoryComponent
   ],
-  imports: [
-    MatSidenavModule,
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
-    MatMenuModule,
-    MatListModule,
-    BrowserAnimationsModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatSelectModule,
-    HttpClientModule,
-    MatTableModule,
-    MatSortModule,
-    MatTreeModule,
-    NgTournamentTreeModule,
-    DragScrollModule,
-  ],
+    imports: [
+        MatSidenavModule,
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule.forRoot(appRoutes),
+        MatMenuModule,
+        MatListModule,
+        BrowserAnimationsModule,
+        MatCheckboxModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatSelectModule,
+        HttpClientModule,
+        MatTableModule,
+        MatSortModule,
+        MatTreeModule,
+        NgTournamentTreeModule,
+        DragScrollModule,
+        MatProgressBarModule,
+    ],
   providers:
     [FormBuilder, RouterModule, GeneralService, MatDrawerContainer,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},

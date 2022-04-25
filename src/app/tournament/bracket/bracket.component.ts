@@ -3,15 +3,17 @@ import {NgttTournament} from "ng-tournament-tree";
 import {TestTournament} from "../../shared/viewModels/TestTournament";
 import {GeneralService} from "../../services/general.service";
 import {TournamentService} from "../../services/tournament.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {Tournament} from "../../shared/Tournament";
+import {ITab} from "../ITab";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-bracket',
   templateUrl: './bracket.component.html',
-  styleUrls: ['./bracket.component.css']
+  styleUrls: ['./bracket.component.scss']
 })
-export class BracketComponent implements OnInit {
+export class BracketComponent implements OnInit, ITab {
 
   singleTournamentViewModel: NgttTournament = new TestTournament();
   tournament!: Tournament;
@@ -21,15 +23,24 @@ export class BracketComponent implements OnInit {
               private tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router) {
+
+    router.events.pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(response => this.reInit());
+
+    this.reInit();
+  }
+
+  ngOnInit(): void {
+  }
+
+  reInit(): void {
     this.route.params.subscribe(response => {
       this.tournamentId = response['id'];
     });
 
-    tournamentService.getSingleTournament(this.tournamentId).subscribe(response =>
+    this.tournamentService.getSingleTournament(this.tournamentId).subscribe(response =>
       this.tournament = response,
     );
-  }
 
-  ngOnInit(): void {
   }
 }

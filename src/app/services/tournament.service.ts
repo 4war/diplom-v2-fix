@@ -30,8 +30,8 @@ export class TournamentService {
     return this.httpClient.get<TournamentFactory[]>(`${server}/tournamentFactory/`);
   }
 
-  getSingleFactory(idTournament: number): Observable<TournamentFactory>{
-    return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/${idTournament}`);
+  getSingleFactory(idTournament: number, mainOnly: boolean = false): Observable<TournamentFactory>{
+    return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/${idTournament}${mainOnly ? '': '/all'}`);
   }
 
   getSingleTournament(id: number): Observable<Tournament> {
@@ -39,6 +39,10 @@ export class TournamentService {
   }
 
   getPlayerList(id: number): Observable<Player[]> {
+    return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`);
+  }
+
+  getQualificationPlayerList(id: number): Observable<Player[]> {
     return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`);
   }
 
@@ -52,15 +56,5 @@ export class TournamentService {
     console.log(JSON.stringify(tournament));
     return this.httpClient.post(`${server}/tournament/`,
       tournament);
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
-    }
-    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }

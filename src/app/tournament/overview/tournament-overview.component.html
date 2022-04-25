@@ -1,1 +1,36 @@
-<p>overview works!</p>
+<mat-card>
+  <mat-card-header>Общая информация</mat-card-header>
+  <hr>
+  <mat-card-content *ngIf="tournament">
+    <p>{{general.getStage(tournament.stage!)}}</p>
+    <p>{{general.getAge(tournament.age!)}}</p>
+    <p>{{general.getGender(tournament.gender!)}}</p>
+    <p>Дата начала:  {{tournament.dateStart | date: 'dd.MM.YYYY'}}</p>
+    <p>Дата завершения:  {{tournament.dateEnd | date: 'dd.MM.YYYY'}}</p>
+    <p>{{tournament?.tennisCenter?.address}}</p>
+    <div *ngIf="tournament.qualification">
+      <hr>
+      <p>{{general.getStage(tournament.qualification.stage!)}}</p>
+      <p>{{tournament.qualification.dateStart | date: 'dd.MM.YYYY'}} - {{tournament.qualification.dateEnd | date: 'dd.MM.YYYY'}}</p>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="margin-top">
+  <mat-card-header>Статистика</mat-card-header>
+  <hr>
+  <mat-card-content *ngIf="tournament" class="margin-top">
+
+    <!-- Квалификация !-->
+    <div *ngIf="!tournament.qualification">
+      <p>Участников: {{players?.length!}}</p>
+    </div>
+
+    <!-- Основной тур !-->
+    <div *ngIf="tournament.qualification">
+      <p>Участников: {{players?.length!}} + <i>{{tournament.numberOfQualificationWinners}} (ПОЭ)</i> / {{tournament.netRange}}</p>
+      <p>Прогресс турнира<mat-progress-bar mode="determinate" value="100" color="accent"></mat-progress-bar></p>
+
+    </div>
+  </mat-card-content>
+</mat-card>

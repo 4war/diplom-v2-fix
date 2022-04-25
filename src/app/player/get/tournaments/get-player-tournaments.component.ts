@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {GeneralService} from "../../../services/general.service";
 import {PlayerService} from "../../../services/player.service";
 import {Router} from "@angular/router";
-import {Tournament} from "../../../shared/Tournament";
+import {Stage, Tournament} from "../../../shared/Tournament";
+import Enumerable from "linq";
+import from = Enumerable.from;
 
 @Component({
   selector: 'app-tournaments',
@@ -13,15 +15,16 @@ export class GetPlayerTournamentsComponent implements OnInit {
 
   playerRni!: number;
   tournaments: Tournament[] = [];
+  displayedColumns = ["Index", "Name", "Category", "Date", "City", "Age", "Point"];
 
-  constructor(private general: GeneralService,
+  constructor(public general: GeneralService,
               private playerService: PlayerService,
               private router: Router) {
 
     this.playerRni = this.general.currentPlayerRni;
 
     this.playerService.getTournaments(this.playerRni).subscribe(response =>
-      this.tournaments = response
+      this.tournaments = from(response).where(t => t.stage == Stage.Main).toArray(),
     );
   }
 
@@ -29,6 +32,7 @@ export class GetPlayerTournamentsComponent implements OnInit {
   }
 
   redirectToTournament(id: number): void{
-    this.router.navigateByUrl(`factory/get/tournament/${id}`);
+    debugger;
+    this.router.navigateByUrl(`tournament/${id}`);
   }
 }

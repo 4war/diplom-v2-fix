@@ -9,11 +9,14 @@ export class Tournament {
   netRange = 32;
   gender: number = 0;
   stage: number = 0;
-  TennisCenter!: TennisCenter;
+  tennisCenter!: TennisCenter;
 
   dateStart: Date = new Date();
   dateEnd: Date = new Date();
   dateRequest?: Date;
+
+  qualification?: Tournament;
+  numberOfQualificationWinners: number = 4;
 }
 
 export enum Gender {

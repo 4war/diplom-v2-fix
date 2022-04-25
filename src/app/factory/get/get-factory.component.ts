@@ -5,6 +5,7 @@ import {GeneralService} from "../../services/general.service";
 import from = Enumerable.from;
 import {ages} from "../../defaults";
 import {Router} from "@angular/router";
+import {Stage, Tournament} from "../../shared/Tournament";
 
 @Component({
   selector: 'app-overview',
@@ -14,25 +15,16 @@ import {Router} from "@angular/router";
 export class GetFactoryComponent implements OnInit {
 
   factory: TournamentFactory;
+  mainTournaments: Tournament[];
 
-  constructor(private general: GeneralService,
+  constructor(public general: GeneralService,
               private router: Router) {
+
     this.factory = general.currentFactory;
+    this.mainTournaments = from(this.factory.tournaments).where(t => t.stage == Stage.Main).toArray();
   }
 
   ngOnInit(): void {
-  }
-
-  getGender(gender: number): string{
-    return gender == 0 ? 'М' : 'Ж';
-  }
-
-  getStage(stage: number): string{
-    return stage == 0 ? 'Основной тур' : 'Квалификация';
-  }
-
-  getAge(age: number): string{
-    return from(ages).first(x => x.max == age).viewValue;
   }
 
   redirectToTournament(id: number){

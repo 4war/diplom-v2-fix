@@ -5,19 +5,24 @@
       <mat-card-content>
         <div class="factory-container container-fluid my-2 col-11">
           <div class="row">
-            <div *ngFor="let tournament of factory.tournaments" class="col-md-3 my-3">
+            <div *ngFor="let tournament of mainTournaments" class="col-md-3 my-3">
               <a mat-button color="primary" (click)="redirectToTournament(tournament.id)" class="full-width">
                 <mat-card class="full-width">
-                  <mat-card-header [textContent]="getStage(tournament.stage)"
+                  <mat-card-header [textContent]="general.getStage(tournament.stage)"
                                    class="d-flex justify-content-between full-width">
                   </mat-card-header>
                   <hr>
                   <mat-card-content>
-                    <h2>{{getGender(tournament.gender)}}</h2>
-                    <h2>{{getAge(tournament.age)}}</h2>
+                    <h2>{{general.getGender(tournament.gender)}}</h2>
+                    <h2>{{general.getAge(tournament.age)}}</h2>
                     <h4>{{tournament.dateStart | date: 'dd.MM.YYYY'}} - {{tournament.dateEnd | date: 'dd.MM.YYYY'}}</h4>
                     <h6>Подача заявок до: {{tournament.dateRequest | date: 'dd.MM.YYYY'}}</h6>
                   </mat-card-content>
+                  <div *ngIf="tournament.qualification != null">
+                    <hr>
+                    Квалификация
+                    <h4>{{tournament.dateStart | date: 'dd.MM.YYYY'}} - {{tournament.dateEnd | date: 'dd.MM.YYYY'}}</h4>
+                  </div>
                 </mat-card>
               </a>
             </div>

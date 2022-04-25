@@ -1,28 +1,48 @@
-<div class="container-fluid full-height">
-  <mat-drawer-container class="full-height">
+<div class="container-fluid full-height p-0">
+  <mat-drawer-container class="no-scroll screen-height">
     <mat-drawer mode="side" opened disableClose>
       <mat-nav-list class="text-white side-bar full-height">
-        <mat-list-item routerLink="bracket">Сетка</mat-list-item>
-        <mat-list-item routerLink="playerList">Список участников</mat-list-item>
-        <mat-list-item routerLink="schedule">Расписание</mat-list-item>
-        <mat-list-item routerLink="overview">Обзор</mat-list-item>
+        <mat-list-item (click)="redirectToTab('bracket')">Сетка</mat-list-item>
+        <mat-list-item (click)="redirectToTab('playerList')">Список участников</mat-list-item>
+        <mat-list-item (click)="redirectToTab('schedule')">Расписание</mat-list-item>
+        <mat-list-item (click)="redirectToTab('overview')">Обзор</mat-list-item>
         <mat-list-item (click)="redirectToFactory()" class="my-4">
           <mat-icon color="accent">keyboard_backspace</mat-icon>
         </mat-list-item>
       </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>
-      <div class="col-md-8 mx-lg-5 full-height">
-        <h1 class="text-white text-lg-center factory-header full-width">
-          {{factory.name}}
-        </h1>
-        <h2 class="text-white text-lg-center factory-header full-width">
-          {{factory.category}}
-        </h2>
-        <router-outlet></router-outlet>
+      <div class="container-fluid d-flex justify-content-between">
+        <div class="col-md-9 mx-lg-5">
+          <h1 class="text-white text-lg-center factory-header full-width">
+            {{factory?.name}}
+          </h1>
+          <h2 class="text-white text-lg-center factory-header full-width">
+            {{factory?.category}}
+          </h2>
+          <router-outlet></router-outlet>
+          <a mat-button (click)="redirectToFactory()">Другие турниры</a>
+        </div>
+
+        <div class="col-md-2 mx-lg-5">
+          <div class="factory-container container-fluid my-2 col-11">
+            <div class="row" *ngFor="let tournament of factory?.tournaments">
+              <mat-card class="other-tournament-card">
+                <mat-card-content>
+                  <a mat-button color="accent" class="custom-button"
+                     (click)="redirectToTournamentInFactory(tournament.id)">
+                    {{general.getGender(tournament.gender)}}
+                    <br>
+                    {{general.getAge(tournament.age)}}
+                    <br>
+                    {{general.getStage(tournament.stage)}}
+                  </a>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
       </div>
     </mat-drawer-content>
   </mat-drawer-container>
-
-  <a mat-button (click)="redirectToFactory()">Другие турниры</a>
 </div>

@@ -33,9 +33,8 @@ export class GetFactoryListComponent implements OnInit {
   }
 
   open(firstTournamentId: number): void {
-    this.tournamentService.getSingleFactory(firstTournamentId)
+    this.tournamentService.getSingleFactory(firstTournamentId, true)
       .subscribe(x => {
-        console.log(x);
         this.general.currentFactory = x;
         this.general.router.navigateByUrl('factory/get');
       });

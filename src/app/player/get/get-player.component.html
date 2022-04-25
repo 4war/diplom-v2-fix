@@ -10,10 +10,10 @@
     <mat-drawer-content>
       <div class="col-md-8 mx-lg-5 full-height">
         <h1 class="text-white text-lg-center factory-header full-width">
-          {{player.surname}} {{player.name}} {{player.patronymic}}
+          {{player?.surname}} {{player?.name}} {{player?.patronymic}}
         </h1>
         <h2 class="text-white text-lg-center factory-header full-width">
-          {{player.rni}}
+          {{player?.rni}}
         </h2>
         <router-outlet></router-outlet>
       </div>
