@@ -30,10 +30,6 @@ export class GetTournamentComponent implements OnInit {
       this.tournamentId = response['id'];
     });
 
-    tournamentService.getSingleTournament(this.tournamentId).subscribe(response =>
-      this.tournament = response,
-    );
-
     tournamentService.getSingleFactory(this.tournamentId, false).subscribe(response =>
       this.factory = response,
     );
@@ -54,5 +50,4 @@ export class GetTournamentComponent implements OnInit {
     this.general.currentTournamentTab = tab;
     this.router.navigateByUrl(`tournament/${this.tournamentId}/${tab}`);
   }
-
 }

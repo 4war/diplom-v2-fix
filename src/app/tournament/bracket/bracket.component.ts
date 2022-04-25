@@ -7,6 +7,7 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {Tournament} from "../../shared/Tournament";
 import {ITab} from "../ITab";
 import {filter} from "rxjs";
+import {Bracket} from "../../shared/Bracket";
 
 @Component({
   selector: 'app-bracket',
@@ -15,7 +16,7 @@ import {filter} from "rxjs";
 })
 export class BracketComponent implements OnInit, ITab {
 
-  singleTournamentViewModel: NgttTournament = new TestTournament();
+  bracket: NgttTournament = new Bracket();
   tournament!: Tournament;
   tournamentId!: number;
 
@@ -41,6 +42,5 @@ export class BracketComponent implements OnInit, ITab {
     this.tournamentService.getSingleTournament(this.tournamentId).subscribe(response =>
       this.tournament = response,
     );
-
   }
 }

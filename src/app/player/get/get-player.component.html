@@ -1,5 +1,5 @@
 <div class="container-fluid full-height p-0">
-  <mat-drawer-container class="full-height">
+  <mat-drawer-container class="screen-height">
     <mat-drawer mode="side" opened disableClose>
       <mat-nav-list class="text-white side-bar full-height">
         <mat-list-item routerLink="overview">Обзор</mat-list-item>
@@ -7,14 +7,14 @@
         <mat-list-item routerLink="tournaments">Турниры</mat-list-item>
       </mat-nav-list>
     </mat-drawer>
-    <mat-drawer-content>
+    <mat-drawer-content class="margin-top">
       <div class="col-md-8 mx-lg-5 full-height">
         <h1 class="text-white text-lg-center factory-header full-width">
           {{player?.surname}} {{player?.name}} {{player?.patronymic}}
         </h1>
-        <h2 class="text-white text-lg-center factory-header full-width">
-          {{player?.rni}}
-        </h2>
+        <h5 class="text-white text-lg-center factory-header full-width small">
+          РНИ: {{player?.rni}}
+        </h5>
         <router-outlet></router-outlet>
       </div>
     </mat-drawer-content>

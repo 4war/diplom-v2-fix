@@ -1,49 +1,54 @@
-<div class="container-fluid text-white">
-  <div class="tournament-table-container">
-    <table mat-table [dataSource]="players" class="custom-table">
-      <!-- Id Column -->
-      <ng-container matColumnDef="FirstTournamentId">
-        <th mat-header-cell *matHeaderCellDef>Номер первого турнира</th>
-        <td mat-cell *matCellDef="let element">{{element.firstTournamentId}}</td>
-      </ng-container>
+<div class="col-md-12 px-0 my-4">
+  <div class="player-container">
+    <mat-card class="color-dark">
+      <mat-progress-bar mode="indeterminate" *ngIf="!players" color="accent" class="margin-custom"></mat-progress-bar>
+      <mat-card-content>
+        <table mat-table [dataSource]="players ?? []" class="custom-table">
+          <!-- RNI Column -->
+          <ng-container matColumnDef="RNI">
+            <th mat-header-cell *matHeaderCellDef>РНИ</th>
+            <td mat-cell *matCellDef="let element">{{element.rni}}</td>
+          </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="Name">
-        <th mat-header-cell *matHeaderCellDef>Название</th>
-        <td mat-cell *matCellDef="let element">{{element.name}}</td>
-      </ng-container>
+          <!-- FIO Column -->
+          <ng-container matColumnDef="FIO">
+            <th mat-header-cell *matHeaderCellDef>ФИО</th>
+            <td mat-cell *matCellDef="let element">{{element.surname}}
+              {{element.name == null && element.name.length > 0 ? '' : element.name + ' '}}
+              {{element.patronymic == null && element.patronymic.length > 0 ? '' : element.patronymic + ' '}}</td>
+          </ng-container>
 
-      <!-- Date Column -->
-      <ng-container matColumnDef="Date">
-        <th mat-header-cell *matHeaderCellDef>Начало - Конец ОТ</th>
-        <td mat-cell *matCellDef="let element">{{element.dateStart | date: 'dd.MM.YYYY'}} - {{element.dateEnd | date: 'dd.MM.YYYY'}}</td>
-      </ng-container>
+          <!-- DoB Column -->
+          <ng-container matColumnDef="DoB">
+            <th mat-header-cell *matHeaderCellDef>Дата рождения</th>
+            <td mat-cell *matCellDef="let element">{{element.dateOfBirth | date: 'dd.MM.YYYY'}}</td>
+          </ng-container>
 
-      <!-- City Column -->
-      <ng-container matColumnDef="City">
-        <th mat-header-cell *matHeaderCellDef>Город</th>
-        <td mat-cell *matCellDef="let element">{{element.tennisCenter.city}}</td>
-      </ng-container>
+          <!-- City Column -->
+          <ng-container matColumnDef="City">
+            <th mat-header-cell *matHeaderCellDef>Город</th>
+            <td mat-cell *matCellDef="let element">{{element.city}}</td>
+          </ng-container>
 
-      <!-- Category Column -->
-      <ng-container matColumnDef="Category">
-        <th mat-header-cell *matHeaderCellDef>Категория</th>
-        <td mat-cell *matCellDef="let element">{{element.category}}</td>
-      </ng-container>
+          <!-- Point Column -->
+          <ng-container matColumnDef="Points">
+            <th mat-header-cell *matHeaderCellDef>Рейтинг</th>
+            <td mat-cell *matCellDef="let element">{{element.point}}</td>
+          </ng-container>
 
-      <!-- Age Column -->
-      <ng-container matColumnDef="Ages">
-        <th mat-header-cell *matHeaderCellDef>Возраст</th>
-        <td mat-cell *matCellDef="let element">{{getAgeViewValue(element.ages)}}</td>
-      </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr style="vertical-align: middle"
+              mat-row
+              *matRowDef="let row; columns: displayedColumns;"
+              (click)="redirectToPlayer(row.rni)"
+          ></tr>
+        </table>
+        <div class="add-button">
+          <a mat-button color="accent" routerLink="../post">Добавить участника</a>
+        </div>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr style="vertical-align: middle"
-          mat-row
-          *matRowDef="let row; columns: displayedColumns;"
-          (click)="open(row.firstTournamentId)"
-      ></tr>
-    </table>
-    <a mat-button color="accent" routerLink="../post" class="create-button">Создать Турнир</a>
+      </mat-card-content>
+    </mat-card>
   </div>
+
 </div>

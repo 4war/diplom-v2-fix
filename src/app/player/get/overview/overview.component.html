@@ -1,4 +1,31 @@
-<div class="text-white">
-  <p>{{player | json}}</p>
-  <p>{{player.rni}}</p>
-</div>
+<mat-card>
+  <mat-card-header class="shady-header">Общая информация об игроке</mat-card-header>
+  <hr>
+  <mat-card-content>
+    <p>Город: <span class="value">{{player.city}}</span></p>
+    <p>Дата рождения: <span class="value">{{player.dateOfBirth | date: 'dd.MM.YYYY'}}</span></p>
+    <p>Рейтинг РТТ: <span class="value">{{player.point}}</span></p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="margin-top">
+  <mat-card-header class="shady-header">Статистика</mat-card-header>
+  <hr>
+  <mat-card-content>
+    <p>Позиция в РТТ: <span class="value">-</span></p>
+    <p>Сыгранно матчей: <span class="value">{{0}}</span></p>
+    <p>Процент побед: <span class="value">{{55}}%</span></p>
+    <p>Последний матч: <span class="value">{{player.dateOfBirth | date: 'dd.MM.YYYY'}}</span></p>
+    <p>Средняя длительность матчей: <span class="value">1 час 32 минуты</span></p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="margin-top">
+  <mat-card-header class="shady-header">Стили игры</mat-card-header>
+  <hr>
+  <mat-card-content>
+    <p>Оборонительный: <span class="value">72%</span></p>
+    <p>Активный: <span class="value">21%</span></p>
+    <p>Реактивный: <span class="value">30%</span></p>
+  </mat-card-content>
+</mat-card>

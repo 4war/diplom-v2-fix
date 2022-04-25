@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Player} from "../shared/Player";
+import {GeneralService} from "../services/general.service";
+import {PlayerService} from "../services/player.service";
 
 @Component({
   selector: 'app-single-match-preview',
@@ -7,19 +10,46 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class SingleMatchPreviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(public general: GeneralService,
+              private playerService: PlayerService) {
 
-  testMatch: any = [{
-    teams: [
-      { name: 'Team  A', score: 1 },
-      { name: 'Team  B', score: 2 }]
-  },];
-
-  @Input() match: any;
-
-  ngOnInit(): void {
   }
 
+  @Input() match?: any;
+  score1 = '';
+  score2 = '';
 
+  player1?: Player;
+  player2?: Player;
 
+  ngOnInit(): void {
+    this.update();
+  }
+
+  getViewScore(player: number, score?: string): string{
+    if (player != 1 && player != 2 || !score)
+      return '';
+
+    let split = score.split(' ');
+    if (split.length == 0)
+      return '';
+
+    let result: string[] = [];
+    for (let set of split) {
+      if (set.length < 2)
+        break;
+
+      if (set.length >= 2)
+        result.push(set[player - 1]);
+    }
+
+    return result.join(' ');
+  }
+
+  update(): void {
+    this.player1 = this.match.player1;
+    this.player2 = this.match.player2;
+    this.score1 = this.getViewScore(1, this.match.score);
+    this.score2 = this.getViewScore(2, this.match.score);
+  }
 }

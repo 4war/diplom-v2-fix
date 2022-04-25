@@ -1,0 +1,28 @@
+.player-container {
+  margin: min(10%, 50px) min(20%, 100px);
+}
+
+.margin-custom {
+  width: auto;
+  margin: 10px 50px;
+}
+
+.tournament-row-is-clicked {
+  font-weight: bold;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #192a3d;
+}
+
+.create-button{
+  margin-top: 25px;
+}
+
+.cell{
+  vertical-align: middle;
+}

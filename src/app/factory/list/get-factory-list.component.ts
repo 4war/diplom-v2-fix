@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TournamentService} from "../../services/tournament.service";
-import {Gender, Tournament} from "../../shared/Tournament";
 import {ages, Category} from "../../defaults";
 import Enumerable from "linq";
 import from = Enumerable.from;
@@ -10,8 +9,9 @@ import {GeneralService} from "../../services/general.service";
 @Component({
   selector: 'app-get-tournament',
   templateUrl: './get-factory-list.component.html',
-  styleUrls: ['./get-factory-list.component.scss', '../../../styles.scss']
+  styleUrls: ['./get-factory-list.component.scss']
 })
+
 export class GetFactoryListComponent implements OnInit {
   factories: TournamentFactory[] = [];
   response: any;

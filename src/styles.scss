@@ -21,6 +21,7 @@ body {
 .side-bar {
   background-color: #071823;
   padding: 20px;
+  min-width: 220px;
 }
 
 .full-width{
@@ -29,10 +30,10 @@ body {
 
 .custom-table {
   width: 100%;
+  border-bottom-color: rgba(225, 230, 232, 0.12);
 
   td, th{
     vertical-align: middle;
-    border-width: 0.1px;
   }
 
   .index{
@@ -48,4 +49,15 @@ body {
 
 .screen-height{
   min-height: 100%;
+}
+
+.shady-header{
+  font-size: small;
+  color: #989898;
+}
+
+.value{
+  color: #49a4ff;
+  font-size: large;
+  text-align: right;
 }

@@ -1,19 +1,19 @@
-<a mat-button class="single-match" routerLink="../../">
+<a mat-button class="single-match" (click)="update()">
   <span>
-    <a mat-button routerLink="../" class="player">
-       Толян 3к ММР
+    <a mat-button class="player">
+       {{player1?.surname}} {{player1?.name?.length! > 0 ? player1?.name![0] + '.'  : ' '}}
     </a>
   </span>
   <span class="score">
-    6 2 6
+    {{score1}}
   </span>
   <hr class="line">
   <span>
-    <a mat-button routerLink="../" class="player">
-       Miracle 10к ММР
+    <a mat-button class="player">
+       {{player2?.surname}} {{player2?.name?.length! > 0 ? player2?.name![0] + '.'  : ' '}}
     </a>
   </span>
   <span class="score">
-    1 6 3
+    {{score2}}
   </span>
 </a>
