@@ -19,7 +19,7 @@ export class PlayerListComponent implements OnInit, ITab {
   players?: Player[];
   qualificationPlayers?: Player[];
 
-  displayedColumns = ["Index", "FIO", "DoB", "City", "Points"];
+  displayedColumns = ["Index", "RNI", "FIO", "DoB", "City", "Points"];
 
   constructor(public general: GeneralService,
               private tournamentService: TournamentService,

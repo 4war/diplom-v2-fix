@@ -1,8 +1,8 @@
 <div class="row">
   <mat-card class="color-dark col-md-12 my-4">
     <mat-card-header>Сетка</mat-card-header>
-    <mat-card-content class="margin-top">
-      <drag-scroll [scrollbar-hidden]="true" class="bracket">
+    <mat-card-content class="margin-top" style="height: 800px; overflow: auto">
+      <drag-scroll [scrollbar-hidden]="true" class="bracket" style="height: 800px; overflow: auto" *ngIf="bracket">
         <ngtt-single-elimination-tree
           [tournament]="bracket"
           [matchTemplate]="myMatchTemplate">
@@ -14,7 +14,7 @@
 
 
 <ng-template #myMatchTemplate let-match>
-  <app-single-match-preview [match]="match"
+  <app-single-match-preview [match]="match" *ngIf="match"
                             style="display: flex; justify-content: stretch; width: 100%">
   </app-single-match-preview>
 </ng-template>

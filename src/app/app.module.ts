@@ -50,6 +50,7 @@ import {ScheduleComponent} from './tournament/schedule/schedule.component';
 import {GetFactoryComponent} from "./factory/get/get-factory.component";
 import {TournamentOverviewComponent} from "./tournament/overview/tournament-overview.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {BracketService} from "./services/bracket.service";
 
 registerLocaleData(localeRu);
 
@@ -104,7 +105,7 @@ registerLocaleData(localeRu);
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
-      TournamentService, PlayerService],
+      TournamentService, PlayerService, BracketService],
   bootstrap: [AppComponent]
 })
 

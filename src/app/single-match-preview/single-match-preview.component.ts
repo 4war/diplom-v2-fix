@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Player} from "../shared/Player";
 import {GeneralService} from "../services/general.service";
 import {PlayerService} from "../services/player.service";
+import {Match} from "../shared/Match";
 
 @Component({
   selector: 'app-single-match-preview',
@@ -15,7 +16,7 @@ export class SingleMatchPreviewComponent implements OnInit {
 
   }
 
-  @Input() match?: any;
+  @Input() match?: Match;
   score1 = '';
   score2 = '';
 
@@ -47,9 +48,9 @@ export class SingleMatchPreviewComponent implements OnInit {
   }
 
   update(): void {
-    this.player1 = this.match.player1;
-    this.player2 = this.match.player2;
-    this.score1 = this.getViewScore(1, this.match.score);
-    this.score2 = this.getViewScore(2, this.match.score);
+    this.player1 = this.match?.player1;
+    this.player2 = this.match?.player2;
+    this.score1 = this.getViewScore(1, this.match?.score);
+    this.score2 = this.getViewScore(2, this.match?.score);
   }
 }
