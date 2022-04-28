@@ -1,57 +1,63 @@
-<div class="row">
-  <mat-card class="color-dark col-md-12 my-4">
-    <mat-card-header>
-      <div class="d-flex my-1 justify-content-between w-100">
-        <div>Сетка</div>
-        <div>
-          <a mat-button *ngIf="!editMode" (click)="startEdit()">
-            <mat-icon color="accent">create</mat-icon>
-          </a>
-          <a mat-button *ngIf="editMode" (click)="save()">
-            <mat-icon class="green">check</mat-icon>
-          </a>
-          <a mat-button *ngIf="editMode" (click)="cancel()">
-            <mat-icon color="warn">clear</mat-icon>
-          </a>
+<div cdkDropList
+     [cdkDropListConnectedTo]="dragDropService.dropLists"
+     [cdkDropListData]="testData"
+     (cdkDropListDropped)="dropHandle($event)">
+
+  <div class="row">
+    <mat-card class="color-dark col-md-12 my-4">
+      <mat-card-header>
+        <div class="d-flex my-1 justify-content-between w-100">
+          <div>Сетка</div>
+          <div>
+            <a mat-button *ngIf="!bracketService.editMode" (click)="bracketService.startEdit()">
+              <mat-icon color="accent">create</mat-icon>
+            </a>
+            <a mat-button *ngIf="bracketService.editMode" (click)="bracketService.save()">
+              <mat-icon class="green">check</mat-icon>
+            </a>
+            <a mat-button *ngIf="bracketService.editMode" (click)="bracketService.cancel()">
+              <mat-icon color="warn">clear</mat-icon>
+            </a>
+          </div>
         </div>
-      </div>
-    </mat-card-header>
-    <mat-card-content style="height: 800px; overflow: auto">
+      </mat-card-header>
+      <mat-card-content style="height: 800px; overflow: auto">
 
-      <mat-card class="side-menu position-absolute" *ngIf="editMode">
-        <mat-card-content #someInput cdkDropList
-                          [cdkDropListConnectedTo]="dragDropService.dropLists"
-                          [cdkDropListData]="testData"
-                          (cdkDropListDropped)="dropHandle($event)" class="h-100">
-          <h5 class="shady-header">Нераспределенные игроки</h5>
-          <hr>
-          <mat-card *ngFor="let player of testData"
-                    cdkDrag
-                    [cdkDragData]="player"
-                    (cdkDragDropped)="dropPlayer($event)"
-                    class="my-1">
-            <mat-card-content [textContent]="player.getShortFio()"></mat-card-content>
-          </mat-card>
-        </mat-card-content>
-      </mat-card>
-
-      <drag-scroll
-        [scrollbar-hidden]="true" class="bracket" [ngClass]="editMode ? 'crop-right-200' : ''"
-        *ngIf="bracket">
-       <ngtt-single-elimination-tree
-          [tournament]="bracket!"
-          [matchTemplate]="myMatchTemplate">
-        </ngtt-single-elimination-tree>
-      </drag-scroll>
+        <mat-card class="side-menu position-absolute" *ngIf="bracketService.editMode">
+          <mat-card-content class="h-100">
+            <h5 class="shady-header">Нераспределенные игроки</h5>
+            <hr>
+            <mat-card *ngFor="let player of testData"
+                      cdkDrag
+                      [cdkDragData]="player"
+                      (cdkDragDropped)="dropPlayer($event)"
+                      class="my-1">
+              <mat-card-content [textContent]="player.surname"></mat-card-content>
+            </mat-card>
+          </mat-card-content>
+        </mat-card>
 
 
-    </mat-card-content>
-  </mat-card>
+        <drag-scroll [drag-disabled]="dragDropService.isDraggingMatch"
+                     [scrollbar-hidden]="true" class="bracket"
+                     [ngClass]="bracketService.editMode ? 'crop-right-200' : ''"
+                     *ngIf="bracket">
+          <ngtt-single-elimination-tree
+            [tournament]="bracket!"
+            [matchTemplate]="myMatchTemplate">
+          </ngtt-single-elimination-tree>
+        </drag-scroll>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+  <ng-template #myMatchTemplate let-match>
+    <app-single-match-preview [match]="match" *ngIf="match"
+                              style="display: flex; justify-content: stretch; width: 100%">
+    </app-single-match-preview>
+  </ng-template>
+
+
 </div>
-
-
-<ng-template #myMatchTemplate let-match>
-  <app-single-match-preview [match]="match" *ngIf="match"
-                            style="display: flex; justify-content: stretch; width: 100%">
-  </app-single-match-preview>
-</ng-template>

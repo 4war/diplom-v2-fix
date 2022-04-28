@@ -1,23 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgttTournament} from "ng-tournament-tree";
-import {TestTournament} from "../../shared/viewModels/TestTournament";
 import {GeneralService} from "../../services/general.service";
 import {TournamentService} from "../../services/tournament.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {Tournament} from "../../shared/Tournament";
 import {ITab} from "../ITab";
 import {filter} from "rxjs";
-import {Bracket} from "../../shared/Bracket";
 import {BracketService} from "../../services/bracket.service";
-import {Match} from "../../shared/Match";
-import {Round} from "../../shared/Round";
-import Enumerable from "linq";
-import from = Enumerable.from;
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Player} from "../../shared/Player";
 import {DragAndDropService} from "../../services/viewServices/drag-and-drop.service";
-import matches = Enumerable.matches;
-import {type} from "os";
 
 @Component({
   selector: 'app-bracket',
@@ -56,14 +48,39 @@ export class BracketComponent implements OnInit, ITab {
       dateOfBirth: new Date(2000, 10, 10),
       getShortFio(): string {
         return "Алексеев К.А."
+      },
+    },
+    {
+      rni: 1,
+      surname: "Хуйкин",
+      name: "Грю",
+      patronymic: "Миньонович",
+      gender: 1,
+      city: "Самара",
+      point: 1000,
+      dateOfBirth: new Date(2000, 10, 10),
+      getShortFio(): string {
+        return "Хуйкин Г.М."
+      },
+    },
+    {
+      rni: 2,
+      surname: "Террорблейд",
+      name: "Инвокер",
+      patronymic: "Миранович",
+      gender: 1,
+      city: "Тольятти",
+      point: 1000,
+      dateOfBirth: new Date(2000, 10, 10),
+      getShortFio(): string {
+        return "Террорблейд И.М."
       }
     }];
-  editMode = true;
 
   constructor(public general: GeneralService,
               public dragDropService: DragAndDropService,
+              public bracketService: BracketService,
               private tournamentService: TournamentService,
-              private bracketService: BracketService,
               private route: ActivatedRoute,
               private router: Router) {
 
@@ -107,17 +124,6 @@ export class BracketComponent implements OnInit, ITab {
 
   }
 
-  startEdit(): void {
-    this.editMode = true;
-  }
-
-  save(): void {
-    this.editMode = false;
-  }
-
-  cancel(): void {
-    this.editMode = false;
-  }
 
   dropHandle(event: CdkDragDrop<Player[]>): void {
     if (event.previousContainer === event.container) {
@@ -133,8 +139,5 @@ export class BracketComponent implements OnInit, ITab {
   }
 
   dropPlayer(event: CdkDragDrop<Player>): void {
-    let a = event.item.data as Player;
-    //this.testData.push(a);
-
   }
 }

@@ -31,8 +31,6 @@ import {GeneralService} from "./services/general.service";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTreeModule} from "@angular/material/tree";
 import {NgTournamentTreeModule} from "ng-tournament-tree";
-import {SingleMatchComponent} from './single-match/single-match.component';
-import {SingleMatchPreviewComponent} from './single-match-preview/single-match-preview.component';
 import {MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
 import {PostFactoryComponent} from "./factory/post/post-factory.component";
 import {GetPlayerListComponent} from "./player/list/get-player-list.component";
@@ -53,7 +51,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {BracketService} from "./services/bracket.service";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {DragAndDropService} from "./services/viewServices/drag-and-drop.service";
-import { PlayerComponent } from './single-match-preview/player/player.component';
+import {SingleMatchComponent} from "./tournament/bracket/single-match-preview/single-match.component";
+import {PlayerComponent} from "./tournament/bracket/single-match-preview/player/player.component";
 
 registerLocaleData(localeRu);
 
@@ -65,7 +64,6 @@ registerLocaleData(localeRu);
     GetFactoryListComponent,
     GetTournamentComponent,
     SingleMatchComponent,
-    SingleMatchPreviewComponent,
     PostPlayerComponent,
     GetPlayerComponent,
     PlayerOverviewComponent,

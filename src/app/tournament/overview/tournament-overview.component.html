@@ -7,10 +7,10 @@
     <p>{{general.getGender(tournament.gender!)}}</p>
     <p>Дата начала:  {{tournament.dateStart | date: 'dd.MM.YYYY'}}</p>
     <p>Дата завершения:  {{tournament.dateEnd | date: 'dd.MM.YYYY'}}</p>
-    <p>{{tournament?.tennisCenter?.address}}</p>
+    <p>{{tournament.tennisCenter?.address}}</p>
     <div *ngIf="tournament.qualification">
       <hr>
-      <p>{{general.getStage(tournament.qualification.stage!)}}</p>
+      <p>{{general.getStage(tournament.qualification.stage)}}</p>
       <p>{{tournament.qualification.dateStart | date: 'dd.MM.YYYY'}} - {{tournament.qualification.dateEnd | date: 'dd.MM.YYYY'}}</p>
     </div>
   </mat-card-content>

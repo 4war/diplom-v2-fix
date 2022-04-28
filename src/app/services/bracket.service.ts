@@ -12,6 +12,20 @@ import {Round} from "../shared/Round";
 
 export class BracketService {
 
+  editMode = false;
+
+  startEdit(): void {
+    this.editMode = true;
+  }
+
+  save(): void {
+    this.editMode = false;
+  }
+
+  cancel(): void {
+    this.editMode = false;
+  }
+
   constructor(private httpClient: HttpClient) {
   }
 

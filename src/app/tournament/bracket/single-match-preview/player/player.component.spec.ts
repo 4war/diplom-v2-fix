@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingleMatchPreviewComponent } from './single-match-preview.component';
+import { PlayerComponent } from './player.component';
 
-describe('SingleMatchPreviewComponent', () => {
-  let component: SingleMatchPreviewComponent;
-  let fixture: ComponentFixture<SingleMatchPreviewComponent>;
+describe('PlayerComponent', () => {
+  let component: PlayerComponent;
+  let fixture: ComponentFixture<PlayerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingleMatchPreviewComponent ]
+      declarations: [ PlayerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SingleMatchPreviewComponent);
+    fixture = TestBed.createComponent(PlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

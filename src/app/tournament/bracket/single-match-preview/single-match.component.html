@@ -1,0 +1,20 @@
+<a mat-button class="single-match" (click)="update()">
+  <span>
+    <a mat-button class="player" [ngClass]="player1?.rni == match?.winner?.rni ? 'bold' : ''">
+       <app-player-in-bracket [player]="player1"></app-player-in-bracket>
+    </a>
+  </span>
+  <div class="score" *ngFor="let digit of score1">
+    <span class="mx-1" [ngClass]="digit.win ? 'green': 'red'">{{digit.value}}</span>
+  </div>
+  <hr class="line">
+  <span>
+    <a mat-button class="player" [ngClass]="player2?.rni == match?.winner?.rni ? 'bold' : ''">
+         <app-player-in-bracket [player]="player2"></app-player-in-bracket>
+    </a>
+  </span>
+  <div class="score" *ngFor="let digit of score2">
+    <span class="mx-1" [ngClass]="digit.win ? 'green': 'red'">{{digit.value}}</span>
+  </div>
+</a>
+

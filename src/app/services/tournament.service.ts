@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Tournament} from "../shared/Tournament";
-import {catchError, Observable, throwError} from "rxjs";
+import {Observable} from "rxjs";
 import {TournamentFactory} from "../shared/TournamentFactory";
-import Enumerable from "linq";
-import from = Enumerable.from;
 import {Player} from "../shared/Player";
 import {server} from "../../environments/environment";
 

@@ -1,0 +1,22 @@
+<div cdkDropList
+     [cdkDropListConnectedTo]="dragDropService.dropLists"
+     [cdkDropListData]="playerArray"
+     (cdkDropListDropped)="dropHandle($event)"
+     [cdkDropListEnterPredicate]="predicate">
+  <div *ngIf="player">
+    <div
+      [cdkDragDisabled]="!bracketService.editMode"
+      cdkDrag [cdkDragData]="player"
+      (cdkDragStarted)="dragStart($event)"
+      (cdkDragDropped)="dragDrop($event)"
+      (cdkDragEnded)="dragEnd($event)">
+      {{player.surname}}
+    </div>
+  </div>
+
+  <div *ngIf="!player">
+    <div>
+      <mat-icon>clear</mat-icon>
+    </div>
+  </div>
+</div>
