@@ -1,13 +1,50 @@
 <div class="row">
   <mat-card class="color-dark col-md-12 my-4">
-    <mat-card-header>Сетка</mat-card-header>
-    <mat-card-content class="margin-top" style="height: 800px; overflow: auto">
-      <drag-scroll [scrollbar-hidden]="true" class="bracket" style="height: 800px; overflow: auto" *ngIf="bracket">
-        <ngtt-single-elimination-tree
-          [tournament]="bracket"
+    <mat-card-header>
+      <div class="d-flex my-1 justify-content-between w-100">
+        <div>Сетка</div>
+        <div>
+          <a mat-button *ngIf="!editMode" (click)="startEdit()">
+            <mat-icon color="accent">create</mat-icon>
+          </a>
+          <a mat-button *ngIf="editMode" (click)="save()">
+            <mat-icon class="green">check</mat-icon>
+          </a>
+          <a mat-button *ngIf="editMode" (click)="cancel()">
+            <mat-icon color="warn">clear</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content style="height: 800px; overflow: auto">
+
+      <mat-card class="side-menu position-absolute" *ngIf="editMode">
+        <mat-card-content #someInput cdkDropList
+                          [cdkDropListConnectedTo]="dragDropService.dropLists"
+                          [cdkDropListData]="testData"
+                          (cdkDropListDropped)="dropHandle($event)" class="h-100">
+          <h5 class="shady-header">Нераспределенные игроки</h5>
+          <hr>
+          <mat-card *ngFor="let player of testData"
+                    cdkDrag
+                    [cdkDragData]="player"
+                    (cdkDragDropped)="dropPlayer($event)"
+                    class="my-1">
+            <mat-card-content [textContent]="player.getShortFio()"></mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+
+      <drag-scroll
+        [scrollbar-hidden]="true" class="bracket" [ngClass]="editMode ? 'crop-right-200' : ''"
+        *ngIf="bracket">
+       <ngtt-single-elimination-tree
+          [tournament]="bracket!"
           [matchTemplate]="myMatchTemplate">
         </ngtt-single-elimination-tree>
       </drag-scroll>
+
+
     </mat-card-content>
   </mat-card>
 </div>

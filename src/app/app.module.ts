@@ -51,6 +51,9 @@ import {GetFactoryComponent} from "./factory/get/get-factory.component";
 import {TournamentOverviewComponent} from "./tournament/overview/tournament-overview.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {BracketService} from "./services/bracket.service";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {DragAndDropService} from "./services/viewServices/drag-and-drop.service";
+import { PlayerComponent } from './single-match-preview/player/player.component';
 
 registerLocaleData(localeRu);
 
@@ -71,7 +74,8 @@ registerLocaleData(localeRu);
     BracketComponent,
     ScheduleComponent,
     TournamentOverviewComponent,
-    GetFactoryComponent
+    GetFactoryComponent,
+    PlayerComponent
   ],
     imports: [
         MatSidenavModule,
@@ -99,13 +103,14 @@ registerLocaleData(localeRu);
         NgTournamentTreeModule,
         DragScrollModule,
         MatProgressBarModule,
+        DragDropModule,
     ],
   providers:
     [FormBuilder, RouterModule, GeneralService, MatDrawerContainer,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
-      TournamentService, PlayerService, BracketService],
+      TournamentService, PlayerService, BracketService, DragAndDropService],
   bootstrap: [AppComponent]
 })
 

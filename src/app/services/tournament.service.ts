@@ -47,13 +47,11 @@ export class TournamentService {
   }
 
   postTournaments(factory: TournamentFactory): Observable<any> {
-    console.log(JSON.stringify(factory));
     return this.httpClient.post(`${server}/tournamentFactory/`,
       factory);
   }
 
   postTournament(tournament: Tournament): Observable<any> {
-    console.log(JSON.stringify(tournament));
     return this.httpClient.post(`${server}/tournament/`,
       tournament);
   }

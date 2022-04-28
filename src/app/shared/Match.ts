@@ -12,4 +12,5 @@ export class Match{
   duration?: Date;
   winnerId?: number;
   winner?: Player;
+  placeInRound!: number;
 }

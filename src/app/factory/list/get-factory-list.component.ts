@@ -28,7 +28,6 @@ export class GetFactoryListComponent implements OnInit {
   getList(): void {
     this.tournamentService.getTournamentFactories().subscribe(response => {
       this.factories = response;
-      console.log(this.factories);
     });
   }
 

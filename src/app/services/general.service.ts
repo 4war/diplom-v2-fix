@@ -9,6 +9,7 @@ import {ages} from "../defaults";
 import Enumerable from "linq";
 import from = Enumerable.from;
 import {server} from "../../environments/environment";
+import {Player} from "../shared/Player";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,35 @@ export class GeneralService {
   currentPlayerRni: number = 0;
 
   currentTournamentTab = "overview";
+
+  missingPlayers: Player[] = [
+    {
+      rni: 1,
+      surname: "Хуйкин",
+      name: "Грю",
+      patronymic: "Миньонович",
+      gender: 1,
+      city: "Самара",
+      point: 1000,
+      dateOfBirth: new Date(2000, 10, 10),
+      getShortFio(): string {
+        return "Хуйкин Г.М."
+      },
+    },
+    {
+      rni: 2,
+      surname: "Террорблейд",
+      name: "Инвокер",
+      patronymic: "Миранович",
+      gender: 1,
+      city: "Тольятти",
+      point: 1000,
+      dateOfBirth: new Date(2000, 10, 10),
+      getShortFio(): string {
+        return "Террорблейд И.М."
+      }
+    }
+  ];
 
   constructor(private httpClient: HttpClient, public router: Router) {
   }
