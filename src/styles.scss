@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-tournament-tree/styles/ngtt-styles';
-
-//@import 'my-tree-configuration';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&display=swap');
 
 html, body {
   height: 100%;
@@ -74,3 +73,31 @@ body {
 .bold{
   font-weight: bold;
 }
+
+.z-20{
+  z-index: 20;
+}
+
+.bright-header{
+  font-family: 'Montserrat', serif;
+
+  .text-xxx-large{
+    font-size: xxx-large;
+    line-height: 40px;
+  }
+
+  .text-xx-large{
+    font-size: xx-large;
+    line-height: 40px;
+  }
+
+  .text-x-large{
+    font-size: x-large;
+    line-height: 40px;
+  }
+}
+
+
+
+
+

@@ -1,13 +1,13 @@
-.bracket{
+.bracket {
 
-  ngtt-single-elimination-tree{
+  ngtt-single-elimination-tree {
     width: fit-content;
   }
 
   height: 800px;
 }
 
-.side-menu{
+.side-menu {
   background: #081e2c;
   height: 800px;
   width: 200px;
@@ -17,7 +17,7 @@
 }
 
 
-.crop-right-200{
+.crop-right-200 {
   width: calc(100% - 200px);
 }
 
@@ -43,4 +43,11 @@
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
   0 8px 10px 1px rgba(0, 0, 0, 0.14),
   0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+
+.match {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
 }

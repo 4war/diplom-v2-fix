@@ -1,1 +1,102 @@
-<p>single-match works!</p>
+<mat-card class="container-match" *ngIf="match">
+  <mat-card-content class="text-white h-100">
+
+    <div class="d-flex justify-content-end margin-top">
+      <a mat-button *ngIf="!matchService.editMode" (click)="matchService.startEdit()">
+        <mat-icon color="accent">create</mat-icon>
+      </a>
+      <a mat-button *ngIf="matchService.editMode" (click)="matchService.save()">
+        <mat-icon class="green">check</mat-icon>
+      </a>
+      <a mat-button *ngIf="matchService.editMode" (click)="matchService.cancel()">
+        <mat-icon color="warn">clear</mat-icon>
+      </a>
+    </div>
+
+    <div class="d-flex justify-content-between margin-top">
+
+      <!-- player left -->
+      <div class="player-info">
+        <div class="text-end bright-header mx-2" *ngIf="match.player1">
+          <div [ngClass]="finished ? (match.winner?.rni == match.player1?.rni ? 'green' : 'red') : ''">
+            <div class="text-xx-large bright-header">
+              {{match.player1?.surname}}
+            </div>
+            <div class="text-x-large bright-header">
+              {{match.player1?.name}} {{match.player1?.patronymic}}
+            </div>
+          </div>
+          <div class="text-x-large">
+            {{match.player1?.city}}
+          </div>
+        </div>
+        <div class="text-end text-xxx-large bright-header mx-2" *ngIf="!match.player1">
+          <div class="text-xxx-large">
+            Bye
+          </div>
+        </div>
+      </div>
+
+      <!-- score -->
+      <div>
+        <div *ngFor="let i of [0, 1, 2]">
+          <div class="d-flex justify-content-center bright-header my-2"
+               *ngIf="score.playerScore1.length > i && score.playerScore2.length > i">
+            <app-digit [digit]="score.playerScore1[i]" class="mx-5 text-xxx-large"></app-digit>
+            <div class="mx-5 shady-header text-vertical-center">{{i + 1}} сет</div>
+            <app-digit [digit]="score.playerScore2[i]" class="mx-5 text-xxx-large"></app-digit>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between" *ngIf="score.situationMessage">
+          <div class="red">{{match.winner?.rni == match.player2?.rni ? score.situationMessage : ''}}</div>
+          <div class="red">{{match.winner?.rni == match.player1?.rni ? score.situationMessage : ''}}</div>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="!match?.winner">
+          <a mat-button class="bright-header text-xxx-large" color="accent" *ngFor="let i of [0, 1]" (click)="setWin(i)">
+            Победа
+          </a>
+        </div>
+
+        <div class="d-flex justify-content-center shady-header margin-top" *ngIf="match.duration">Длительность</div>
+        <div class="d-flex justify-content-center bright-header" *ngIf="match.duration">
+          <div class="text-x-large">{{match.duration | date: 'h'}} ч {{match.duration | date: 'm'}} мин</div>
+        </div>
+
+        <div class="d-flex justify-content-center shady-header win">
+          <div class="bright-header mx-1">
+            <div class="text-x-large green">{{win}}%</div>
+          </div>
+          <mat-progress-bar mode="determinate" value="{{win}}" color="accent">
+          </mat-progress-bar>
+          <div class="bright-header mx-1">
+            <div class="text-x-large red">{{100 - win}}%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- player right -->
+      <div class="player-info">
+        <div class="text-start bright-header mx-2" *ngIf="match.player2">
+          <div [ngClass]="finished ? (match.winner?.rni == match.player2?.rni ? 'green' : 'red') : ''">
+            <div class="text-xx-large bright-header">
+              {{match.player2?.surname}}
+            </div>
+            <div class="text-x-large bright-header">
+              {{match.player2?.name}} {{match.player2?.patronymic}}
+            </div>
+          </div>
+          <div class="text-x-large">
+            {{match.player2?.city}}
+          </div>
+        </div>
+        <div class="text-start bright-header mx-2" *ngIf="!match.player2">
+          <div class="text-xxx-large">
+            Bye
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

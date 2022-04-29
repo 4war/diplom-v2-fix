@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {NgttTournament} from "ng-tournament-tree";
 import {GeneralService} from "../../services/general.service";
 import {TournamentService} from "../../services/tournament.service";
@@ -10,6 +10,9 @@ import {BracketService} from "../../services/bracket.service";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Player} from "../../shared/Player";
 import {DragAndDropService} from "../../services/viewServices/drag-and-drop.service";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {SingleMatchOverviewComponent} from "../../single-match/single-match.component";
+import {Match} from "../../shared/Match";
 
 @Component({
   selector: 'app-bracket',
@@ -82,7 +85,9 @@ export class BracketComponent implements OnInit, ITab {
               public bracketService: BracketService,
               private tournamentService: TournamentService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog,
+  ) {
 
     router.events.pipe(filter(e => e instanceof NavigationEnd))
       .subscribe(response => this.reInit());
@@ -110,12 +115,6 @@ export class BracketComponent implements OnInit, ITab {
 
       this.bracketService.getBracket(this.tournamentId).subscribe(response => {
         this.bracket = response;
-
-        // this.bracket = new Bracket();
-        // this.bracket.rounds = [{
-        //   type: "Final",
-        //   matches: [new Match()]
-        // }]
       });
     }
   }
@@ -139,5 +138,11 @@ export class BracketComponent implements OnInit, ITab {
   }
 
   dropPlayer(event: CdkDragDrop<Player>): void {
+  }
+
+  openMatch(match: Match): void {
+    this.dialog.open(SingleMatchOverviewComponent, {
+      data: match,
+    });
   }
 }

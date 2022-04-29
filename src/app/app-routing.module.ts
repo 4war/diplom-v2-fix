@@ -12,6 +12,7 @@ import {PlayerListComponent} from "./tournament/player-list/player-list.componen
 import {BracketComponent} from "./tournament/bracket/bracket.component";
 import {ScheduleComponent} from "./tournament/schedule/schedule.component";
 import {TournamentOverviewComponent} from "./tournament/overview/tournament-overview.component";
+import {SingleMatchOverviewComponent} from "./single-match/single-match.component";
 
 export const appRoutes: Routes = [
   {path: 'factory/list', component: GetFactoryListComponent},
@@ -22,7 +23,9 @@ export const appRoutes: Routes = [
     path: 'tournament/:id',
     component: GetTournamentComponent,
     children: [
-      {path: 'bracket', component: BracketComponent},
+      {path: 'bracket', component: BracketComponent, children: [
+          {path: 'match/:idMatch', component: SingleMatchOverviewComponent},
+        ]},
       {path: 'playerList', component: PlayerListComponent},
       {path: 'schedule', component: ScheduleComponent},
       {path: 'overview', component: TournamentOverviewComponent},

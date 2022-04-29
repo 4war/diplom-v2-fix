@@ -37,7 +37,6 @@
           </mat-card-content>
         </mat-card>
 
-
         <drag-scroll [drag-disabled]="dragDropService.isDraggingMatch"
                      [scrollbar-hidden]="true" class="bracket"
                      [ngClass]="bracketService.editMode ? 'crop-right-200' : ''"
@@ -51,13 +50,11 @@
       </mat-card-content>
     </mat-card>
   </div>
-
-
   <ng-template #myMatchTemplate let-match>
-    <app-single-match-preview [match]="match" *ngIf="match"
-                              style="display: flex; justify-content: stretch; width: 100%">
+    <app-single-match-preview [match]="match" *ngIf="match" class="match" (click)="openMatch(match)">
     </app-single-match-preview>
   </ng-template>
 
-
+  <router-outlet></router-outlet>
 </div>
+

@@ -37,7 +37,4 @@ export class BracketService {
     return this.httpClient.get<Round>(`${server}/bracket/round/${id}`)
   }
 
-  getMatch(id: number): Observable<Match>{
-    return this.httpClient.get<Match>(`${server}/bracket/match/${id}`)
-  }
 }

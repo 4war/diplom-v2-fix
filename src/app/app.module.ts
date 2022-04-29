@@ -53,6 +53,12 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {DragAndDropService} from "./services/viewServices/drag-and-drop.service";
 import {SingleMatchComponent} from "./tournament/bracket/single-match-preview/single-match.component";
 import {PlayerComponent} from "./tournament/bracket/single-match-preview/player/player.component";
+import {SingleMatchOverviewComponent} from "./single-match/single-match.component";
+import {MAT_DIALOG_DATA, MatDialogConfig, MatDialogContainer, MatDialogModule} from "@angular/material/dialog";
+import {Match} from "./shared/Match";
+import {MatchService} from "./services/match.service";
+import { DigitComponent } from './single-match/digit/digit.component';
+import { WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
 
 registerLocaleData(localeRu);
 
@@ -73,39 +79,45 @@ registerLocaleData(localeRu);
     ScheduleComponent,
     TournamentOverviewComponent,
     GetFactoryComponent,
-    PlayerComponent
+    PlayerComponent,
+    SingleMatchOverviewComponent,
+    DigitComponent,
+    WinDialogComponent,
   ],
-    imports: [
-        MatSidenavModule,
-        BrowserModule,
-        AppRoutingModule,
-        RouterModule.forRoot(appRoutes),
-        MatMenuModule,
-        MatListModule,
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatSelectModule,
-        HttpClientModule,
-        MatTableModule,
-        MatSortModule,
-        MatTreeModule,
-        NgTournamentTreeModule,
-        DragScrollModule,
-        MatProgressBarModule,
-        DragDropModule,
-    ],
+  imports: [
+    MatSidenavModule,
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes),
+    MatMenuModule,
+    MatListModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSelectModule,
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatTreeModule,
+    NgTournamentTreeModule,
+    DragScrollModule,
+    MatProgressBarModule,
+    DragDropModule,
+    MatDialogModule,
+  ],
+  entryComponents:[SingleMatchOverviewComponent],
   providers:
-    [FormBuilder, RouterModule, GeneralService, MatDrawerContainer,
+    [FormBuilder, RouterModule, GeneralService, MatDrawerContainer, MatDialogConfig,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
+      {provide: MAT_DIALOG_DATA, useClass: Match },
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
       TournamentService, PlayerService, BracketService, DragAndDropService],

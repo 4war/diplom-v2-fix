@@ -30,7 +30,6 @@ export class PlayerComponent implements OnInit {
   constructor(public general: GeneralService,
               public dragDropService: DragAndDropService,
               public bracketService: BracketService) {
-
   }
 
   ngOnInit(): void {
@@ -42,7 +41,6 @@ export class PlayerComponent implements OnInit {
     if (this.dropList) {
       this.dragDropService.register(this.dropList);
     }
-
   }
 
   dropHandle(event: CdkDragDrop<Player[]>): void {

@@ -8,6 +8,7 @@ import {PlayerService} from "../../../services/player.service";
 import {DragAndDropService} from "../../../services/viewServices/drag-and-drop.service";
 import {Player} from "../../../shared/Player";
 import {Match} from "../../../shared/Match";
+import {Digit, Score} from "../../../shared/Score";
 
 @Component({
   selector: 'app-single-match-preview',
@@ -29,8 +30,6 @@ export class SingleMatchComponent implements OnInit {
   player1?: Player;
   player2?: Player;
 
-  testData: Player[] = [];
-
   ngOnInit(): void {
     this.update();
   }
@@ -43,44 +42,10 @@ export class SingleMatchComponent implements OnInit {
   }
 
   updateScore(): void {
-    let score = this.match?.score;
-
-    if (!score)
-      return;
-
-    if (score.toLowerCase().startsWith("отказ")) {
-      //todo: do smth
-      return;
-    }
-
-    this.score1 = [];
-    this.score2 = [];
-    let split = score.split(" ");
-    for (let set of split) {
-      if (set.length < 2)
-        break;
-
-      let reverseFactor = this.match?.player1?.rni == this.match?.winner?.rni ? 0 : 1;
-      let game1 = parseInt(set[reverseFactor]);
-      let game2 = parseInt(set[1 - reverseFactor]);
-
-      let digit1 = new Digit();
-      digit1.win = game1 > game2;
-      digit1.value = game1;
-
-      let digit2 = new Digit();
-      digit2.win = game1 < game2;
-      digit2.value = game2;
-
-      this.score1.push(digit1);
-      this.score2.push(digit2);
+    if (this.match){
+      let score = new Score(this.match);
+      this.score1 = score.playerScore1;
+      this.score2 = score.playerScore2;
     }
   }
-
-
-}
-
-class Digit {
-  win = false;
-  value?: number;
 }
