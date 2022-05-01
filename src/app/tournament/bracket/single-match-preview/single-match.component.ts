@@ -34,7 +34,6 @@ export class SingleMatchComponent implements OnInit {
     this.update();
   }
 
-
   update(): void {
     this.player1 = this.match?.player1;
     this.player2 = this.match?.player2;

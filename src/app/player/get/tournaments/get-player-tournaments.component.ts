@@ -32,7 +32,6 @@ export class GetPlayerTournamentsComponent implements OnInit {
   }
 
   redirectToTournament(id: number): void{
-    debugger;
     this.router.navigateByUrl(`tournament/${id}`);
   }
 }

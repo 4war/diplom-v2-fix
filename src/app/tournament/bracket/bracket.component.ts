@@ -143,6 +143,6 @@ export class BracketComponent implements OnInit, ITab {
   openMatch(match: Match): void {
     this.dialog.open(SingleMatchOverviewComponent, {
       data: match,
-    });
+    }).afterClosed().subscribe(_ => this.reInit());
   }
 }

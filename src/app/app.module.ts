@@ -1,4 +1,4 @@
-import {LOCALE_ID, NgModule} from '@angular/core';
+import {ChangeDetectorRef, LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {appRoutes, AppRoutingModule} from './app-routing.module';
@@ -59,6 +59,7 @@ import {Match} from "./shared/Match";
 import {MatchService} from "./services/match.service";
 import { DigitComponent } from './single-match/digit/digit.component';
 import { WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
+import {PlayerInMatchDialogComponent} from "./single-match/player/player.component";
 
 registerLocaleData(localeRu);
 
@@ -82,6 +83,7 @@ registerLocaleData(localeRu);
     PlayerComponent,
     SingleMatchOverviewComponent,
     DigitComponent,
+    PlayerInMatchDialogComponent,
     WinDialogComponent,
   ],
   imports: [

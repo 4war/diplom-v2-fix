@@ -1,9 +1,13 @@
 <p>Победа не соответствует счету</p>
 <p>Если матч завершен досрочно, укажите причину</p>
 <mat-list>
-  <a mat-list-item class="bright-header"
-     *ngFor="let reason of reasons">
+  <mat-list-item class="bright-header"
+                 *ngFor="let reason of reasons">
     <a mat-button (click)="confirm(reason)"> {{reason}}</a>
-  </a>
-  <a mat-list-item (click)="cancel()"><mat-icon>keyboard_backspace</mat-icon></a>
+  </mat-list-item>
+  <mat-list-item>
+    <a mat-button (click)="cancel()">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </a>
+  </mat-list-item>
 </mat-list>

@@ -1,3 +1,10 @@
-<button [style.color]="color"
+<button [style.color]="isEdited
+  ? '#49a4ff'
+  : match?.winner
+      ? (match?.winner?.rni == match?.player1?.rni && playerNumber == 0
+      || match?.winner?.rni == match?.player2?.rni && playerNumber == 1)
+        ? '#adff2f'
+        : '#e44749'
+      : 'white'"
         (focusin)="focusIn()"
         (focusout)="focusOut()">{{digit?.value}}</button>

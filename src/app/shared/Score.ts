@@ -1,5 +1,7 @@
 ﻿import {MatchService} from "../services/match.service";
 import {Match} from "./Match";
+import Enumerable from "linq";
+import from = Enumerable.from;
 
 export class Score{
   situationMessage? : string;
@@ -11,23 +13,28 @@ export class Score{
   constructor(public match: Match) {
     this.raw = match.score;
     this.finished = !!match.winner;
-    let score = this.match?.score;
+    this.getScoreArray(match);
+  }
+
+  getScoreArray(match: Match){
+    let score = match?.score;
     if (!score)
       return;
 
     if (score.toLowerCase().startsWith("отказ")) {
       this.situationMessage = "Отказ по болезни"
-      return;
     }
 
-    this.playerScore1 = [];
-    this.playerScore2 = [];
     let split = score.split(" ");
-    for (let set of split) {
-      if (set.length < 2)
-        break;
+    for (let i = 0; i < split.length; i++){
+      let set = split[i];
 
-      let reverseFactor = this.match?.player1?.rni == this.match?.winner?.rni ? 0 : 1;
+      if (!(set.length >= 2 && /^\d+$/.test(set))){
+        this.situationMessage = from(split).skip(i).toArray().join(' ');
+        break;
+      }
+
+      let reverseFactor = match?.player1?.rni == match?.winner?.rni ? 0 : 1;
       let game1 = parseInt(set[reverseFactor]);
       let game2 = parseInt(set[1 - reverseFactor]);
 

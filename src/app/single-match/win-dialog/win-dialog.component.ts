@@ -12,7 +12,7 @@ export class WinDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<WinDialogComponent>) { }
 
-  reasons = ['Отказ по болезни', 'Снятие с матча', 'Другое']
+  reasons = ['Отказ по болезни', 'Снятие с матча']
 
   ngOnInit(): void {
   }

@@ -61,7 +61,7 @@
 
         <div class="col-md-2" *ngIf="secondAgeIsNeeded">
           <mat-form-field class="full-width" color="accent">
-            <mat-label >Возраст</mat-label>
+            <mat-label>Возраст</mat-label>
             <mat-select [(value)]="secondAge" (valueChange)="secondAgeValueChanged($event)">
               <mat-option *ngFor="let age of secondAges" [value]="age.max">
                 {{age.viewValue}}

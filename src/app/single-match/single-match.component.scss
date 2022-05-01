@@ -14,8 +14,12 @@
 }
 
 
-.score {
-  vertical-align: center;
+.score-block{
+  min-width: 300px;
+
+  .score {
+    vertical-align: center;
+  }
 }
 
 
