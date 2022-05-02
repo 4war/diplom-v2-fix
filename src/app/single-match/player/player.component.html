@@ -1,20 +1,27 @@
 <div *ngIf="match">
-  <div *ngIf="player">
-    <div [ngClass]="match.winner ? (match.winner?.rni == player?.rni ? 'green' : 'red') : ''">
-      <div class="text-xx-large bright-header">
-        {{player?.surname}}
+  <a mat-button [disabled]="!matchService.editMode" style="text-align: inherit;" color="accent">
+    <div *ngIf="player" (click)="openSeekPlayerDialog()">
+      <div [ngClass]="
+      matchService.editMode
+        ? 'blue'
+        : match.winner
+            ? (match.winner?.rni == player?.rni ? 'green' : 'red')
+            : ''">
+        <div class="text-xx-large bright-header">
+          {{player?.surname}}
+        </div>
+        <div class="text-x-large bright-header">
+          {{player?.name}} {{player?.patronymic}}
+        </div>
       </div>
-      <div class="text-x-large bright-header">
-        {{player?.name}} {{player?.patronymic}}
+      <div class="text-x-large">
+        {{player?.city}}
       </div>
     </div>
-    <div class="text-x-large">
-      {{player?.city}}
+    <div *ngIf="!player" (click)="openSeekPlayerDialog()">
+      <div class="text-xxx-large">
+        Bye
+      </div>
     </div>
-  </div>
-  <div class="text-end text-xxx-large bright-header mx-2" *ngIf="!player">
-    <div class="text-xxx-large">
-      Bye
-    </div>
-  </div>
+  </a>
 </div>

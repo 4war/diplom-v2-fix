@@ -60,6 +60,9 @@ import {MatchService} from "./services/match.service";
 import { DigitComponent } from './single-match/digit/digit.component';
 import { WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
 import {PlayerInMatchDialogComponent} from "./single-match/player/player.component";
+import {SeekPlayerDialogComponent} from "./single-match/player/seek-player-dialog/seek-player-dialog.component";
+import {Player} from "./shared/Player";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 registerLocaleData(localeRu);
 
@@ -85,6 +88,7 @@ registerLocaleData(localeRu);
     DigitComponent,
     PlayerInMatchDialogComponent,
     WinDialogComponent,
+    SeekPlayerDialogComponent,
   ],
   imports: [
     MatSidenavModule,
@@ -114,6 +118,8 @@ registerLocaleData(localeRu);
     MatProgressBarModule,
     DragDropModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
   ],
   entryComponents:[SingleMatchOverviewComponent],
   providers:

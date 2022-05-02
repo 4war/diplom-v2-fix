@@ -1,0 +1,19 @@
+<form class="dialog-container red">
+  <div class="d-flex justify-content-between">
+    <mat-form-field color="accent" class="full-width">
+      <mat-label>Игроки в турнире</mat-label>
+      <input type="text" matInput
+             [matAutocomplete]="auto"
+             [formControl]="formControl">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayDelegate">
+        <mat-option *ngFor="let player of filteredOptions | async" [value]="player"
+                    (click)="confirm(player)">
+          {{player.surname}} {{player.name}} {{player.patronymic}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-icon (click)="clear()" color="accent">
+      clear icon
+    </mat-icon>
+  </div>
+</form>

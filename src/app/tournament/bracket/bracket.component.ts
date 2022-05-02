@@ -13,6 +13,7 @@ import {DragAndDropService} from "../../services/viewServices/drag-and-drop.serv
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {SingleMatchOverviewComponent} from "../../single-match/single-match.component";
 import {Match} from "../../shared/Match";
+import {MatchService} from "../../services/match.service";
 
 @Component({
   selector: 'app-bracket',
@@ -83,6 +84,7 @@ export class BracketComponent implements OnInit, ITab {
   constructor(public general: GeneralService,
               public dragDropService: DragAndDropService,
               public bracketService: BracketService,
+              public matchService: MatchService,
               private tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router,
@@ -143,6 +145,9 @@ export class BracketComponent implements OnInit, ITab {
   openMatch(match: Match): void {
     this.dialog.open(SingleMatchOverviewComponent, {
       data: match,
-    }).afterClosed().subscribe(_ => this.reInit());
+    }).afterClosed().subscribe(_ => {
+      this.matchService.editMode = false;
+      this.reInit();
+    });
   }
 }

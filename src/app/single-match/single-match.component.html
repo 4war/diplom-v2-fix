@@ -19,7 +19,10 @@
       <div class="player-info">
         <app-player-in-match-dialog
           class="text-end bright-header mx-2"
-          [match]="match" [player]="match?.player1"></app-player-in-match-dialog>
+          [match]="match"
+          [player]="match?.player1"
+          (onPlayerChange)="changePlayer(0, $event)">
+        </app-player-in-match-dialog>
       </div>
 
       <!-- score -->
@@ -81,6 +84,13 @@
         <div class="d-flex justify-content-center shady-header margin-top" *ngIf="match.duration">Длительность</div>
         <div class="d-flex justify-content-center bright-header" *ngIf="match.duration">
           <div class="text-x-large">{{match.duration | date: 'h'}} ч {{match.duration | date: 'm'}} мин</div>
+          <div *ngIf="matchService.editMode">
+            <button mat-icon-button color="accent">
+              <mat-icon color="accent">
+                edit icon
+              </mat-icon>
+            </button>
+          </div>
         </div>
 
         <div class="d-flex justify-content-center shady-header win">
@@ -97,8 +107,12 @@
 
       <!-- player right -->
       <div class="player-info">
-        <app-player-in-match-dialog class="text-start bright-header mx-2"
-                                    [match]="match" [player]="match?.player2"></app-player-in-match-dialog>
+        <app-player-in-match-dialog
+          class="text-start bright-header mx-2"
+          [match]="match"
+          [player]="match?.player2"
+          (onPlayerChange)="changePlayer(0, $event)">
+        </app-player-in-match-dialog>
       </div>
     </div>
   </mat-card-content>

@@ -10,6 +10,7 @@ import Enumerable from "linq";
 import from = Enumerable.from;
 import {DigitComponent} from "./digit/digit.component";
 import {F} from "@angular/cdk/keycodes";
+import {Player} from "../shared/Player";
 
 @Component({
   selector: 'app-single-match-overview',
@@ -46,7 +47,7 @@ export class SingleMatchOverviewComponent implements OnInit {
     this.openDialog(playerNumber);
   }
 
-  resetVictory(): void{
+  resetVictory(): void {
     this.finished = false;
     this.match.winner = undefined;
   }
@@ -61,9 +62,9 @@ export class SingleMatchOverviewComponent implements OnInit {
 
     this.match.score = array.join(' ');
 
-    if (this.match.winner){
+    if (this.match.winner) {
       let number = this.match.player1?.rni == this.match.winner.rni ? 0 : 1;
-      if(!this.score.situationMessage && !this.checkScore(number)){
+      if (!this.score.situationMessage && !this.checkScore(number)) {
         this.finished = false;
         this.match.winner = undefined;
       }
@@ -127,6 +128,13 @@ export class SingleMatchOverviewComponent implements OnInit {
       let value = Reflect.get(clone, propertyName)
       Reflect.set(this.match, propertyName, value);
     }
+  }
+
+  changePlayer(number: number, player: Player): void {
+    if (number == 0)
+      this.match.player1 = player;
+    if (number == 1)
+      this.match.player2 = player;
   }
 
   addSet(): void {
