@@ -5,12 +5,10 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 import {Match} from "../shared/Match";
 import {Digit, Score} from "../shared/Score";
 import {WinDialogComponent} from "./win-dialog/win-dialog.component";
-import {filter} from "rxjs";
 import Enumerable from "linq";
 import from = Enumerable.from;
-import {DigitComponent} from "./digit/digit.component";
-import {F} from "@angular/cdk/keycodes";
 import {Player} from "../shared/Player";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-single-match-overview',
@@ -25,8 +23,16 @@ export class SingleMatchOverviewComponent implements OnInit {
   initialMatch?: Match;
   winDialogRef?: MatDialogRef<WinDialogComponent>;
 
-  constructor(private general: GeneralService,
-              public matchService: MatchService,
+  formGroup = this.formBuilder.group({
+    dateStart: new FormControl(),
+    dateEnd: new FormControl(),
+  });
+
+  editDuration = false;
+
+  constructor(public matchService: MatchService,
+              private general: GeneralService,
+              private formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public match: Match,
               private dialog?: MatDialog,) {
 
@@ -156,4 +162,30 @@ export class SingleMatchOverviewComponent implements OnInit {
 
     this.updateScore();
   }
+
+  changeDuration(): void {
+    this.editDuration = true;
+  }
+
+  saveDuration(): void {
+    this.editDuration = false;
+  }
+
+  getDateFromTimePicker(dateString: string): Date {
+    let split = dateString.split(' ')[0].split(':');
+    debugger
+    let pm = dateString.toLowerCase().includes('pm');
+    let hour = parseInt(split[0]) + (pm ? 12 : 0);
+    let minute = parseInt(split[1]);
+
+    let startDate = new Date(this.match.start!.toString());
+    startDate.setHours(hour, minute, 0, 0);
+
+    return startDate;
+  }
+
+  timepickerChange(a: number): void{
+
+  }
+
 }

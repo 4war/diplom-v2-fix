@@ -82,8 +82,11 @@
         <div class="col-5 top-padding">
           <mat-form-field class="no-padding full-width" appearance="fill" color="accent">
             <mat-label>Дата начала турнира</mat-label>
-            <input formControlName="dateStart" (dateChange)="updateDateEnd()" matInput
-                   [matDatepicker]="pickerStart" autocomplete="off">
+            <input formControlName="dateStart"
+                   (dateChange)="updateDateEnd()"
+                   matInput
+                   [matDatepicker]="pickerStart"
+                   autocomplete="off">
             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
             <mat-datepicker #pickerStart></mat-datepicker>
           </mat-form-field>
@@ -100,7 +103,10 @@
         <div class="col-5 top-padding">
           <mat-form-field class="full-width" appearance="fill" color="accent">
             <mat-label>Дата завершения турнира</mat-label>
-            <input formControlName="dateEnd" matInput [matDatepicker]="pickerEnd" autocomplete="off">
+            <input formControlName="dateEnd"
+                   matInput
+                   [matDatepicker]="pickerEnd"
+                   autocomplete="off">
             <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerEnd></mat-datepicker>
           </mat-form-field>

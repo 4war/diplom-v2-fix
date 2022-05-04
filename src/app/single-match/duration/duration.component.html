@@ -1,0 +1,27 @@
+<div class="duration-container margin-top">
+  <div class=" d-flex justify-content-between align-items-center text-center">
+    <div class="d-block mx-2 w-50 justify-content-center">
+      <div class="shady-header">Начало</div>
+      <ngb-timepicker class="d-flex justify-content-center" *ngIf="edit" [(ngModel)]="start"
+                      (ngModelChange)="updateStart()"></ngb-timepicker>
+      <div class="bright-header text-center" *ngIf="!edit">{{startDate | date: 'HH:mm'}}</div>
+    </div>
+    <div class="d-block mx-2 w-50">
+      <div class="shady-header">Конец</div>
+      <ngb-timepicker class="d-flex justify-content-center" *ngIf="edit" [(ngModel)]="end"
+                      (ngModelChange)="updateEnd()"></ngb-timepicker>
+      <div class="bright-header text-center" *ngIf="!edit">{{endDate | date: 'HH:mm'}}</div>
+    </div>
+
+    <div *ngIf="matchService.editMode">
+      <a mat-button (click)="changeEdit()">
+        <mat-icon color="accent">edit icon</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div class="text-center shady-header margin-top" [ngClass]="duration ? '' : 'red'">
+    <div class="bright-header py-2">Длительность <span class="text-x-large text-white" *ngIf="duration">
+      {{duration?.hour}} ч {{duration?.minute}} мин</span></div>
+  </div>
+</div>

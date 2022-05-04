@@ -48,15 +48,19 @@
             (click)="redirectToPlayer(row.rni)"
         ></tr>
       </table>
-      <div class="add-button">
-        <a mat-button color="accent" routerLink="../post">Добавить участника</a>
+      <div class="add-button m-2">
+        <a
+          mat-button
+          color="accent"
+          (click)="openDialogFor(tournament!.id)"
+        >Добавить участника <mat-icon>add icon</mat-icon></a>
       </div>
 
     </mat-card-content>
   </mat-card>
 
   <mat-card class="color-dark margin-top" *ngIf="tournament?.qualification!">
-    <mat-card-header>{{tournament?.stage == 0 ? 'Основной тур' : 'Квалификация'}}</mat-card-header>
+    <mat-card-header>{{tournament?.qualification!.stage == 0 ? 'Основной тур' : 'Квалификация'}}</mat-card-header>
     <mat-card-content>
       <table mat-table [dataSource]="qualificationPlayers ?? []" class="custom-table">
         <!-- RNI Column -->
@@ -104,8 +108,12 @@
             (click)="redirectToPlayer(row.rni)"
         ></tr>
       </table>
-      <div class="add-button">
-        <a mat-button color="accent" routerLink="../post">Добавить участника</a>
+      <div class="add-button m-2">
+        <a
+          mat-button
+          color="accent"
+          (click)="openDialogFor(tournament?.qualification!.id)"
+        >Добавить участника <mat-icon>add icon</mat-icon></a>
       </div>
 
     </mat-card-content>

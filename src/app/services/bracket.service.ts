@@ -34,7 +34,7 @@ export class BracketService {
   }
 
   getRound(id: number): Observable<Round>{
-    return this.httpClient.get<Round>(`${server}/bracket/round/${id}`)
+    return this.httpClient.get<Round>(`${server}/bracket/round/${id}`);
   }
 
 }

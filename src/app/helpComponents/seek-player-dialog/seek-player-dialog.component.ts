@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
-import {GeneralService} from "../../../services/general.service";
-import {TournamentService} from "../../../services/tournament.service";
-import {Player} from "../../../shared/Player";
+import {GeneralService} from "../../services/general.service";
+import {TournamentService} from "../../services/tournament.service";
+import {Player} from "../../shared/Player";
 import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
 import {map, Observable, startWith} from "rxjs";

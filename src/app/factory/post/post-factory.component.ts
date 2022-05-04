@@ -72,6 +72,7 @@ export class PostFactoryComponent implements OnInit {
 
   updateDateEnd(): void {
     this.factory.dateRequest = new Date();
+    let a = this.form.value.dateStart.getDate();
     this.factory.dateRequest!.setDate(this.form.value.dateStart.getDate() - 14);
     this.form.patchValue({
       dateRequest: this.factory.dateRequest,

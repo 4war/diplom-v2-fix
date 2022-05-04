@@ -28,8 +28,8 @@ export class TournamentService {
     return this.httpClient.get<TournamentFactory[]>(`${server}/tournamentFactory/`);
   }
 
-  getSingleFactory(idTournament: number, mainOnly: boolean = false): Observable<TournamentFactory>{
-    return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/${idTournament}${mainOnly ? '': '/all'}`);
+  getSingleFactory(idTournament: number, mainOnly: boolean = false): Observable<TournamentFactory> {
+    return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/${idTournament}${mainOnly ? '' : '/all'}`);
   }
 
   getSingleTournament(id: number): Observable<Tournament> {
@@ -40,8 +40,8 @@ export class TournamentService {
     return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`);
   }
 
-  getQualificationPlayerList(id: number): Observable<Player[]> {
-    return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`);
+  postPlayerInTournament(idTournament: number, player: Player): Observable<any> {
+    return this.httpClient.post(`${server}/playerTournament/${idTournament}`, player);
   }
 
   postTournaments(factory: TournamentFactory): Observable<any> {

@@ -11,7 +11,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterModule} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
@@ -54,15 +54,17 @@ import {DragAndDropService} from "./services/viewServices/drag-and-drop.service"
 import {SingleMatchComponent} from "./tournament/bracket/single-match-preview/single-match.component";
 import {PlayerComponent} from "./tournament/bracket/single-match-preview/player/player.component";
 import {SingleMatchOverviewComponent} from "./single-match/single-match.component";
-import {MAT_DIALOG_DATA, MatDialogConfig, MatDialogContainer, MatDialogModule} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogConfig, MatDialogModule} from "@angular/material/dialog";
 import {Match} from "./shared/Match";
-import {MatchService} from "./services/match.service";
-import { DigitComponent } from './single-match/digit/digit.component';
-import { WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
+import {DigitComponent} from './single-match/digit/digit.component';
+import {WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
 import {PlayerInMatchDialogComponent} from "./single-match/player/player.component";
-import {SeekPlayerDialogComponent} from "./single-match/player/seek-player-dialog/seek-player-dialog.component";
-import {Player} from "./shared/Player";
+import {SeekPlayerDialogComponent} from "./helpComponents/seek-player-dialog/seek-player-dialog.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
+import {DurationComponent} from './single-match/duration/duration.component';
+import {NgbModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import { AlreadyExistDialogComponent } from './tournament/player-list/already-exist-dialog/already-exist-dialog.component';
 
 registerLocaleData(localeRu);
 
@@ -89,6 +91,8 @@ registerLocaleData(localeRu);
     PlayerInMatchDialogComponent,
     WinDialogComponent,
     SeekPlayerDialogComponent,
+    DurationComponent,
+    AlreadyExistDialogComponent,
   ],
   imports: [
     MatSidenavModule,
@@ -120,12 +124,16 @@ registerLocaleData(localeRu);
     MatDialogModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    NgxMaterialTimepickerModule,
+    FormsModule,
+    NgbModule,
+    NgbTimepickerModule,
   ],
-  entryComponents:[SingleMatchOverviewComponent],
+  entryComponents: [SingleMatchOverviewComponent],
   providers:
     [FormBuilder, RouterModule, GeneralService, MatDrawerContainer, MatDialogConfig,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
-      {provide: MAT_DIALOG_DATA, useClass: Match },
+      {provide: MAT_DIALOG_DATA, useClass: Match},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
       TournamentService, PlayerService, BracketService, DragAndDropService],

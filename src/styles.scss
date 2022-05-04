@@ -70,7 +70,6 @@ body {
   color: #49a4ff;
 }
 
-
 .green{
   color: #ADFF2F;
 }
@@ -106,7 +105,11 @@ body {
   width: 33.33%;
 }
 
+.timepicker-overlay{
+  z-index: 5000 !important;
+}
 
-
-
+.timepicker-backdrop-overlay{
+  z-index: 5000 !important;
+}
 
