@@ -7,8 +7,9 @@ import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter} from "rxjs";
 import {ITab} from "../ITab";
 import {MatDialog} from "@angular/material/dialog";
-import {SeekPlayerDialogComponent} from "../../helpComponents/seek-player-dialog/seek-player-dialog.component";
+import {SeekPlayerInTournamentDialogComponent} from "../../helpComponents/seek-player-dialog/seek-player-in-tournament-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
+import {AlreadyExistDialogComponent} from "./already-exist-dialog/already-exist-dialog.component";
 
 @Component({
   selector: 'app-player-list',
@@ -64,16 +65,22 @@ export class PlayerListComponent implements OnInit, ITab {
   }
 
   openDialogFor(id: number): void {
-    this.dialog.open(SeekPlayerDialogComponent)
+    this.dialog.open(SeekPlayerInTournamentDialogComponent, {
+      data: {
+        seekInOneTournament: false,
+      }
+    })
       .afterClosed()
-      .subscribe(response => {
-        if (response) {
-          this.tournamentService.postPlayerInTournament(id, response)
-            .subscribe(_ => {
+      .subscribe(response2 => {
+        if (response2) {
+          this.tournamentService.postPlayerInTournament(id, response2)
+            .subscribe(response => {
               this.reInit();
             }, (error: HttpErrorResponse) => {
               if (error.status == 400){
-
+                let a = response2;
+                //todo: pass response to dialog
+                this.dialog.open(AlreadyExistDialogComponent);
               }
             });
         }

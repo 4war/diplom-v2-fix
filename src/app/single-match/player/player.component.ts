@@ -4,7 +4,7 @@ import {Player} from "../../shared/Player";
 import {GeneralService} from "../../services/general.service";
 import {MatchService} from "../../services/match.service";
 import {MatDialog} from "@angular/material/dialog";
-import {SeekPlayerDialogComponent} from "../../helpComponents/seek-player-dialog/seek-player-dialog.component";
+import {SeekPlayerInTournamentDialogComponent} from "../../helpComponents/seek-player-dialog/seek-player-in-tournament-dialog.component";
 
 export declare const MAT_SEEK_PLAYER_DIALOG_DATA: InjectionToken<any>;
 
@@ -31,7 +31,11 @@ export class PlayerInMatchDialogComponent implements OnInit {
   openSeekPlayerDialog(): void {
     if (!this.matchService.editMode) return;
 
-    this.dialog?.open(SeekPlayerDialogComponent)
+    this.dialog?.open(SeekPlayerInTournamentDialogComponent, {
+      data: {
+        seekInOneTournament: true,
+      }
+    })
       .afterClosed().subscribe(response => {
       this.player = response;
       this.onPlayerChange.emit(this.player);

@@ -59,7 +59,10 @@ import {Match} from "./shared/Match";
 import {DigitComponent} from './single-match/digit/digit.component';
 import {WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
 import {PlayerInMatchDialogComponent} from "./single-match/player/player.component";
-import {SeekPlayerDialogComponent} from "./helpComponents/seek-player-dialog/seek-player-dialog.component";
+import {
+  SeekPlayerInTournamentDialogComponent,
+  SeekSettings
+} from "./helpComponents/seek-player-dialog/seek-player-in-tournament-dialog.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 import {DurationComponent} from './single-match/duration/duration.component';
@@ -90,7 +93,7 @@ registerLocaleData(localeRu);
     DigitComponent,
     PlayerInMatchDialogComponent,
     WinDialogComponent,
-    SeekPlayerDialogComponent,
+    SeekPlayerInTournamentDialogComponent,
     DurationComponent,
     AlreadyExistDialogComponent,
   ],
@@ -134,6 +137,7 @@ registerLocaleData(localeRu);
     [FormBuilder, RouterModule, GeneralService, MatDrawerContainer, MatDialogConfig,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: MAT_DIALOG_DATA, useClass: Match},
+      {provide: MAT_DIALOG_DATA, useClass: SeekSettings},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
       TournamentService, PlayerService, BracketService, DragAndDropService],

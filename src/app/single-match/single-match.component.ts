@@ -162,30 +162,4 @@ export class SingleMatchOverviewComponent implements OnInit {
 
     this.updateScore();
   }
-
-  changeDuration(): void {
-    this.editDuration = true;
-  }
-
-  saveDuration(): void {
-    this.editDuration = false;
-  }
-
-  getDateFromTimePicker(dateString: string): Date {
-    let split = dateString.split(' ')[0].split(':');
-    debugger
-    let pm = dateString.toLowerCase().includes('pm');
-    let hour = parseInt(split[0]) + (pm ? 12 : 0);
-    let minute = parseInt(split[1]);
-
-    let startDate = new Date(this.match.start!.toString());
-    startDate.setHours(hour, minute, 0, 0);
-
-    return startDate;
-  }
-
-  timepickerChange(a: number): void{
-
-  }
-
 }

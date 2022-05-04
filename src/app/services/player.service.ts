@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Player} from "../shared/Player";
 import {server} from "../../environments/environment";
 import {Tournament} from "../shared/Tournament";
+import {PlayerFilterOptions} from "../shared/filter/PlayerFilterOptions";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class PlayerService {
 
   getPlayerList(): Observable<Player[]>{
     return this.httpClient.get<Player[]>(`${server}/player`);
+  }
+
+  getFilteredPlayerListAsync(filterOptions: PlayerFilterOptions): Observable<Player[]>{
+    return this.httpClient.post<Player[]>(`${server}/player/filter`, filterOptions);
   }
 
   getPlayer(rni: number): Observable<Player>{
