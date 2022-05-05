@@ -17,6 +17,8 @@ const httpOptions = {
 })
 export class TournamentService {
 
+  editMode = false;
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -42,6 +44,10 @@ export class TournamentService {
 
   postPlayerInTournament(idTournament: number, player: Player): Observable<any> {
     return this.httpClient.post(`${server}/playerTournament/${idTournament}`, player);
+  }
+
+  deletePlayerInTournament(idTournament: number, rni: number): Observable<any> {
+    return this.httpClient.delete(`${server}/playerTournament/${idTournament}/${rni}`);
   }
 
   postTournaments(factory: TournamentFactory): Observable<any> {

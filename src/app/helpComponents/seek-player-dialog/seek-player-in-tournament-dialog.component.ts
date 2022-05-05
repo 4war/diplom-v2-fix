@@ -52,10 +52,11 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
   }
 
   updateFilter(event: any): void {
-    let inputString = event!.target!.value.toString();
-    if (!this.seekSetting.seekInOneTournament && inputString.length > 4) {
+    if (!event) return;
+
+    if (!this.seekSetting.seekInOneTournament && event.length > 4) {
       let filterOptions = new PlayerFilterOptions();
-      filterOptions.startWith = inputString;
+      filterOptions.startWith = event;
 
       this.playerService.getFilteredPlayerListAsync(filterOptions)
         .subscribe(response => {
@@ -63,7 +64,7 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
           this.filteredOptions = this.formControl.valueChanges
             .pipe(
               startWith(''),
-              map(value => this._filter(value)));
+              map(value => this._filter(this.formControl.value)));
         });
     }
   }
@@ -76,7 +77,9 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
   }
 
   private _filter(value: string): Player[] {
-    return this.playerList.filter(p => p.surname.toLowerCase().includes(value.toLowerCase()));
+    return value && value.length > 4
+      ? this.playerList.filter(p => p.surname.toLowerCase().includes(value.toLowerCase()))
+      : [];
   }
 
   clear(): void {

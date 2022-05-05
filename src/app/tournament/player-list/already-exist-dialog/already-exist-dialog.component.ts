@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {Match} from "../../../shared/Match";
+import {Player} from "../../../shared/Player";
 
 @Component({
   selector: 'app-already-exist-dialog',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlreadyExistDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public player: Player) { }
 
   ngOnInit(): void {
   }
+
+
 
 }

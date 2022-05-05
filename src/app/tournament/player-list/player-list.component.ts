@@ -23,10 +23,10 @@ export class PlayerListComponent implements OnInit, ITab {
   players?: Player[];
   qualificationPlayers?: Player[];
 
-  displayedColumns = ["Index", "RNI", "FIO", "DoB", "City", "Points"];
+  displayedColumns = ["Index", "RNI", "FIO", "DoB", "City", "Points", "Delete"];
 
   constructor(public general: GeneralService,
-              private tournamentService: TournamentService,
+              public tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
@@ -71,19 +71,30 @@ export class PlayerListComponent implements OnInit, ITab {
       }
     })
       .afterClosed()
-      .subscribe(response2 => {
-        if (response2) {
-          this.tournamentService.postPlayerInTournament(id, response2)
+      .subscribe(playerResponse => {
+        if (playerResponse) {
+          this.tournamentService.postPlayerInTournament(id, playerResponse)
             .subscribe(response => {
               this.reInit();
             }, (error: HttpErrorResponse) => {
               if (error.status == 400){
-                let a = response2;
-                //todo: pass response to dialog
-                this.dialog.open(AlreadyExistDialogComponent);
+                let a = playerResponse;
+                this.dialog.open(AlreadyExistDialogComponent, {
+                  data: playerResponse
+                });
               }
             });
         }
       });
+  }
+
+  startEdit(): void{
+    this.tournamentService.editMode = !this.tournamentService.editMode;
+  }
+
+  delete(tournamentId: number, player: Player): void{
+    if (!player || !tournamentId) return;
+    this.tournamentService.deletePlayerInTournament(tournamentId, player.rni)
+      .subscribe(_ => this.reInit());
   }
 }

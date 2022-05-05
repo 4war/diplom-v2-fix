@@ -68,6 +68,7 @@ import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 import {DurationComponent} from './single-match/duration/duration.component';
 import {NgbModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { AlreadyExistDialogComponent } from './tournament/player-list/already-exist-dialog/already-exist-dialog.component';
+import {Player} from "./shared/Player";
 
 registerLocaleData(localeRu);
 
@@ -138,6 +139,7 @@ registerLocaleData(localeRu);
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: MAT_DIALOG_DATA, useClass: Match},
       {provide: MAT_DIALOG_DATA, useClass: SeekSettings},
+      {provide: MAT_DIALOG_DATA, useClass: Player},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
       TournamentService, PlayerService, BracketService, DragAndDropService],

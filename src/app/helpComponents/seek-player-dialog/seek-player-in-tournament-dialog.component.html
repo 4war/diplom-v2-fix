@@ -3,7 +3,7 @@
     <mat-form-field color="accent" class="full-width">
       <mat-label>Игроки в турнире</mat-label>
       <input type="text" matInput
-             (change)="updateFilter($event)"
+             (ngModelChange)="updateFilter($event)"
              [matAutocomplete]="auto"
              [formControl]="formControl">
       <mat-autocomplete
