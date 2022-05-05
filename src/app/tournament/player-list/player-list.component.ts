@@ -20,10 +20,6 @@ export class PlayerListComponent implements OnInit, ITab {
 
   tournament?: Tournament;
   tournamentId?: number;
-  players?: Player[];
-  qualificationPlayers?: Player[];
-
-  displayedColumns = ["Index", "RNI", "FIO", "DoB", "City", "Points", "Delete"];
 
   constructor(public general: GeneralService,
               public tournamentService: TournamentService,
@@ -31,70 +27,15 @@ export class PlayerListComponent implements OnInit, ITab {
               private router: Router,
               private dialog: MatDialog) {
 
-    router.events.pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(response => this.reInit());
+   // router.events.pipe(filter(e => e instanceof NavigationEnd))
+     // .subscribe(response => this.reInit());
 
-    this.reInit();
-  }
-
-  reInit(): void {
-    let urlSplit = this.router.url.split('/');
-    this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
-
-    this.tournamentService.getSingleTournament(this.tournamentId ?? 0).subscribe(response => {
-        this.tournament = response;
-        if (this.tournament.qualification) {
-          this.tournamentService.getPlayerList(this.tournament.qualification.id).subscribe(qp =>
-            this.qualificationPlayers = qp,
-          );
-        }
-      }
-    );
-
-    this.tournamentService.getPlayerList(this.tournamentId ?? 0).subscribe(response =>
-      this.players = response,
-    );
+    //this.reInit();
   }
 
   ngOnInit(): void {
   }
 
-
-  redirectToPlayer(rni: number): void {
-    this.router.navigateByUrl(`player/${rni}`);
-  }
-
-  openDialogFor(id: number): void {
-    this.dialog.open(SeekPlayerInTournamentDialogComponent, {
-      data: {
-        seekInOneTournament: false,
-      }
-    })
-      .afterClosed()
-      .subscribe(playerResponse => {
-        if (playerResponse) {
-          this.tournamentService.postPlayerInTournament(id, playerResponse)
-            .subscribe(response => {
-              this.reInit();
-            }, (error: HttpErrorResponse) => {
-              if (error.status == 400){
-                let a = playerResponse;
-                this.dialog.open(AlreadyExistDialogComponent, {
-                  data: playerResponse
-                });
-              }
-            });
-        }
-      });
-  }
-
-  startEdit(): void{
-    this.tournamentService.editMode = !this.tournamentService.editMode;
-  }
-
-  delete(tournamentId: number, player: Player): void{
-    if (!player || !tournamentId) return;
-    this.tournamentService.deletePlayerInTournament(tournamentId, player.rni)
-      .subscribe(_ => this.reInit());
+  reInit(): void {
   }
 }

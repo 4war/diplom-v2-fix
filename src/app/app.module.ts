@@ -69,6 +69,7 @@ import {DurationComponent} from './single-match/duration/duration.component';
 import {NgbModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { AlreadyExistDialogComponent } from './tournament/player-list/already-exist-dialog/already-exist-dialog.component';
 import {Player} from "./shared/Player";
+import { TournamentListComponent } from './tournament/player-list/tournament-list/tournament-list.component';
 
 registerLocaleData(localeRu);
 
@@ -97,6 +98,7 @@ registerLocaleData(localeRu);
     SeekPlayerInTournamentDialogComponent,
     DurationComponent,
     AlreadyExistDialogComponent,
+    TournamentListComponent,
   ],
   imports: [
     MatSidenavModule,
