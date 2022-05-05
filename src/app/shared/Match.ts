@@ -1,5 +1,6 @@
 ﻿import {Player} from "./Player";
 import {Time} from "@angular/common";
+import {Round} from "./Round";
 
 export class Match {
   id?: number;
@@ -10,4 +11,6 @@ export class Match {
   end?: Date;
   winner?: Player;
   placeInRound!: number;
+
+  round!: Round;
 }

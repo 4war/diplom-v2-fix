@@ -27,15 +27,19 @@ export class PlayerListComponent implements OnInit, ITab {
               private router: Router,
               private dialog: MatDialog) {
 
-   // router.events.pipe(filter(e => e instanceof NavigationEnd))
-     // .subscribe(response => this.reInit());
+    router.events.pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(response => this.reInit());
 
-    //this.reInit();
+    this.reInit();
   }
 
   ngOnInit(): void {
   }
 
   reInit(): void {
+    let urlSplit = this.router.url.split('/');
+    this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
+    this.tournamentService.getSingleTournament(this.tournamentId)
+      .subscribe(response => this.tournament = response);
   }
 }

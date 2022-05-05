@@ -8,6 +8,8 @@ import {Router} from "@angular/router";
 import {map, Observable, startWith} from "rxjs";
 import {PlayerService} from "../../services/player.service";
 import {PlayerFilterOptions} from "../../shared/filter/PlayerFilterOptions";
+import {City} from "../../shared/City";
+import {CityService} from "../../services/city.service";
 
 @Component({
   selector: 'app-seek-player-dialog',
@@ -16,25 +18,34 @@ import {PlayerFilterOptions} from "../../shared/filter/PlayerFilterOptions";
 })
 export class SeekPlayerInTournamentDialogComponent implements OnInit {
 
-  playerList: Player[] = [];
-  player?: Player;
   tournamentId?: number;
 
-  formControl = new FormControl();
-  filteredOptions!: Observable<Player[]>;
+  playerFormControl = new FormControl();
+  playerList: Player[] = [];
+  player?: Player;
+  playerFilteredOptions!: Observable<Player[]>;
 
-  options = ['One', 'Two', 'Three'];
+  filterOptions = new PlayerFilterOptions();
+
+  cityFormControl = new FormControl();
+  cityList: City[] = [];
+  cityFilteredOptions!: Observable<City[]>;
 
   constructor(public general: GeneralService,
               public tournamentService: TournamentService,
               public playerService: PlayerService,
+              private cityService: CityService,
               private dialogRef: MatDialogRef<SeekPlayerInTournamentDialogComponent>,
               private router: Router,
               @Inject(MAT_DIALOG_DATA) public seekSetting: SeekSettings) {
   }
 
-  displayDelegate(inputPlayer: Player): string {
+  displayDelegatePlayer(inputPlayer: Player): string {
     return inputPlayer?.surname;
+  }
+
+  displayDelegateCity(city: City): string {
+    return city?.name;
   }
 
   ngOnInit(): void {
@@ -45,40 +56,54 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
       this.tournamentService.getPlayerList(this.tournamentId)
         .subscribe(response => {
           this.playerList = response;
-          this.setFilterOptions();
         });
       return;
     }
   }
 
-  updateFilter(event: any): void {
-    if (!event) return;
+  updatePlayerFilter(event: any): void {
+    if (!event) {
+      this.filterOptions = new PlayerFilterOptions();
+      return;
+    }
 
     if (!this.seekSetting.seekInOneTournament && event.length > 4) {
-      let filterOptions = new PlayerFilterOptions();
-      filterOptions.startWith = event;
+      this.filterOptions.startWith = event;
 
-      this.playerService.getFilteredPlayerListAsync(filterOptions)
+      this.playerService.getFilteredPlayerListAsync(this.filterOptions)
         .subscribe(response => {
           this.playerList = response;
-          this.filteredOptions = this.formControl.valueChanges
+          this.playerFilteredOptions = this.playerFormControl.valueChanges
             .pipe(
               startWith(''),
-              map(value => this._filter(this.formControl.value)));
+              map(value => this._filterPlayer(this.playerFormControl.value, 4)));
         });
     }
   }
 
-  private setFilterOptions(): void {
-    this.filteredOptions = this.formControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value)));
+  updateCityFilter(event: any){
+    if (!event || event.toString().length == 0) return;
+
+    //todo: add city to filterOptions
+
+    this.cityService.getCities(event).subscribe(response => {
+      this.cityList = response;
+      this.cityFilteredOptions = this.cityFormControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterCity(this.cityFormControl.value, 1)));
+    });
   }
 
-  private _filter(value: string): Player[] {
-    return value && value.length > 4
+  private _filterPlayer(value: string, minLength: number): Player[] {
+    return value && value.length > minLength
       ? this.playerList.filter(p => p.surname.toLowerCase().includes(value.toLowerCase()))
+      : [];
+  }
+
+  private _filterCity(value: string, minLength: number): City[] {
+    return value && value.length > minLength
+      ? this.cityList.filter(p => p.name.toLowerCase().includes(value.toLowerCase()))
       : [];
   }
 

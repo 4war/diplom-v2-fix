@@ -33,9 +33,6 @@ export class TournamentOverviewComponent implements OnInit, ITab {
     let urlSplit = this.router.url.split('/');
     this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
 
-    this.tournamentService.getSingleTournament(this.tournamentId ?? 0)
-      .subscribe(response => this.tournament = response);
-
     this.tournamentService.getSingleTournament(this.tournamentId ?? 0).subscribe(response => {
         this.tournament = response;
         if (this.tournament.qualification){

@@ -1,4 +1,5 @@
 ﻿import {TennisCenter} from "./TennisCenter";
+import {Bracket} from "./Bracket";
 
 export class Tournament {
   id = 0;
@@ -14,6 +15,8 @@ export class Tournament {
   dateStart: Date = new Date();
   dateEnd: Date = new Date();
   dateRequest?: Date;
+
+  bracket?: Bracket;
 
   qualification?: Tournament;
   numberOfQualificationWinners: number = 4;

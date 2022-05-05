@@ -1,15 +1,32 @@
-<form class="dialog-container red">
+<form class="dialog-container">
+  <div class="d-flex justify-content-between">
+    <mat-form-field color="accent" class="w-50 mx-2">
+      <mat-label>Город</mat-label>
+      <input type="text" matInput
+             (ngModelChange)="updateCityFilter($event)"
+             [matAutocomplete]="cityAutoComplete"
+             [formControl]="cityFormControl">
+      <mat-autocomplete
+        #cityAutoComplete="matAutocomplete"
+        [displayWith]="displayDelegateCity">
+        <mat-option *ngFor="let city of cityFilteredOptions | async" [value]="city">
+          {{city.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+  </div>
   <div class="d-flex justify-content-between">
     <mat-form-field color="accent" class="full-width">
       <mat-label>Игроки в турнире</mat-label>
       <input type="text" matInput
-             (ngModelChange)="updateFilter($event)"
-             [matAutocomplete]="auto"
-             [formControl]="formControl">
+             (ngModelChange)="updatePlayerFilter($event)"
+             [matAutocomplete]="playerAutoComplete"
+             [formControl]="playerFormControl">
       <mat-autocomplete
-        #auto="matAutocomplete"
-        [displayWith]="displayDelegate">
-        <mat-option *ngFor="let player of filteredOptions | async" [value]="player"
+        #playerAutoComplete="matAutocomplete"
+        [displayWith]="displayDelegatePlayer">
+        <mat-option *ngFor="let player of playerFilteredOptions | async" [value]="player"
                     (click)="confirm(player)">
           {{player.surname}} {{player.name}} {{player.patronymic}}
         </mat-option>

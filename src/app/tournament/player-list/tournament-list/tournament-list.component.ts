@@ -21,14 +21,17 @@ export class TournamentListComponent implements OnInit {
 
   displayedColumns = ["Index", "RNI", "FIO", "DoB", "City", "Points", "Delete"];
 
+  editMode = false;
 
   constructor(public general: GeneralService,
               public tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
+    this.reInit();
   }
 
   reInit(): void{
@@ -65,8 +68,8 @@ export class TournamentListComponent implements OnInit {
       });
   }
 
-  startEdit(): void{
-    this.tournamentService.editMode = !this.tournamentService.editMode;
+  changeEdit(): void{
+    this.editMode = !this.editMode;
   }
 
   delete(tournamentId: number, player: Player): void{
@@ -74,5 +77,4 @@ export class TournamentListComponent implements OnInit {
     this.tournamentService.deletePlayerInTournament(tournamentId, player.rni)
       .subscribe(_ => this.reInit());
   }
-
 }

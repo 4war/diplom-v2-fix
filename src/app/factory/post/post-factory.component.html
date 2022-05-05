@@ -13,8 +13,6 @@
           </mat-form-field>
         </div>
       </div>
-
-
       <div class="row">
         <div class="col-md-2">
           <mat-form-field color="accent" class="full-width">
@@ -44,7 +42,7 @@
 
         <div class="col-md-2">
           <mat-form-field class="full-width" color="accent">
-            <mat-label >Возраст</mat-label>
+            <mat-label>Возраст</mat-label>
             <mat-select [(value)]="firstAge" (valueChange)="firstAgeValueChanged($event)">
               <mat-option *ngFor="let age of ages" [value]="age.max">
                 {{age.viewValue}}
@@ -85,12 +83,13 @@
             <input formControlName="dateStart"
                    (dateChange)="updateDateEnd()"
                    matInput
+                   [(ngModel)]="factory.dateStart"
                    [matDatepicker]="pickerStart"
                    autocomplete="off">
             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
             <mat-datepicker #pickerStart></mat-datepicker>
           </mat-form-field>
-         <label class="small no-margin">Дата окончания подачи заявок: <span
+          <label class="small no-margin">Дата окончания подачи заявок: <span
             class="date-request">{{factory.dateRequest | date:"dd.MM.YYYY"}}</span></label>
         </div>
 
@@ -105,6 +104,7 @@
             <mat-label>Дата завершения турнира</mat-label>
             <input formControlName="dateEnd"
                    matInput
+                   [(ngModel)]="factory.dateEnd"
                    [matDatepicker]="pickerEnd"
                    autocomplete="off">
             <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
@@ -130,7 +130,8 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <a mat-button [disabled]="!form.valid" (click)="confirm()" mat-raised-button color="accent">ОК</a>
+      <a mat-button [disabled]="!form.valid" (click)="confirm()" mat-raised-button color="accent">Создать</a>
+      <a mat-button (click)="confirm()" mat-raised-button color="warn">Отмена</a>
     </mat-card-actions>
 
   </mat-card>

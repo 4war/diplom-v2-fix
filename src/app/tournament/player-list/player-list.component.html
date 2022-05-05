@@ -2,7 +2,7 @@
   <div *ngIf="tournament">
     <app-tournament-list [tournament]="tournament!"></app-tournament-list>
   </div>
-  <div *ngIf="tournament?.qualification">
+  <div class="margin-top" *ngIf="tournament?.qualification">
     <app-tournament-list [tournament]="tournament!.qualification!"
                          *ngIf="tournament?.qualification"></app-tournament-list>
   </div>

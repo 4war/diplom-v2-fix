@@ -8,7 +8,7 @@ import {TennisCenterService} from "../../services/tennis-center.service";
 import {TennisCenter} from "../../shared/TennisCenter";
 import {TournamentFactory} from "../../shared/TournamentFactory";
 import {GeneralService} from "../../services/general.service";
-
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -49,20 +49,21 @@ export class PostFactoryComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private tournamentService: TournamentService,
               private tennisCenterService: TennisCenterService,
-              private general: GeneralService) {
+              private general: GeneralService,
+              private router: Router) {
   }
 
   form = this.formBuilder.group({
     name: new FormControl([''], [Validators.required]),
-    categoryDigit: new FormControl([''], [Validators.required]),
-    categoryLetter: new FormControl([''], [Validators.required]),
-    firstAge: new FormControl([''], [Validators.required]),
+    categoryDigit: new FormControl([''], [Validators.required, Validators.minLength(1)]),
+    categoryLetter: new FormControl([''], [Validators.required, Validators.minLength(1)]),
+    firstAge: new FormControl([''], [Validators.required, Validators.minLength(3)]),
     secondAge: new FormControl([''], [Validators.nullValidator]),
     netRange: new FormControl(32, [Validators.required]),
     dateStart: new FormControl(Date, [Validators.required]),
     dateEnd: new FormControl(Date, [Validators.required]),
     dateRequest: new FormControl(Date, [Validators.required]),
-    tennisCenter: new FormControl(TennisCenter, [Validators.required]),
+    tennisCenter: new FormControl(TennisCenter, [Validators.required, Validators.minLength(3)]),
   });
 
 
@@ -72,7 +73,6 @@ export class PostFactoryComponent implements OnInit {
 
   updateDateEnd(): void {
     this.factory.dateRequest = new Date();
-    let a = this.form.value.dateStart.getDate();
     this.factory.dateRequest!.setDate(this.form.value.dateStart.getDate() - 14);
     this.form.patchValue({
       dateRequest: this.factory.dateRequest,
@@ -174,11 +174,14 @@ export class PostFactoryComponent implements OnInit {
     if (!this.form.valid)
       return;
 
-    this.tournamentService.postTournaments(this.factory)
-      .subscribe(x => {
-        console.log(x);
+    this.tournamentService.postFactory(this.factory)
+      .subscribe(response => {
+        this.general.currentFactory = response;
+        this.router.navigateByUrl(`factory/get`);
       });
+  }
 
-    this.general.router.navigateByUrl('tournament');
+  cancel(): void{
+    this.router.navigateByUrl(`factory/get`);
   }
 }

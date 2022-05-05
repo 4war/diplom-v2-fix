@@ -5,6 +5,7 @@ import {Bracket} from "../shared/Bracket";
 import {server} from "../../environments/environment";
 import {Match} from "../shared/Match";
 import {Round} from "../shared/Round";
+import {Tournament} from "../shared/Tournament";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,10 @@ export class BracketService {
 
   getRound(id: number): Observable<Round>{
     return this.httpClient.get<Round>(`${server}/bracket/round/${id}`);
+  }
+
+  setBracket(tournament: Tournament): Observable<Bracket>{
+    return this.httpClient.post<Bracket>(`${server}/bracket/round/${tournament.id}`, tournament);
   }
 
 }

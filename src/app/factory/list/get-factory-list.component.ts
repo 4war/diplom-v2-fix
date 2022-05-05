@@ -16,16 +16,19 @@ export class GetFactoryListComponent implements OnInit {
   factories: TournamentFactory[] = [];
   response: any;
 
-  displayedColumns: string[] = ['Name', 'City', 'Date', 'Category', 'Ages'];
+  editMode = false;
 
-  constructor(private tournamentService: TournamentService, private general: GeneralService) {
+  displayedColumns: string[] = ['Index', 'Name', 'City', 'Date', 'Category', 'Ages', 'Delete'];
+
+  constructor(private tournamentService: TournamentService,
+              private general: GeneralService) {
   }
 
   ngOnInit(): void {
-    this.getList();
+    this.reInit();
   }
 
-  getList(): void {
+  reInit(): void {
     this.tournamentService.getTournamentFactories().subscribe(response => {
       this.factories = response;
     });
@@ -42,4 +45,17 @@ export class GetFactoryListComponent implements OnInit {
   getAgeViewValue(ageArray: number[]): string {
     return from(ageArray).select(a => from(ages).first(x => x.max == a).viewValue).toArray().join('; ');
   }
+
+  changeEdit(): void{
+    this.editMode = !this.editMode;
+  }
+
+  delete(factory: TournamentFactory){
+    this.tournamentService.deleteFactory(factory).subscribe(response => {
+      console.log(`Удалено ${response.name}`);
+      this.reInit();
+    })
+  }
+
+
 }

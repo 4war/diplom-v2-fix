@@ -2,4 +2,6 @@
   startWith = '';
   skip?: number;
   take?: number;
+  city?: string;
+  gender?: number;
 }

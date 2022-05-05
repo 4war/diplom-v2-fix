@@ -11,18 +11,6 @@ export class Bracket implements NgttTournament {
   rounds: Round[] = [];
 
   constructor() {
-   this.testSeed();
-  }
-
-  testSeed(): void {
-    this.rounds = [
-      {
-        id: 0,
-        matches: [],
-        type: "Final",
-        stage: 1,
-      },
-    ];
   }
 }
 
