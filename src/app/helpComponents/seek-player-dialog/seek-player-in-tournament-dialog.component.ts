@@ -31,6 +31,13 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
   cityList: City[] = [];
   cityFilteredOptions!: Observable<City[]>;
 
+  gender: string = '2';
+
+  genderFormControl = new FormControl();
+
+  favoriteSeason: string = '';
+  seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+
   constructor(public general: GeneralService,
               public tournamentService: TournamentService,
               public playerService: PlayerService,
@@ -67,24 +74,24 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
       return;
     }
 
-    if (!this.seekSetting.seekInOneTournament && event.length > 4) {
+    if (!this.seekSetting.seekInOneTournament && event.length >= 3) {
       this.filterOptions.startWith = event;
 
+      let a = this.gender;
       this.playerService.getFilteredPlayerListAsync(this.filterOptions)
         .subscribe(response => {
           this.playerList = response;
           this.playerFilteredOptions = this.playerFormControl.valueChanges
             .pipe(
               startWith(''),
-              map(value => this._filterPlayer(this.playerFormControl.value, 4)));
+              map(value => this._filterPlayer(this.playerFormControl.value, 3)));
         });
     }
   }
 
   updateCityFilter(event: any){
     if (!event || event.toString().length == 0) return;
-
-    //todo: add city to filterOptions
+    this.filterOptions.city = event;
 
     this.cityService.getCities(event).subscribe(response => {
       this.cityList = response;
@@ -96,13 +103,13 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
   }
 
   private _filterPlayer(value: string, minLength: number): Player[] {
-    return value && value.length > minLength
+    return value && value.length >= minLength
       ? this.playerList.filter(p => p.surname.toLowerCase().includes(value.toLowerCase()))
       : [];
   }
 
   private _filterCity(value: string, minLength: number): City[] {
-    return value && value.length > minLength
+    return value && value.length >= minLength
       ? this.cityList.filter(p => p.name.toLowerCase().includes(value.toLowerCase()))
       : [];
   }
@@ -114,6 +121,15 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
 
   confirm(player: Player): void {
     this.dialogRef.close(player);
+  }
+
+  clearCity(): void{
+    this.cityFormControl.patchValue('');
+    this.filterOptions.city = '';
+  }
+
+  updateGender(): void{
+    this.filterOptions.gender = parseInt(this.filterOptions.gender!.toString());
   }
 }
 

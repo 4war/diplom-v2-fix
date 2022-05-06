@@ -16,8 +16,6 @@ export class Tournament {
   dateEnd: Date = new Date();
   dateRequest?: Date;
 
-  bracket?: Bracket;
-
   qualification?: Tournament;
   numberOfQualificationWinners: number = 4;
 }

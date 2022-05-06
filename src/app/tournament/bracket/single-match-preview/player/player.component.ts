@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 import {
   CdkDrag,
@@ -13,6 +13,7 @@ import {GeneralService} from "../../../../services/general.service";
 import {DragAndDropService} from "../../../../services/viewServices/drag-and-drop.service";
 import {BracketService} from "../../../../services/bracket.service";
 import {Player} from "../../../../shared/Player";
+import {Match} from "../../../../shared/Match";
 
 
 @Component({
@@ -24,6 +25,8 @@ export class PlayerComponent implements OnInit {
 
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   @Input() player?: Player;
+  @Input() match!: Match;
+  @Output() onAdd = new EventEmitter<Player | undefined>();
 
   playerArray: Player[] = [];
 
@@ -55,6 +58,7 @@ export class PlayerComponent implements OnInit {
       );
 
       this.player = this.playerArray[0];
+      this.onAdd.emit(this.player);
     }
   }
 
@@ -78,4 +82,5 @@ export class PlayerComponent implements OnInit {
   public predicate = (drag: CdkDrag, drop: CdkDropList) => {
     return (drop.data as Player[]).length == 0;
   }
+
 }

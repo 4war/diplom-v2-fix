@@ -1,6 +1,6 @@
 <div cdkDropList
      [cdkDropListConnectedTo]="dragDropService.dropLists"
-     [cdkDropListData]="testData"
+     [cdkDropListData]="playerList"
      (cdkDropListDropped)="dropHandle($event)">
 
   <div class="row">
@@ -9,13 +9,13 @@
         <div class="d-flex my-1 justify-content-between w-100">
           <div>Сетка</div>
           <div>
-            <a mat-button *ngIf="!bracketService.editMode" (click)="bracketService.startEdit()">
+            <a mat-button *ngIf="!bracketService.editMode" (click)="startEdit()">
               <mat-icon color="accent">create</mat-icon>
             </a>
-            <a mat-button *ngIf="bracketService.editMode" (click)="bracketService.save()">
+            <a mat-button *ngIf="bracketService.editMode" (click)="save()">
               <mat-icon class="green">check</mat-icon>
             </a>
-            <a mat-button *ngIf="bracketService.editMode" (click)="bracketService.cancel()">
+            <a mat-button *ngIf="bracketService.editMode" (click)="cancel()">
               <mat-icon color="warn">clear</mat-icon>
             </a>
           </div>
@@ -24,10 +24,16 @@
       <mat-card-content style="height: 800px; overflow: auto">
 
         <mat-card class="side-menu position-absolute" *ngIf="bracketService.editMode">
-          <mat-card-content class="h-100">
-            <h5 class="shady-header">Нераспределенные игроки</h5>
+          <mat-card-content class="h-100 y-scroll">
+
+            <mat-radio-group aria-label="Select an option"
+                             [(ngModel)]="currentOption"
+                             (ngModelChange)="updatePlayerList()">
+              <mat-radio-button *ngFor="let option of options" [value]="option" class="mx-2 my-1">{{option.name}}</mat-radio-button>
+            </mat-radio-group>
+            <h5 class="shady-header">{{currentOption.name}}</h5>
             <hr>
-            <mat-card *ngFor="let player of testData"
+            <mat-card *ngFor="let player of playerList"
                       cdkDrag
                       [cdkDragData]="player"
                       (cdkDragDropped)="dropPlayer($event)"
@@ -51,7 +57,11 @@
     </mat-card>
   </div>
   <ng-template #myMatchTemplate let-match>
-    <app-single-match-preview [match]="match" *ngIf="match" class="match" (click)="openMatch(match)">
+    <app-single-match-preview [match]="match"
+                              *ngIf="match"
+                              class="match"
+                              (onMatchChange)="updateMatch($event)"
+                              (click)="openMatch(match)">
     </app-single-match-preview>
   </ng-template>
 

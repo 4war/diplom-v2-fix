@@ -1,7 +1,7 @@
 <a mat-button class="single-match" (click)="update()">
   <span>
-    <a mat-button class="player" [ngClass]="player1?.rni == match?.winner?.rni ? 'bold' : ''">
-       <app-player-in-bracket [player]="player1"></app-player-in-bracket>
+    <a mat-button class="player" [ngClass]="match.player1?.rni == match?.winner?.rni ? 'bold' : ''">
+       <app-player-in-bracket [player]="match.player1" (onAdd)="setPlayer1($event)"></app-player-in-bracket>
     </a>
   </span>
   <div class="score" *ngFor="let digit of score1">
@@ -9,8 +9,8 @@
   </div>
   <hr class="line">
   <span>
-    <a mat-button class="player" [ngClass]="player2?.rni == match?.winner?.rni ? 'bold' : ''">
-         <app-player-in-bracket [player]="player2"></app-player-in-bracket>
+    <a mat-button class="player" [ngClass]="match.player2?.rni == match?.winner?.rni ? 'bold' : ''">
+         <app-player-in-bracket [player]="match.player2" (onAdd)="setPlayer2($event)"></app-player-in-bracket>
     </a>
   </span>
   <div class="score" *ngFor="let digit of score2">

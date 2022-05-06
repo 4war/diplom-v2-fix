@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {  CdkDropList } from "@angular/cdk/drag-drop";
-
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {CdkDropList} from "@angular/cdk/drag-drop";
 
 import Enumerable from "linq";
 import {GeneralService} from "../../../services/general.service";
@@ -23,28 +22,34 @@ export class SingleMatchComponent implements OnInit {
   }
 
   @ViewChild(CdkDropList) dropList?: CdkDropList;
-  @Input() match?: Match;
+  @Input() match!: Match;
+  @Output() onMatchChange = new EventEmitter<Match>();
   score1: Digit[] = [];
   score2: Digit[] = [];
-
-  player1?: Player;
-  player2?: Player;
 
   ngOnInit(): void {
     this.update();
   }
 
   update(): void {
-    this.player1 = this.match?.player1;
-    this.player2 = this.match?.player2;
     this.updateScore();
   }
 
   updateScore(): void {
-    if (this.match){
+    if (this.match) {
       let score = new Score(this.match);
       this.score1 = score.playerScore1;
       this.score2 = score.playerScore2;
     }
+  }
+
+  setPlayer1(player?: Player): void {
+    this.match.player1 = player;
+    this.onMatchChange.emit(this.match);
+  }
+
+  setPlayer2(player?: Player): void {
+    this.match.player2 = player;
+    this.onMatchChange.emit(this.match);
   }
 }

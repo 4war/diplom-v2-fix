@@ -14,6 +14,10 @@ import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {SingleMatchOverviewComponent} from "../../single-match/single-match.component";
 import {Match} from "../../shared/Match";
 import {MatchService} from "../../services/match.service";
+import {Bracket} from "../../shared/Bracket";
+import Enumerable from "linq";
+import from = Enumerable.from;
+import {Round} from "../../shared/Round";
 
 @Component({
   selector: 'app-bracket',
@@ -27,59 +31,16 @@ export class BracketComponent implements OnInit, ITab {
   bracket!: NgttTournament;
   tournament!: Tournament;
   tournamentId!: number;
+  changedMatches: Match[] = [];
 
-  testData: Player[] = [{
-    rni: 1,
-    surname: "Артем",
-    name: "Фомин",
-    patronymic: "Леонидович",
-    gender: 1,
-    city: "Самара",
-    point: 1000,
-    dateOfBirth: new Date(2000, 10, 10),
-    getShortFio(): string {
-      return "Фомин А.Л."
-    },
-  },
-    {
-      rni: 2,
-      surname: "Алексеев",
-      name: "Кирилл",
-      patronymic: "Андреевич",
-      gender: 1,
-      city: "Самара",
-      point: 1000,
-      dateOfBirth: new Date(2000, 10, 10),
-      getShortFio(): string {
-        return "Алексеев К.А."
-      },
-    },
-    {
-      rni: 1,
-      surname: "Хуйкин",
-      name: "Грю",
-      patronymic: "Миньонович",
-      gender: 1,
-      city: "Самара",
-      point: 1000,
-      dateOfBirth: new Date(2000, 10, 10),
-      getShortFio(): string {
-        return "Хуйкин Г.М."
-      },
-    },
-    {
-      rni: 2,
-      surname: "Террорблейд",
-      name: "Инвокер",
-      patronymic: "Миранович",
-      gender: 1,
-      city: "Тольятти",
-      point: 1000,
-      dateOfBirth: new Date(2000, 10, 10),
-      getShortFio(): string {
-        return "Террорблейд И.М."
-      }
-    }];
+  options = [
+    {name: "Нет в сетке"},
+    {name: "Все"},
+  ]
+
+  currentOption = this.options[1];
+
+  playerList: Player[] = [];
 
   constructor(public general: GeneralService,
               public dragDropService: DragAndDropService,
@@ -109,6 +70,23 @@ export class BracketComponent implements OnInit, ITab {
   ngOnInit(): void {
   }
 
+  startEdit(): void {
+    this.bracketService.editMode = true;
+  }
+
+  save(): void {
+    this.bracketService.editMode = false;
+    //todo: update every changed match instead of whole bracket
+    this.bracketService.updateBracket(this.bracket as Bracket).subscribe(response => {
+      this.reInit();
+    });
+  }
+
+  cancel(): void {
+    this.bracketService.editMode = false;
+    this.reInit();
+  }
+
   reInit(): void {
     if (this.tournamentId) {
       this.tournamentService.getSingleTournament(this.tournamentId).subscribe(response =>
@@ -119,10 +97,8 @@ export class BracketComponent implements OnInit, ITab {
         this.bracket = response;
       });
     }
-  }
 
-  update(): void {
-
+    this.updatePlayerList();
   }
 
 
@@ -150,4 +126,20 @@ export class BracketComponent implements OnInit, ITab {
       this.reInit();
     });
   }
+
+  updatePlayerList(): void {
+    if (this.currentOption.name == "Все") {
+      this.bracketService.getUniquePlayer(this.tournamentId).subscribe(response => {
+        this.playerList = response;
+      });
+    } else {
+      this.bracketService.getMissingPlayer(this.tournamentId).subscribe(response => {
+        this.playerList = response;
+      });
+    }
+  }
+
+
+  updateMatch(match: Match): void {}
+
 }

@@ -3,8 +3,8 @@ import {Match} from "./Match";
 import Enumerable from "linq";
 import from = Enumerable.from;
 
-export class Score{
-  situationMessage? : string;
+export class Score {
+  situationMessage?: string;
   playerScore1: Digit[] = [];
   playerScore2: Digit[] = [];
   finished = false;
@@ -16,7 +16,7 @@ export class Score{
     this.getScoreArray(match);
   }
 
-  getScoreArray(match: Match){
+  getScoreArray(match: Match) {
     let score = match?.score;
     if (!score)
       return;
@@ -26,12 +26,17 @@ export class Score{
     }
 
     let split = score.split(" ");
-    for (let i = 0; i < split.length; i++){
+    for (let i = split.length - 1; i >= 0; i--) {
       let set = split[i];
 
-      if (!(set.length >= 2 && /^\d+$/.test(set))){
-        this.situationMessage = from(split).skip(i).toArray().join(' ');
-        break;
+      if (!(set.length >= 2)) {
+        let substring = set.substring(0, 2);
+        if (/^\d+$/.test(substring)) {
+          this.situationMessage = from(split).skip(i).toArray().join(' ');
+          break;
+        }
+
+        set = substring;
       }
 
       let reverseFactor = match?.player1?.rni == match?.winner?.rni ? 0 : 1;
@@ -45,7 +50,7 @@ export class Score{
 
       let digit2 = new Digit();
       digit2.finished = this.finished;
-      digit2.win =  this.finished && game1 < game2;
+      digit2.win = this.finished && game1 < game2;
       digit2.value = game2;
 
       this.playerScore1.push(digit1);

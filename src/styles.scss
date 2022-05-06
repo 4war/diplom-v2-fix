@@ -116,3 +116,8 @@ body {
 .delete-button-column{
   width: 50px;
 }
+
+.y-scroll{
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

@@ -6,6 +6,7 @@ import {server} from "../../environments/environment";
 import {Match} from "../shared/Match";
 import {Round} from "../shared/Round";
 import {Tournament} from "../shared/Tournament";
+import {Player} from "../shared/Player";
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +15,6 @@ import {Tournament} from "../shared/Tournament";
 export class BracketService {
 
   editMode = false;
-
-  startEdit(): void {
-    this.editMode = true;
-  }
-
-  save(): void {
-    this.editMode = false;
-  }
-
-  cancel(): void {
-    this.editMode = false;
-  }
 
   constructor(private httpClient: HttpClient) {
   }
@@ -38,8 +27,16 @@ export class BracketService {
     return this.httpClient.get<Round>(`${server}/bracket/round/${id}`);
   }
 
-  setBracket(tournament: Tournament): Observable<Bracket>{
-    return this.httpClient.post<Bracket>(`${server}/bracket/round/${tournament.id}`, tournament);
+  updateBracket(bracket: Bracket): Observable<Bracket>{
+    return this.httpClient.patch<Bracket>(`${server}/bracket`, bracket);
+  }
+
+  getUniquePlayer(id: number): Observable<Player[]>{
+    return this.httpClient.get<Player[]>(`${server}/bracket/${id}/uniquePlayers`);
+  }
+
+  getMissingPlayer(id: number): Observable<Player[]>{
+    return this.httpClient.get<Player[]>(`${server}/bracket/${id}/missingPlayers`);
   }
 
 }
