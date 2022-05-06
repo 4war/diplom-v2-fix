@@ -6,7 +6,7 @@ export class TournamentFactory{
 
   name: string ='';
   category: string = '';
-  ages: number[] = [];
+  ages: string = '';
   netRange = 32;
 
   hasQualification = true;
@@ -17,6 +17,6 @@ export class TournamentFactory{
   dateRequest?: Date;
 
   tennisCenter!: TennisCenter;
-  genders: number[] = [0,1];
+  genders: string = '0 1';
   tournaments: Tournament[] = [];
 }

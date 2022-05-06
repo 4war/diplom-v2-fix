@@ -14,7 +14,7 @@ import {Stage, Tournament} from "../../shared/Tournament";
 })
 export class GetFactoryComponent implements OnInit {
 
-  factory: TournamentFactory;
+  factory: TournamentFactory = new TournamentFactory();
   mainTournaments: Tournament[];
 
   constructor(public general: GeneralService,

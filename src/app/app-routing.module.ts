@@ -17,7 +17,7 @@ import {SingleMatchOverviewComponent} from "./single-match/single-match.componen
 export const appRoutes: Routes = [
   {path: 'factory/list', component: GetFactoryListComponent},
   {path: 'factory/post', component: PostFactoryComponent},
-  {path: 'factory/get', component: GetFactoryComponent},
+  {path: 'factory/:id', component: GetFactoryComponent},
 
   {
     path: 'tournament/:id',

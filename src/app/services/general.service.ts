@@ -21,7 +21,9 @@ export class GeneralService {
 
   currentTournamentTab = "overview";
 
-  constructor(private httpClient: HttpClient, public router: Router) {
+  constructor(private httpClient: HttpClient,
+              public router: Router) {
+    this.currentTournamentTab =  from(router.url.split('/')).last();
   }
 
   getAgeViewValue(age: number): string {

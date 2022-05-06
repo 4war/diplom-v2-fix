@@ -35,15 +35,18 @@ export class GetFactoryListComponent implements OnInit {
   }
 
   open(firstTournamentId: number): void {
-    this.tournamentService.getSingleFactory(firstTournamentId, true)
+    this.tournamentService.getSingleFactory(firstTournamentId)
       .subscribe(x => {
+        let mainTournaments = from(x.tournaments).where(t => t.stage == 0).toArray();
         this.general.currentFactory = x;
+        this.general.currentFactory.tournaments = mainTournaments;
         this.general.router.navigateByUrl('factory/get');
       });
   }
 
-  getAgeViewValue(ageArray: number[]): string {
-    return from(ageArray).select(a => from(ages).first(x => x.max == a).viewValue).toArray().join('; ');
+  getAgeViewValue(ageArray: string): string {
+    return from(from(ageArray.split(' ')).select(a => parseInt(a)))
+      .select(a => from(ages).first(x => x.max == a).viewValue).toArray().join('; ');
   }
 
   changeEdit(): void{
@@ -56,6 +59,4 @@ export class GetFactoryListComponent implements OnInit {
       this.reInit();
     })
   }
-
-
 }

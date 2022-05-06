@@ -128,8 +128,8 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
     this.filterOptions.city = '';
   }
 
-  updateGender(): void{
-    this.filterOptions.gender = parseInt(this.filterOptions.gender!.toString());
+  updateGender(a: Event): void{
+    //this.filterOptions.gender = parseInt(a.toString());
   }
 }
 

@@ -52,13 +52,8 @@ export class BracketComponent implements OnInit, ITab {
               private dialog: MatDialog,
   ) {
 
-    router.events.pipe(filter(e => e instanceof NavigationEnd))
+    router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "bracket"))
       .subscribe(response => this.reInit());
-
-    let urlSplit = this.router.url.split('/');
-    this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
-
-    this.reInit();
   }
 
   ngAfterViewInit(): void {
@@ -68,6 +63,7 @@ export class BracketComponent implements OnInit, ITab {
   }
 
   ngOnInit(): void {
+    this.reInit();
   }
 
   startEdit(): void {

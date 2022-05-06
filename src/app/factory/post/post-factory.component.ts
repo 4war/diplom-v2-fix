@@ -127,7 +127,7 @@ export class PostFactoryComponent implements OnInit {
       ? [this.form.value.firstAge, this.form.value.secondAge]
       : [this.form.value.firstAge];
 
-    this.factory.ages = from(array).orderBy(x => x).toArray();
+    this.factory.ages = from(array).orderBy(x => x).toArray().join(' ');
     this.secondAges = from(ages).skipWhile(x => x.max <= this.form.value.firstAge).toArray();
   }
 
@@ -159,8 +159,10 @@ export class PostFactoryComponent implements OnInit {
 
   addSecondAge(): void {
     this.secondAgeIsNeeded = true;
-    if (this.factory.ages.length == 2)
-      this.factory.ages.pop();
+    let ageArray = this.factory.ages.split(' ');
+    if (ageArray.length == 2){
+      this.factory.ages = ageArray[0];
+    }
 
     this.updateAge();
   }

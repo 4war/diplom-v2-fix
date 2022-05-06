@@ -31,6 +31,10 @@ export class BracketService {
     return this.httpClient.patch<Bracket>(`${server}/bracket`, bracket);
   }
 
+  moveWinnerInBracket(match: Match): Observable<any>{
+    return this.httpClient.patch<Bracket>(`${server}/bracket/move`, match);
+  }
+
   getUniquePlayer(id: number): Observable<Player[]>{
     return this.httpClient.get<Player[]>(`${server}/bracket/${id}/uniquePlayers`);
   }

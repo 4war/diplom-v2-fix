@@ -58,7 +58,7 @@
           <div class="red">{{match.winner?.rni == match.player1?.rni ? score.situationMessage : ''}}</div>
         </div>
 
-        <div class="d-flex justify-content-center" *ngIf="!match?.winner">
+        <div class="d-flex justify-content-center" *ngIf="!match?.winner && matchService.editMode">
           <a mat-button class="bright-header text-xxx-large" color="accent" *ngFor="let i of [0, 1]"
              (click)="setWin(i)">
             Победа
@@ -66,7 +66,7 @@
         </div>
 
         <div class="d-flex justify-content-between margin-top bright-header" *ngIf="match?.winner">
-          <div class="text-x-large w-33 text-center" color="accent"
+          <div class="text-x-large w-33 text-center"
                *ngFor="let player of [match?.player1, null, match?.player2]">
             <div *ngIf="player?.rni == match?.winner?.rni">
               Победа

@@ -1,5 +1,6 @@
 ﻿import {TennisCenter} from "./TennisCenter";
 import {Bracket} from "./Bracket";
+import {TournamentFactory} from "./TournamentFactory";
 
 export class Tournament {
   id = 0;
@@ -18,6 +19,8 @@ export class Tournament {
 
   qualification?: Tournament;
   numberOfQualificationWinners: number = 4;
+
+  factoryId!: number;
 }
 
 export enum Gender {

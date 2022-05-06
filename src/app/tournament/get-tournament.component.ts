@@ -13,7 +13,6 @@ import {TournamentFactory} from "../shared/TournamentFactory";
 
 export class GetTournamentComponent implements OnInit {
 
-  tournament!: Tournament;
   tournamentId!: number;
   factory!: TournamentFactory;
 
@@ -21,20 +20,30 @@ export class GetTournamentComponent implements OnInit {
               private tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router) {
+
+    this.factory = general.currentFactory;
+
     this.route.params.subscribe(response => {
       this.tournamentId = response['id'];
+      if (this.factory.tournaments.length == 0){
+        this.tournamentService.getSingleFactoryFromTournament(this.tournamentId).
+          subscribe(response => {
+            this.general.currentFactory = response;
+            this.factory = response;
+        })
+      }
+      this.tournamentService.getSingleTournament(this.tournamentId)
+        .subscribe(t => this.general.currentTournament = t);
     });
-
-    tournamentService.getSingleFactory(this.tournamentId, false).subscribe(response =>
-      this.factory = response,
-    );
   }
+
+
 
   ngOnInit(): void {
   }
 
   redirectToFactory(): void {
-    this.router.navigateByUrl(`factory/get`);
+    this.router.navigateByUrl(`factory/${this.general.currentFactory.firstTournamentId}`);
   }
 
   redirectToTournamentInFactory(id: number): void {

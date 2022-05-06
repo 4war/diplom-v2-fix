@@ -86,6 +86,14 @@ export class DurationComponent implements OnInit {
     if (this.endDate)
       this.match.end = new Date(this.endDate.getTime());
   }
+
+  clearStart(): void{
+    this.match.start = undefined;
+  }
+
+  clearEnd(): void{
+    this.match.end = undefined;
+  }
 }
 
 export class Time {

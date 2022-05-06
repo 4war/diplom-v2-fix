@@ -2,13 +2,20 @@
   <div class=" d-flex justify-content-between align-items-center text-center">
     <div class="d-block mx-2 w-50 justify-content-center">
       <div class="shady-header">Начало</div>
-      <ngb-timepicker class="d-flex justify-content-center" *ngIf="edit" [(ngModel)]="start"
+      <ngb-timepicker class="d-flex justify-content-center"
+                      *ngIf="edit"
+                      [(ngModel)]="start"
                       (ngModelChange)="updateStart()"></ngb-timepicker>
       <div class="bright-header text-center" *ngIf="!edit">{{startDate | date: 'HH:mm'}}</div>
+      <a mat-button *ngIf="matchService.editMode" (click)="clearStart()">
+        <mat-icon color="warn">clear</mat-icon>
+      </a>
     </div>
     <div class="d-block mx-2 w-50">
       <div class="shady-header">Конец</div>
-      <ngb-timepicker class="d-flex justify-content-center" *ngIf="edit" [(ngModel)]="end"
+      <ngb-timepicker class="d-flex justify-content-center"
+                      *ngIf="edit"
+                      [(ngModel)]="end"
                       (ngModelChange)="updateEnd()"></ngb-timepicker>
       <div class="bright-header text-center" *ngIf="!edit">{{endDate | date: 'HH:mm'}}</div>
     </div>

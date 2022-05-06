@@ -13,13 +13,12 @@ export class ScheduleComponent implements OnInit, ITab {
 
   constructor(public general: GeneralService,
               private router: Router) {
-    router.events.pipe(filter(e => e instanceof NavigationEnd))
+    router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "schedule"))
       .subscribe(response => this.reInit());
-
-    this.reInit();
   }
 
   ngOnInit(): void {
+    this.reInit();
   }
 
   reInit(): void {

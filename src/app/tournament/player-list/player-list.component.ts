@@ -27,13 +27,14 @@ export class PlayerListComponent implements OnInit, ITab {
               private router: Router,
               private dialog: MatDialog) {
 
-    router.events.pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(response => this.reInit());
-
-    this.reInit();
+    router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "playerList"))
+      .subscribe(response => {
+        this.reInit();
+      });
   }
 
   ngOnInit(): void {
+    this.reInit();
   }
 
   reInit(): void {

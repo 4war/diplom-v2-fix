@@ -5,9 +5,10 @@ import {AlreadyExistDialogComponent} from "../already-exist-dialog/already-exist
 import {Player} from "../../../shared/Player";
 import {GeneralService} from "../../../services/general.service";
 import {TournamentService} from "../../../services/tournament.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {Tournament} from "../../../shared/Tournament";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-tournament-list',
@@ -28,15 +29,18 @@ export class TournamentListComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog) {
+    router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "playerList"))
+      .subscribe(response => this.reInit());
   }
 
   ngOnInit(): void {
     this.reInit();
   }
 
-  reInit(): void{
-    this.tournamentService.getPlayerList(this.tournament.id).subscribe(response =>
-      this.players = response,
+  reInit(): void {
+    this.tournamentService.getPlayerList(this.tournament.id).subscribe(response => {
+        this.players = response;
+      }
     );
   }
 
@@ -57,7 +61,7 @@ export class TournamentListComponent implements OnInit {
             .subscribe(response => {
               this.reInit();
             }, (error: HttpErrorResponse) => {
-              if (error.status == 400){
+              if (error.status == 400) {
                 let a = playerResponse;
                 this.dialog.open(AlreadyExistDialogComponent, {
                   data: playerResponse
@@ -68,11 +72,11 @@ export class TournamentListComponent implements OnInit {
       });
   }
 
-  changeEdit(): void{
+  changeEdit(): void {
     this.editMode = !this.editMode;
   }
 
-  delete(tournamentId: number, player: Player): void{
+  delete(tournamentId: number, player: Player): void {
     if (!player || !tournamentId) return;
     this.tournamentService.deletePlayerInTournament(tournamentId, player.rni)
       .subscribe(_ => this.reInit());

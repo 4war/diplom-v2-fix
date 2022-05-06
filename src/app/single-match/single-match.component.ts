@@ -9,6 +9,7 @@ import Enumerable from "linq";
 import from = Enumerable.from;
 import {Player} from "../shared/Player";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {BracketService} from "../services/bracket.service";
 
 @Component({
   selector: 'app-single-match-overview',
@@ -32,6 +33,7 @@ export class SingleMatchOverviewComponent implements OnInit {
 
   constructor(public matchService: MatchService,
               private general: GeneralService,
+              private bracketService: BracketService,
               private formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public match: Match,
               private dialog?: MatDialog,) {
@@ -44,14 +46,18 @@ export class SingleMatchOverviewComponent implements OnInit {
   }
 
   setWin(playerNumber: number): void {
-    if (this.checkScore(playerNumber)) {
+    if ((playerNumber == 0 && !this.match.player2 && this.match.player1
+        || playerNumber == 1 && !this.match.player1 && this.match.player2)
+      || this.checkScore(playerNumber)) {
       this.finished = true;
       this.match.winner = playerNumber == 0 ? this.match.player1 : this.match.player2;
+      this.bracketService.moveWinnerInBracket(this.match).subscribe();
       return;
     }
 
     this.openDialog(playerNumber);
   }
+
 
   resetVictory(): void {
     this.finished = false;
