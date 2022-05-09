@@ -3,5 +3,5 @@
   skip?: number;
   take?: number;
   city?: string;
-  gender?: number;
+  gender?: string;
 }

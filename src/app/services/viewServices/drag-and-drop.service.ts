@@ -6,7 +6,8 @@ import {CdkDropList} from "@angular/cdk/drag-drop";
 })
 export class DragAndDropService {
   dropLists: CdkDropList[] = [];
-  isDraggingMatch = false;
+  isDraggingBracket = false;
+  isDraggingSchedule = false;
 
   constructor() { }
 

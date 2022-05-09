@@ -38,10 +38,12 @@ export class TournamentListComponent implements OnInit {
   }
 
   reInit(): void {
-    this.tournamentService.getPlayerList(this.tournament.id).subscribe(response => {
-        this.players = response;
-      }
-    );
+    if (this.tournament){
+      this.tournamentService.getPlayerList(this.tournament.id).subscribe(response => {
+          this.players = response;
+        }
+      );
+    }
   }
 
   redirectToPlayer(rni: number): void {

@@ -71,6 +71,8 @@ import { AlreadyExistDialogComponent } from './tournament/player-list/already-ex
 import {Player} from "./shared/Player";
 import { TournamentListComponent } from './tournament/player-list/tournament-list/tournament-list.component';
 import {MatRadioModule} from "@angular/material/radio";
+import {MatTabsModule} from "@angular/material/tabs";
+import { MatchInScheduleComponent } from './tournament/schedule/match-in-schedule/match-in-schedule.component';
 
 registerLocaleData(localeRu);
 
@@ -100,6 +102,7 @@ registerLocaleData(localeRu);
     DurationComponent,
     AlreadyExistDialogComponent,
     TournamentListComponent,
+    MatchInScheduleComponent,
   ],
     imports: [
         MatSidenavModule,
@@ -136,6 +139,7 @@ registerLocaleData(localeRu);
         NgbModule,
         NgbTimepickerModule,
         MatRadioModule,
+        MatTabsModule,
     ],
   entryComponents: [SingleMatchOverviewComponent],
   providers:

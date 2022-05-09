@@ -127,10 +127,6 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
     this.cityFormControl.patchValue('');
     this.filterOptions.city = '';
   }
-
-  updateGender(a: Event): void{
-    //this.filterOptions.gender = parseInt(a.toString());
-  }
 }
 
 

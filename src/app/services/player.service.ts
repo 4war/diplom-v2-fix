@@ -12,7 +12,6 @@ import {PlayerFilterOptions} from "../shared/filter/PlayerFilterOptions";
 export class PlayerService {
 
   constructor(private httpClient: HttpClient) {
-
   }
 
   getPlayerList(): Observable<Player[]>{

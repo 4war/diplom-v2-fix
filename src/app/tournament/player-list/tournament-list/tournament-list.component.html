@@ -2,6 +2,9 @@
   <mat-card-header class="bright-header">{{tournament?.stage == 0 ? 'Основной тур' : 'Квалификация'}}</mat-card-header>
   <mat-card-content>
     <div class="d-flex justify-content-end margin-top">
+      <a mat-button (click)="openDialogFor(tournament!.id)" *ngIf="editMode">
+        <mat-icon color="accent">add</mat-icon>
+      </a>
       <a mat-button (click)="changeEdit()">
         <mat-icon color="accent">create</mat-icon>
       </a>

@@ -63,12 +63,12 @@ export class PlayerComponent implements OnInit {
   }
 
   dragStart(event: CdkDragStart): void {
-    this.dragDropService.isDraggingMatch = true;
+    this.dragDropService.isDraggingBracket = true;
     let a = this.dragDropService.dropLists;
   }
 
   dragEnd(event: CdkDragEnd): void {
-    this.dragDropService.isDraggingMatch = false;
+    this.dragDropService.isDraggingBracket = false;
   }
 
   dragDrop(event: CdkDragDrop<Player>) {

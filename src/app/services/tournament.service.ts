@@ -21,11 +21,11 @@ export class TournamentService {
   }
 
   getTournaments(): Observable<Tournament[]> {
-    return this.httpClient.get<Tournament[]>(`${server}/tournament/`);
+    return this.httpClient.get<Tournament[]>(`${server}/tournament`);
   }
 
   getTournamentFactories(): Observable<TournamentFactory[]> {
-    return this.httpClient.get<TournamentFactory[]>(`${server}/tournamentFactory/`);
+    return this.httpClient.get<TournamentFactory[]>(`${server}/tournamentFactory`);
   }
 
   getSingleFactory(idTournament: number): Observable<TournamentFactory> {

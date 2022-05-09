@@ -1,0 +1,15 @@
+
+<a mat-button class="match-cell bright-header" (click)="openMatch()">
+  <div class="d-block justify-content-center">
+    <div class="player-in-cell d-flex justify-content-center align-items-center text-large">
+      {{match?.player1?.surname}} {{match?.player1?.name ?  match?.player1?.name![0] + '. ': ''}}
+    </div>
+    <mat-progress-bar class="progress-bar-custom"
+                      [color]="progressBarValue < 100 ? 'accent' : 'primary'"
+                      [value]="progressBarValue"></mat-progress-bar>
+    <div class="player-in-cell d-flex justify-content-center align-items-center text-large">
+      {{match?.player2?.surname}}  {{match?.player2?.name ?  match?.player2?.name![0] + '. ': ''}}
+    </div>
+  </div>
+</a>
+

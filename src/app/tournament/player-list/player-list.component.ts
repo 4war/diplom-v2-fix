@@ -40,7 +40,10 @@ export class PlayerListComponent implements OnInit, ITab {
   reInit(): void {
     let urlSplit = this.router.url.split('/');
     this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
-    this.tournamentService.getSingleTournament(this.tournamentId)
-      .subscribe(response => this.tournament = response);
+
+    if (this.tournamentId) {
+      this.tournamentService.getSingleTournament(this.tournamentId)
+        .subscribe(response => this.tournament = response);
+    }
   }
 }

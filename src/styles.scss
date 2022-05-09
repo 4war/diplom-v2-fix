@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~ng-tournament-tree/styles/ngtt-styles';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&display=swap');
+@import '~ng-tournament-tree/styles/ngtt-styles';
 
 html, body {
   height: 100%;
@@ -11,6 +11,7 @@ body {
   background: #1a2a3d;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
 }
 
 .full-height{
@@ -99,11 +100,17 @@ body {
     font-size: x-large;
     line-height: 40px;
   }
+
+  .text-large{
+    font-size: large;
+    line-height: 40px;
+  }
 }
 
 .w-33{
   width: 33.33%;
 }
+
 
 .timepicker-overlay{
   z-index: 5000 !important;
@@ -121,3 +128,5 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+

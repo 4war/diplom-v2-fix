@@ -52,7 +52,8 @@ export class BracketComponent implements OnInit, ITab {
               private dialog: MatDialog,
   ) {
 
-    router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "bracket"))
+    router.events.pipe(filter(e => e instanceof NavigationEnd
+      && general.currentTournamentTab == "bracket"))
       .subscribe(response => this.reInit());
   }
 
@@ -84,6 +85,9 @@ export class BracketComponent implements OnInit, ITab {
   }
 
   reInit(): void {
+    let urlSplit = this.router.url.split('/');
+    this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
+
     if (this.tournamentId) {
       this.tournamentService.getSingleTournament(this.tournamentId).subscribe(response =>
         this.tournament = response,
@@ -92,9 +96,9 @@ export class BracketComponent implements OnInit, ITab {
       this.bracketService.getBracket(this.tournamentId).subscribe(response => {
         this.bracket = response;
       });
-    }
 
-    this.updatePlayerList();
+      this.updatePlayerList();
+    }
   }
 
 

@@ -11,7 +11,6 @@ export class Tournament {
   netRange = 32;
   gender: number = 0;
   stage: number = 0;
-  tennisCenter!: TennisCenter;
 
   dateStart: Date = new Date();
   dateEnd: Date = new Date();
@@ -19,6 +18,7 @@ export class Tournament {
 
   qualification?: Tournament;
   numberOfQualificationWinners: number = 4;
+  tennisCenter!: TennisCenter;
 
   factoryId!: number;
 }

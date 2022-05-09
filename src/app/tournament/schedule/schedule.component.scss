@@ -1,0 +1,30 @@
+.schedule-container {
+}
+
+.table-header {
+
+}
+
+.schedule-table{
+  text-align: center;
+  table-layout: fixed;
+
+  th, td {
+    border: 1px solid #d1ebff;
+    vertical-align: center;
+  }
+}
+
+.match-order {
+  width: 100px;
+}
+
+.schedule {
+  height: 800px;
+}
+
+.match{
+  :hover{
+    background: #ADFF2F;
+  }
+}
