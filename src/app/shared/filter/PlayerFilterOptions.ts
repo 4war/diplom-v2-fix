@@ -6,8 +6,6 @@ export class PlayerFilterOptions{
   pointsUntil!: number;
   dobYearFrom!: number;
   dobYearUntil!: number;
-  page?: number;
-  take?: number;
   city?: string;
   gender?: number;
 }

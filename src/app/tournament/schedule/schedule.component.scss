@@ -31,7 +31,8 @@ th, td, tr {
 
 .add-order-button{
   height: 200px;
-  width: available;
+  position: absolute;
+  width: 100%;
   left: 0;
 }
 
@@ -52,7 +53,10 @@ th, td, tr {
 
 .icon-size{
   width: 100px;
-  height: available;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .order-left{

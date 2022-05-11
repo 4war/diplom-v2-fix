@@ -37,20 +37,16 @@
             <div class="d-block">
               <div class="shady-header">Год рождения</div>
               <ngx-slider class="custom-slider mx-2"
-                          [(value)]="formGroup.value.dobYearFrom"
-                          [(highValue)]="formGroup.value.dobYearUntil"
-                          (valueChange)="minYearChange($event)"
-                          (highValueChange)="maxYearChange($event)"
+                          [(value)]="playerListFilterOptions.dobYearFrom"
+                          [(highValue)]="playerListFilterOptions.dobYearUntil"
                           [options]="yearOptions"></ngx-slider>
             </div>
 
             <div class="d-block">
               <div class="shady-header">Рейтинг</div>
               <ngx-slider class="custom-slider mx-2"
-                          [(value)]="formGroup.value.pointsFrom"
-                          [(highValue)]="formGroup.value.pointsUntil"
-                          (valueChange)="minPointChange($event)"
-                          (highValueChange)="maxPointChange($event)"
+                          [(value)]="playerListFilterOptions.pointsFrom"
+                          [(highValue)]="playerListFilterOptions.pointsUntil"
                           [options]="pointOptions"></ngx-slider>
             </div>
 
@@ -92,11 +88,20 @@
           </div>
         </div>
 
-        <div class="float-start mx-2" *ngFor="let page of pages">
-          <a mat-button color="accent" (click)="submitFilterOptions(page)">{{page}}</a>
+        <div class="float-start mx-2 d-flex justify-content-center">
+          <a *ngIf="pages.length > 1" [disabled]="currentPage == 1" mat-button color="accent" (click)="updatePaginatedList(1)">1</a>
+          <a *ngIf="pages.length > 2 && currentPage > 2" mat-button color="accent" (click)="updatePaginatedList(2)">2</a>
+          <a *ngIf="currentPage > 4" disabled mat-button color="accent">...</a>
+          <a *ngIf="currentPage > 3" mat-button color="accent" (click)="updatePaginatedList(currentPage - 1)">{{currentPage - 1}}</a>
+          <a *ngIf="currentPage >= 2" disabled mat-button color="accent" (click)="updatePaginatedList(currentPage)">{{currentPage}}</a>
+          <a *ngIf="pages[pages.length - 1] - currentPage >= 1" mat-button color="accent" (click)="updatePaginatedList(currentPage + 1)">{{currentPage + 1}}</a>
+          <a *ngIf="pages[pages.length - 1] - currentPage > 2" disabled mat-button color="accent">...</a>
+          <a *ngIf="pages[pages.length - 1] - currentPage > 1" [disabled]="currentPage == pages[pages.length - 1]" mat-button color="accent"
+             (click)="updatePaginatedList(pages[pages.length - 1])">{{pages[pages.length - 1]}}</a>
         </div>
 
-        <mat-progress-bar mode="indeterminate" *ngIf="!players || players.length == 0" color="accent"
+        <mat-progress-bar mode="indeterminate" *ngIf="!totalPlayers"
+                          color="accent"
                           class="margin-custom"></mat-progress-bar>
         <table mat-table [dataSource]="players ?? []" class="custom-table">
           <!-- RNI Column -->
@@ -109,7 +114,7 @@
           <ng-container matColumnDef="Index">
             <th mat-header-cell *matHeaderCellDef class="shady-header">#</th>
             <td mat-cell *matCellDef="let element; let i = index"
-                class="shady-header">{{i + 1}}</td>
+                class="shady-header">{{(currentPage - 1) * pageSize + i + 1}}</td>
           </ng-container>
 
           <!-- FIO Column -->

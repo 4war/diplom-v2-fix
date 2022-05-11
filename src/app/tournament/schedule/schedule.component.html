@@ -63,10 +63,11 @@
           <tr *ngFor="let order of orders" class="vertical-center">
             <td *ngIf="scheduleService.editMode" class="remove-order-button no-border">
               <a mat-button
-                 [disabled]="order < orders.length - 1"
-                 class="icon-size" style="margin-left: -30px;"
+                 [disabled]="order < orders[orders.length - 1]"
+                 class="icon-size"
                  (click)="removeLastOrder()">
-                <mat-icon *ngIf="order > orders.length - 1" color="warn" style="font-size: xxx-large">clear</mat-icon>
+                <mat-icon *ngIf="order >= orders[orders.length - 1]"
+                          color="warn" style="font-size: xxx-large">clear</mat-icon>
               </a>
             </td>
             <td class="vertical-center">

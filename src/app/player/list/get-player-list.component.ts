@@ -8,6 +8,7 @@ import {TennisCenter} from "../../shared/TennisCenter";
 import {LabelType, Options} from "@angular-slider/ngx-slider";
 import Enumerable from "linq";
 import {PlayerFilterOptions} from "../../shared/filter/PlayerFilterOptions";
+import from = Enumerable.from;
 
 const defaultYearFrom = 1980;
 const defaultYearUntil = 2015;
@@ -34,9 +35,12 @@ const defaultPlayerOptions: PlayerFilterOptions = {
 export class GetPlayerListComponent implements OnInit {
 
   players?: Player[];
+  totalPlayers?: Player[];
+
   displayedColumns = ["Index", "FIO", "RNI", "DoB", "City", "Points"];
   pages: number[] = [];
   pageSize = 40;
+  currentPage = 1;
 
   formGroup = this.formBuilder.group({
     surname: new FormControl([''], [Validators.pattern('^[а-яА-Я \-\']+')]),
@@ -47,6 +51,9 @@ export class GetPlayerListComponent implements OnInit {
     pointsUntil: new FormControl(defaultPointUntil),
     gender: new FormControl([''])
   });
+
+  surnameFormControl = new FormControl([''], [Validators.pattern('^[а-яА-Я \-\']+')]);
+  cityFormControl = new FormControl([''], [Validators.pattern('^[а-яА-Я \-\']+')]);
 
   yearRange = Enumerable.rangeTo(defaultYearFrom, defaultYearUntil, 1).toArray();
   yearOptions: Options = {
@@ -80,7 +87,7 @@ export class GetPlayerListComponent implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router) {
 
-    playerService.getPlayerList().subscribe(response => this.players = response);
+    this.submitFilterOptions();
   }
 
 
@@ -113,17 +120,22 @@ export class GetPlayerListComponent implements OnInit {
     this.submitFilterOptions();
   }
 
-  submitFilterOptions(page: number = 1): void {
-    this.playerListFilterOptions.page = 1;
-    this.playerListFilterOptions.take = this.pageSize;
-    this.players = [];
+  submitFilterOptions(): void {
+    this.totalPlayers = undefined;
     this.playerService.getFilteredPlayerListAsync(this.playerListFilterOptions)
       .subscribe(response => {
-        this.players = response;
-        debugger
-        let pageCount = response.length / this.pageSize + (response.length % this.pageSize == 0 ? 0 : 1);
+        this.totalPlayers = response;
+        this.updatePaginatedList(1);
+        let pageCount = Math.trunc(response.length / this.pageSize) + (response.length % this.pageSize == 0 ? 0 : 1);
         this.pages = Enumerable.range(1, pageCount, 1).toArray();
       });
+  }
+
+  updatePaginatedList(page: number): void {
+    this.currentPage = page;
+    if (!this.totalPlayers) return;
+    let skip = (page - 1) * this.pageSize;
+    this.players = from(this.totalPlayers).skip(skip).take(this.pageSize).toArray();
   }
 
   @HostListener('document:keypress', ['$event'])
