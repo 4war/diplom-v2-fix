@@ -7,35 +7,94 @@
     <div class="shady-header">{{day | date:'EEEE'}}</div>
   </mat-tab>
 </mat-tab-group>
+<div cdkDropList
+     [cdkDropListConnectedTo]="dragDropService.scheduleDropLists"
+     [cdkDropListData]="draggableMatchList"
+     (cdkDropListDropped)="dropHandle($event)"
+     [cdkDropListEnterPredicate]="predicate">
+  <mat-card class="margin-top bright-header">
+    <mat-card-content>
+      <div class="d-flex my-1 justify-content-between w-100">
+        <div>Сетка</div>
+        <div>
+          <a mat-button *ngIf="!scheduleService.editMode" (click)="startEdit()">
+            <mat-icon color="accent">create</mat-icon>
+          </a>
+          <a mat-button *ngIf="scheduleService.editMode" (click)="save()">
+            <mat-icon class="green">check</mat-icon>
+          </a>
+          <a mat-button *ngIf="scheduleService.editMode" (click)="cancel()">
+            <mat-icon color="warn">clear</mat-icon>
+          </a>
+        </div>
+      </div>
+      <mat-card class="side-menu position-absolute" *ngIf="scheduleService.editMode">
+        <mat-card-content class="h-100 y-scroll">
+          <hr>
+          <mat-card *ngFor="let match of draggableMatchList"
+                    cdkDrag
+                    [cdkDragData]="match"
+                    class="my-1">
+            <mat-card-content>
+              <div>
+                {{match.player1?.surname}} {{match.player1?.name ? match.player1?.name![0] + '.' : ''}}
+              </div>
+              <hr>
+              <div>
+                {{match.player2?.surname}} {{match.player2?.name ? match.player2?.name![0] + '.' : ''}}
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
 
-<mat-card class="margin-top bright-header">
-  <mat-card-content>
-    <drag-scroll [drag-disabled]="dragDropService.isDraggingSchedule"
-                 [scrollbar-hidden]="true" class="schedule"
-                 *ngIf="schedule">
-      <table class="schedule-table">
-        <tr>
-          <th class="match-order"></th>
-          <th *ngFor="let court of courts" class="table-header">
-            <div>Корт {{court.name}}</div>
-          </th>
-        </tr>
-        <tr *ngFor="let order of orders">
-          <td>
-            <div class="match-order d-block justify-content-center">
-              <div>{{order}} запуск</div>
-              <div class="shady-header">09:36</div>
-            </div>
-          </td>
-          <td *ngFor="let court of courts">
-            <app-match-in-schedule class="match"
-              [match]="dictionary.get(order)?.get(court)">
-            </app-match-in-schedule>
-          </td>
-        </tr>
-      </table>
-    </drag-scroll>
-
-  </mat-card-content>
-
-</mat-card>
+      <drag-scroll [drag-disabled]="dragDropService.isDraggingSchedule"
+                   [scrollbar-hidden]="true" class="schedule"
+                   [ngClass]="scheduleService.editMode ? 'crop-right-200' : ''"
+                   *ngIf="schedule">
+        <table class="schedule-table vertical-center">
+          <tr class="vertical-center">
+            <th *ngIf="scheduleService.editMode" class="no-border"></th>
+            <th class="match-order vertical-center"></th>
+            <th *ngFor="let court of courts" class="table-header vertical-center">
+              <div>Корт {{court.name}}</div>
+            </th>
+          </tr>
+          <tr *ngFor="let order of orders" class="vertical-center">
+            <td *ngIf="scheduleService.editMode" class="remove-order-button no-border">
+              <a mat-button
+                 [disabled]="order < orders.length - 1"
+                 class="icon-size" style="margin-left: -30px;"
+                 (click)="removeLastOrder()">
+                <mat-icon *ngIf="order > orders.length - 1" color="warn" style="font-size: xxx-large">clear</mat-icon>
+              </a>
+            </td>
+            <td class="vertical-center">
+                <div class="match-order d-block justify-content-center">
+                  <div>{{order}} запуск</div>
+                  <div class="shady-header">09:36</div>
+                </div>
+            </td>
+            <td *ngFor="let court of courts" class="vertical-center">
+              <div style="display: flex; align-items: center">
+                <app-match-in-schedule class="match"
+                                       (onMatchAdd)="addMatch($event, court, order)"
+                                       (onMatchRemove)="removeMatch($event, court, order)"
+                                       [match]="dictionary.get(order)?.get(court.id)">
+                </app-match-in-schedule>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <a mat-button *ngIf="scheduleService.editMode"
+           (click)="addOrder()"
+           color="accent"
+           class="add-order-button d-flex justify-content-center align-items-center">
+          <mat-icon style="font-size: xxx-large">
+            add
+          </mat-icon>
+        </a>
+      </drag-scroll>
+    </mat-card-content>
+  </mat-card>
+</div>

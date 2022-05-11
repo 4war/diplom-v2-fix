@@ -1,13 +1,115 @@
 <div class="col-md-12 px-0 my-4">
   <div class="player-container">
     <mat-card class="color-dark">
-      <mat-progress-bar mode="indeterminate" *ngIf="!players" color="accent" class="margin-custom"></mat-progress-bar>
       <mat-card-content>
+        <div class="d-flex my-1 justify-content-between w-100">
+          <div>Список игроков</div>
+          <div>
+            <a mat-button>
+              <mat-icon color="accent">create</mat-icon>
+            </a>
+            <a mat-button *ngIf="false">
+              <mat-icon class="green">check</mat-icon>
+            </a>
+            <a mat-button *ngIf="false">
+              <mat-icon color="warn">clear</mat-icon>
+            </a>
+          </div>
+        </div>
+
+        <form class="example-form" [formGroup]="formGroup" *ngIf="searchMode">
+          <div class="d-block justify-content-evenly w-75">
+
+            <mat-form-field class="mx-2" appearance="fill">
+              <mat-label>Фамилия</mat-label>
+              <input matInput
+                     [(ngModel)]="playerListFilterOptions.surname"
+                     formControlName="surname">
+            </mat-form-field>
+
+            <mat-form-field class="mx-2" appearance="fill">
+              <mat-label>Город</mat-label>
+              <input matInput
+                     [(ngModel)]="playerListFilterOptions.city"
+                     formControlName="city">
+            </mat-form-field>
+
+            <div class="d-block">
+              <div class="shady-header">Год рождения</div>
+              <ngx-slider class="custom-slider mx-2"
+                          [(value)]="formGroup.value.dobYearFrom"
+                          [(highValue)]="formGroup.value.dobYearUntil"
+                          (valueChange)="minYearChange($event)"
+                          (highValueChange)="maxYearChange($event)"
+                          [options]="yearOptions"></ngx-slider>
+            </div>
+
+            <div class="d-block">
+              <div class="shady-header">Рейтинг</div>
+              <ngx-slider class="custom-slider mx-2"
+                          [(value)]="formGroup.value.pointsFrom"
+                          [(highValue)]="formGroup.value.pointsUntil"
+                          (valueChange)="minPointChange($event)"
+                          (highValueChange)="maxPointChange($event)"
+                          [options]="pointOptions"></ngx-slider>
+            </div>
+
+            <div>
+              <mat-radio-group
+                [(ngModel)]="playerListFilterOptions.gender"
+                [ngModelOptions]="{standalone: true}"
+                class="mx-2">
+                <mat-radio-button *ngFor="let option of genderOptions"
+                                  [value]="option.value"
+                                  class="mx-2 my-1">{{option.name}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </form>
+        <div class="d-block m-2">
+          <a mat-button (click)="startSearch()" *ngIf="!searchMode">
+            <mat-icon color="accent">search</mat-icon>
+          </a>
+          <a mat-button (click)="endSearch()" *ngIf="searchMode">
+            <mat-icon color="warn">clear</mat-icon>
+          </a>
+          <a mat-button color="accent" *ngIf="searchMode"
+             (click)="submitFilterOptions()">Поиск</a>
+        </div>
+
+        <hr>
+
+        <div class="mx-2 page-size-container">
+          <div class="d-flex justify-content-evenly">
+            <div class="d-flex align-items-center mx-2">Размер страницы</div>
+            <mat-form-field class="input">
+
+              <input matInput
+                     type="number"
+                     [(ngModel)]="pageSize">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="float-start mx-2" *ngFor="let page of pages">
+          <a mat-button color="accent" (click)="submitFilterOptions(page)">{{page}}</a>
+        </div>
+
+        <mat-progress-bar mode="indeterminate" *ngIf="!players || players.length == 0" color="accent"
+                          class="margin-custom"></mat-progress-bar>
         <table mat-table [dataSource]="players ?? []" class="custom-table">
           <!-- RNI Column -->
           <ng-container matColumnDef="RNI">
             <th mat-header-cell *matHeaderCellDef>РНИ</th>
             <td mat-cell *matCellDef="let element">{{element.rni}}</td>
+          </ng-container>
+
+          <!-- Index Column -->
+          <ng-container matColumnDef="Index">
+            <th mat-header-cell *matHeaderCellDef class="shady-header">#</th>
+            <td mat-cell *matCellDef="let element; let i = index"
+                class="shady-header">{{i + 1}}</td>
           </ng-container>
 
           <!-- FIO Column -->

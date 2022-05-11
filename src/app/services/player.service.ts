@@ -15,7 +15,7 @@ export class PlayerService {
   }
 
   getPlayerList(): Observable<Player[]>{
-    return this.httpClient.get<Player[]>(`${server}/player`);
+    return this.httpClient.get<Player[]>(`${server}/player/list`);
   }
 
   getFilteredPlayerListAsync(filterOptions: PlayerFilterOptions): Observable<Player[]>{

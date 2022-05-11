@@ -3,4 +3,8 @@
   name: string = '';
   surface!: string;
   opened!: boolean;
+
+  equals(){
+
+  }
 }

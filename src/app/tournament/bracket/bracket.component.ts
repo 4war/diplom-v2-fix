@@ -59,7 +59,7 @@ export class BracketComponent implements OnInit, ITab {
 
   ngAfterViewInit(): void {
     if (this.dropList) {
-      this.dragDropService.register(this.dropList);
+      this.dragDropService.registerInBracket(this.dropList);
     }
   }
 
@@ -74,7 +74,7 @@ export class BracketComponent implements OnInit, ITab {
   save(): void {
     this.bracketService.editMode = false;
     //todo: update every changed match instead of whole bracket
-    this.bracketService.updateBracket(this.bracket as Bracket).subscribe(response => {
+    this.bracketService.save(this.bracket as Bracket).subscribe(response => {
       this.reInit();
     });
   }
@@ -115,8 +115,6 @@ export class BracketComponent implements OnInit, ITab {
     }
   }
 
-  dropPlayer(event: CdkDragDrop<Player>): void {
-  }
 
   openMatch(match: Match): void {
     this.dialog.open(SingleMatchOverviewComponent, {

@@ -27,7 +27,7 @@ export class BracketService {
     return this.httpClient.get<Round>(`${server}/bracket/round/${id}`);
   }
 
-  updateBracket(bracket: Bracket): Observable<Bracket>{
+  save(bracket: Bracket): Observable<Bracket>{
     return this.httpClient.patch<Bracket>(`${server}/bracket`, bracket);
   }
 

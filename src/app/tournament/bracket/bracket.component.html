@@ -1,5 +1,5 @@
 <div cdkDropList
-     [cdkDropListConnectedTo]="dragDropService.dropLists"
+     [cdkDropListConnectedTo]="dragDropService.bracketDropLists"
      [cdkDropListData]="playerList"
      (cdkDropListDropped)="dropHandle($event)">
 
@@ -29,14 +29,14 @@
             <mat-radio-group aria-label="Select an option"
                              [(ngModel)]="currentOption"
                              (ngModelChange)="updatePlayerList()">
-              <mat-radio-button *ngFor="let option of options" [value]="option" class="mx-2 my-1">{{option.name}}</mat-radio-button>
+              <mat-radio-button *ngFor="let option of options" [value]="option"
+                                class="mx-2 my-1">{{option.name}}</mat-radio-button>
             </mat-radio-group>
             <h5 class="shady-header">{{currentOption.name}}</h5>
             <hr>
             <mat-card *ngFor="let player of playerList"
                       cdkDrag
                       [cdkDragData]="player"
-                      (cdkDragDropped)="dropPlayer($event)"
                       class="my-1">
               <mat-card-content [textContent]="player.surname"></mat-card-content>
             </mat-card>

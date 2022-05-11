@@ -43,7 +43,7 @@ export class GetTournamentComponent implements OnInit {
   }
 
   redirectToFactory(): void {
-    this.router.navigateByUrl(`factory/${this.general.currentFactory.firstTournamentId}`);
+    this.router.navigateByUrl(`factory/${this.general.currentFactory.id}`);
   }
 
   redirectToTournamentInFactory(id: number): void {

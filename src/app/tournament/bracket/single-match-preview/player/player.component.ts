@@ -42,7 +42,7 @@ export class PlayerComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.dropList) {
-      this.dragDropService.register(this.dropList);
+      this.dragDropService.registerInBracket(this.dropList);
     }
   }
 
@@ -64,7 +64,6 @@ export class PlayerComponent implements OnInit {
 
   dragStart(event: CdkDragStart): void {
     this.dragDropService.isDraggingBracket = true;
-    let a = this.dragDropService.dropLists;
   }
 
   dragEnd(event: CdkDragEnd): void {
@@ -82,5 +81,4 @@ export class PlayerComponent implements OnInit {
   public predicate = (drag: CdkDrag, drop: CdkDropList) => {
     return (drop.data as Player[]).length == 0;
   }
-
 }

@@ -58,7 +58,7 @@ export class TournamentService {
   }
 
   deleteFactory(factory: TournamentFactory): Observable<TournamentFactory>{
-    return this.httpClient.delete<TournamentFactory>(`${server}/tournamentFactory/${factory.firstTournamentId}`);
+    return this.httpClient.delete<TournamentFactory>(`${server}/tournamentFactory/${factory.id}`);
   }
 
   postTournament(tournament: Tournament): Observable<any> {

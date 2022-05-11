@@ -7,20 +7,6 @@
   height: 800px;
 }
 
-.side-menu {
-  background: #081e2c;
-  height: 800px;
-  width: 200px;
-  right: 0;
-  display: inline-block;
-  vertical-align: top;
-}
-
-
-.crop-right-200 {
-  width: calc(100% - 200px);
-}
-
 .cdk-drag-placeholder {
   opacity: 0;
 }

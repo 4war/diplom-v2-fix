@@ -129,4 +129,20 @@ body {
   overflow-y: scroll;
 }
 
+.side-menu {
+  background: #081e2c;
+  height: 800px;
+  width: 200px;
+  right: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.crop-right-200 {
+  width: calc(100% - 200px);
+}
+
+.crop-right-300 {
+  width: calc(100% - 200px);
+}
 

@@ -1,0 +1,75 @@
+.player-container {
+  margin: min(10%, 50px) min(20%, 100px);
+}
+
+.margin-custom {
+  width: auto;
+  margin: 10px 50px;
+}
+
+.tournament-row-is-clicked {
+  font-weight: bold;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #192a3d;
+}
+
+.create-button {
+  margin-top: 25px;
+}
+
+.cell {
+  vertical-align: middle;
+}
+
+.custom-slider{
+  width: 300px;
+}
+
+
+
+.page-size-container{
+  width: 200px;
+  .input{
+    width: 50px;
+  }
+}
+
+::ng-deep {
+  .ngx-slider .ngx-slider-bar {
+  }
+
+  .ngx-slider .ngx-slider-selection {
+  }
+
+  .ngx-slider .ngx-slider-pointer {
+    width: 8px !important;
+    height: 30px !important;
+    top: -15px !important;
+  }
+
+  .ngx-slider .ngx-slider-pointer:after {
+    display: none;
+  }
+
+  .ngx-slider .ngx-slider-bubble {
+
+  }
+
+  .ngx-slider .ngx-slider-limit {
+
+  }
+
+  .ngx-slider .ngx-slider-tick {
+
+  }
+
+  .ngx-slider .ngx-slider-tick.ngx-slider-selected {
+
+  }
+}

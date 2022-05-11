@@ -2,6 +2,7 @@
 import {Time} from "@angular/common";
 import {Round} from "./Round";
 import {Court} from "./Court";
+import {Schedule} from "./Schedule";
 
 export class Match {
   id?: number;
@@ -16,4 +17,5 @@ export class Match {
   round!: Round;
   court?: Court;
   orderInSchedule?: number;
+  schedule?: Schedule;
 }

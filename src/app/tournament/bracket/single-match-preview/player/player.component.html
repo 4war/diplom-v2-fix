@@ -1,15 +1,17 @@
 <div cdkDropList
-     [cdkDropListConnectedTo]="dragDropService.dropLists"
+     [cdkDropListConnectedTo]="dragDropService.bracketDropLists"
      [cdkDropListData]="playerArray"
      (cdkDropListDropped)="dropHandle($event)"
      [cdkDropListEnterPredicate]="predicate">
-  <div *ngIf="player">
-    <div
-      [cdkDragDisabled]="!bracketService.editMode"
-      cdkDrag [cdkDragData]="player"
-      (cdkDragStarted)="dragStart($event)"
-      (cdkDragDropped)="dragDrop($event)"
-      (cdkDragEnded)="dragEnd($event)">
+
+  <div>
+    <div *ngIf="player"
+         [cdkDragDisabled]="!bracketService.editMode"
+         cdkDrag
+         [cdkDragData]="player"
+         (cdkDragStarted)="dragStart($event)"
+         (cdkDragDropped)="dragDrop($event)"
+         (cdkDragEnded)="dragEnd($event)">
       {{player.surname}}
     </div>
   </div>

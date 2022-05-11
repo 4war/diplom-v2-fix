@@ -2,7 +2,7 @@
 import {Gender, Tournament} from "./Tournament";
 
 export class TournamentFactory{
-  firstTournamentId: number = 0;
+  id: number = 0;
 
   name: string ='';
   category: string = '';

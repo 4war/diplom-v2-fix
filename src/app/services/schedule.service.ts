@@ -11,11 +11,19 @@ import {Match} from "../shared/Match";
 })
 export class ScheduleService {
 
+  editMode = false;
+
   constructor(private httpClient: HttpClient) {
   }
 
   getSchedule(day: Date, factoryId: number): Observable<Schedule> {
     return this.httpClient.post<Schedule>(`${server}/schedule/${factoryId}`, JSON.stringify(day), {
+      headers: {'Content-Type': 'application/json'}
+    });
+  }
+
+  getNotScheduledMatches(day: Date, factoryId: number): Observable<Match[]> {
+    return this.httpClient.post<Match[]>(`${server}/schedule/${factoryId}/missing`, JSON.stringify(day), {
       headers: {'Content-Type': 'application/json'}
     });
   }
@@ -36,5 +44,8 @@ export class ScheduleService {
     return this.httpClient.get<Date[]>(`${server}/schedule/${factoryId}/days`);
   }
 
+  save(schedule: Schedule): Observable<Schedule>{
+    return this.httpClient.patch<Schedule>(`${server}/schedule`, schedule);
+  }
 
 }

@@ -75,7 +75,7 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
     }
 
     if (!this.seekSetting.seekInOneTournament && event.length >= 3) {
-      this.filterOptions.startWith = event;
+      this.filterOptions.surname = event.replaceAll(/\s/g,'');
 
       let a = this.gender;
       this.playerService.getFilteredPlayerListAsync(this.filterOptions)
@@ -84,21 +84,21 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
           this.playerFilteredOptions = this.playerFormControl.valueChanges
             .pipe(
               startWith(''),
-              map(value => this._filterPlayer(this.playerFormControl.value, 3)));
+              map(value => this._filterPlayer(this.playerFormControl.value.replaceAll(/\s/g,''), 3)));
         });
     }
   }
 
   updateCityFilter(event: any){
     if (!event || event.toString().length == 0) return;
-    this.filterOptions.city = event;
+    this.filterOptions.city = event.replaceAll(/\s/g,'');
 
     this.cityService.getCities(event).subscribe(response => {
       this.cityList = response;
       this.cityFilteredOptions = this.cityFormControl.valueChanges
         .pipe(
           startWith(''),
-          map(value => this._filterCity(this.cityFormControl.value, 1)));
+          map(value => this._filterCity(this.cityFormControl.value.replaceAll(/\s/g,''), 1)));
     });
   }
 

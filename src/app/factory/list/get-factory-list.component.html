@@ -14,20 +14,20 @@
           <ng-container matColumnDef="Index">
             <th mat-header-cell *matHeaderCellDef class="shady-header">№</th>
             <td mat-cell *matCellDef="let element; let i = index" class="shady-header"
-                (click)="open(element.firstTournamentId)">{{i + 1}}</td>
+                (click)="open(element.id)">{{i + 1}}</td>
           </ng-container>
 
           <!-- Id Column -->
-          <ng-container matColumnDef="FirstTournamentId">
+          <ng-container matColumnDef="Id">
             <th mat-header-cell *matHeaderCellDef>Номер первого турнира</th>
-            <td mat-cell *matCellDef="let element">{{element.firstTournamentId}}</td>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
           </ng-container>
 
           <!-- Name Column -->
           <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef>Название</th>
             <td mat-cell *matCellDef="let element"
-                (click)="open(element.firstTournamentId)">{{element.name}}</td>
+                (click)="open(element.id)">{{element.name}}</td>
           </ng-container>
 
           <!-- Date Column -->
