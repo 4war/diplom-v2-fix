@@ -13,8 +13,16 @@ import {BracketComponent} from "./tournament/bracket/bracket.component";
 import {ScheduleComponent} from "./tournament/schedule/schedule.component";
 import {TournamentOverviewComponent} from "./tournament/overview/tournament-overview.component";
 import {SingleMatchOverviewComponent} from "./single-match/single-match.component";
+import {NewsComponent} from "./news/news.component";
+import {LoginComponent} from "./authentication/login/login.component";
+import {RegisterComponent} from "./authentication/register/register.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 export const appRoutes: Routes = [
+
+  {path: 'news', component: NewsComponent},
+  {path: 'auth/login', component: LoginComponent},
+  {path: 'auth/register', component: RegisterComponent},
   {path: 'factory/list', component: GetFactoryListComponent},
   {path: 'factory/post', component: PostFactoryComponent},
   {path: 'factory/:id', component: GetFactoryComponent},
@@ -43,6 +51,8 @@ export const appRoutes: Routes = [
       {path: '', redirectTo: 'overview', pathMatch: 'full'},
     ],
   },
+
+  {path: 'profile', component: ProfileComponent},
 
   {path: '', redirectTo: '/factory/list', pathMatch: 'full'},
 ];

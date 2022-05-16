@@ -37,7 +37,7 @@ export class TournamentOverviewComponent implements OnInit, ITab {
     this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
 
     if (this.tournamentId){
-      this.tournamentService.getSingleTournament(this.tournamentId ?? 0).subscribe(response => {
+      this.tournamentService.getTournament(this.tournamentId ?? 0).subscribe(response => {
           this.tournament = response;
           if (this.tournament.qualification) {
             this.tournamentService.getPlayerList(this.tournament.qualification.id).subscribe(qp =>

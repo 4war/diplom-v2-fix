@@ -9,9 +9,27 @@
 </head>
 <body>
 <mat-toolbar class="custom-toolbar">
+  <a mat-button routerLink="player/news">Новости</a>
   <a mat-button routerLink="factory/list">Турниры</a>
   <a mat-button routerLink="player/list">Игроки</a>
-  <a mat-button >...</a>
+  <a mat-button>...</a>
+  <span style="flex: 1 1 auto"></span>
+  <a mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon color="accent">account_circle</mat-icon>
+  </a>
+
+  <mat-menu #menu="matMenu">
+    <button *ngIf="!authService.isAuthenticated()" mat-menu-item class="text-end" routerLink="auth/login">Войти</button>
+    <button *ngIf="!authService.isAuthenticated()" mat-menu-item class="text-end" routerLink="auth/register">Регистрация</button>
+    <button *ngIf="authService.isAuthenticated()" mat-menu-item class="text-end" routerLink="profile">Профиль</button>
+    <button mat-menu-item class="text-end">
+      <mat-icon>settings</mat-icon>
+      <span>Настройки</span>
+    </button>
+    <button *ngIf="authService.isAuthenticated()"
+            mat-menu-item class="text-end" (click)="authService.logout()">Выйти</button>
+  </mat-menu>
+
 </mat-toolbar>
 
 <router-outlet></router-outlet>

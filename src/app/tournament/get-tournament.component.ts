@@ -32,7 +32,7 @@ export class GetTournamentComponent implements OnInit {
             this.factory = response;
         })
       }
-      this.tournamentService.getSingleTournament(this.tournamentId)
+      this.tournamentService.getTournament(this.tournamentId)
         .subscribe(t => this.general.currentTournament = t);
     });
   }

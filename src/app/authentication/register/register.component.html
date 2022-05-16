@@ -1,0 +1,45 @@
+<div class="login-container w-100 d-flex justify-content-center my-5">
+  <mat-card class="login-container d-flex justify-content-center">
+    <mat-card-content class="d-block">
+      <div>
+        <mat-form-field class="field">
+          <mat-label>Email</mat-label>
+          <input type="email"
+                 [email]="true"
+                 [formControl]="emailFormControl"
+                 matInput
+
+                 placeholder="user@email.com"
+                 #email>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="field">
+          <mat-label>Пароль</mat-label>
+          <input type="password" matInput #password>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="field">
+          <mat-label>Повторите пароль</mat-label>
+          <input type="password" matInput #passwordRepeat>
+        </mat-form-field>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <a mat-button
+           class="align-self-end shady-header"
+           color="accent"
+           routerLink="../login">Войти</a>
+        <a mat-flat-button
+           [disabled]="!(password.value == passwordRepeat.value && password.value.length > 0)
+           || !email.validity.valid || email.value.length==0"
+           class="align-self-end"
+           color="accent"
+           (click)="register(email.value, password.value)">Ок</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

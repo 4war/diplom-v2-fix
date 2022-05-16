@@ -10,7 +10,6 @@ import {PlayerFilterOptions} from "../shared/filter/PlayerFilterOptions";
   providedIn: 'root'
 })
 export class PlayerService {
-
   constructor(private httpClient: HttpClient) {
   }
 

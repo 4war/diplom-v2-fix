@@ -42,7 +42,7 @@ export class PlayerListComponent implements OnInit, ITab {
     this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
 
     if (this.tournamentId) {
-      this.tournamentService.getSingleTournament(this.tournamentId)
+      this.tournamentService.getTournament(this.tournamentId)
         .subscribe(response => this.tournament = response);
     }
   }

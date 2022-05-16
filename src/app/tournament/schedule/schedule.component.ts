@@ -112,7 +112,7 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
     this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
 
     if (this.tournamentId) {
-      this.tournamentService.getSingleTournament(this.tournamentId).subscribe(tournament => {
+      this.tournamentService.getTournament(this.tournamentId).subscribe(tournament => {
         this.tournament = tournament;
 
         this.scheduleService

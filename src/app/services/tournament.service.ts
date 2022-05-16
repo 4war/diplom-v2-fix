@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {TournamentFactory} from "../shared/TournamentFactory";
 import {Player} from "../shared/Player";
 import {server} from "../../environments/environment";
+import {ACCESS_TOKEN_KEY} from "./auth.service";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,6 +25,32 @@ export class TournamentService {
     return this.httpClient.get<Tournament[]>(`${server}/tournament`);
   }
 
+  getTournament(id: number): Observable<Tournament> {
+    return this.httpClient.get<Tournament>(`${server}/tournament/${id}`);
+  }
+
+  postTournament(tournament: Tournament): Observable<any> {
+    return this.httpClient.post(`${server}/tournament/`,
+      tournament);
+  }
+
+  getPlayerList(id: number): Observable<Player[]> {
+    console.log(localStorage.getItem(ACCESS_TOKEN_KEY));
+    return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`, {
+      headers: new HttpHeaders({
+        'Authorization': localStorage.getItem(ACCESS_TOKEN_KEY) ?? ''
+      })
+    });
+  }
+
+  postPlayerInTournament(idTournament: number, player: Player): Observable<any> {
+    return this.httpClient.post(`${server}/playerTournament/${idTournament}`, player);
+  }
+
+  deletePlayerInTournament(idTournament: number, rni: number): Observable<any> {
+    return this.httpClient.delete(`${server}/playerTournament/${idTournament}/${rni}`);
+  }
+
   getTournamentFactories(): Observable<TournamentFactory[]> {
     return this.httpClient.get<TournamentFactory[]>(`${server}/tournamentFactory`);
   }
@@ -36,33 +63,12 @@ export class TournamentService {
     return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/fromTournament/${id}`);
   }
 
-  getSingleTournament(id: number): Observable<Tournament> {
-    return this.httpClient.get<Tournament>(`${server}/tournament/${id}`);
-  }
-
-  getPlayerList(id: number): Observable<Player[]> {
-    return this.httpClient.get<Player[]>(`${server}/playerTournament/${id}`);
-  }
-
-  postPlayerInTournament(idTournament: number, player: Player): Observable<any> {
-    return this.httpClient.post(`${server}/playerTournament/${idTournament}`, player);
-  }
-
-  deletePlayerInTournament(idTournament: number, rni: number): Observable<any> {
-    return this.httpClient.delete(`${server}/playerTournament/${idTournament}/${rni}`);
-  }
-
   postFactory(factory: TournamentFactory): Observable<TournamentFactory> {
     return this.httpClient.post<TournamentFactory>(`${server}/tournamentFactory/`,
       factory);
   }
 
-  deleteFactory(factory: TournamentFactory): Observable<TournamentFactory>{
+  deleteFactory(factory: TournamentFactory): Observable<TournamentFactory> {
     return this.httpClient.delete<TournamentFactory>(`${server}/tournamentFactory/${factory.id}`);
-  }
-
-  postTournament(tournament: Tournament): Observable<any> {
-    return this.httpClient.post(`${server}/tournament/`,
-      tournament);
   }
 }

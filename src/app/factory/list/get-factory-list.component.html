@@ -2,6 +2,9 @@
   <div class="tournament-table-container">
     <mat-card>
       <div class="d-flex justify-content-end margin-top">
+        <a mat-button routerLink="../post" *ngIf="editMode">
+          <mat-icon color="accent">add</mat-icon>
+        </a>
         <a mat-button (click)="changeEdit()">
           <mat-icon color="accent">create</mat-icon>
         </a>

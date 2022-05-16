@@ -75,8 +75,21 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { MatchInScheduleComponent } from './tournament/schedule/match-in-schedule/match-in-schedule.component';
 import {NouisliderModule} from "ng2-nouislider";
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
+import { NewsComponent } from './news/news.component';
+import {NewsService} from "./services/news.service";
+import {MatCarouselModule} from "@ngmodule/material-carousel";
+import {JwtModule} from "@auth0/angular-jwt";
+import {environment} from "../environments/environment";
+import {ACCESS_TOKEN_KEY} from "./services/auth.service";
+import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 
 registerLocaleData(localeRu);
+
+export function tokenGetter(){
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
+}
 
 @NgModule({
   declarations: [
@@ -105,46 +118,57 @@ registerLocaleData(localeRu);
     AlreadyExistDialogComponent,
     TournamentListComponent,
     MatchInScheduleComponent,
+    NewsComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
   ],
-  imports: [
-    MatSidenavModule,
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
-    MatMenuModule,
-    MatListModule,
-    BrowserAnimationsModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatSelectModule,
-    HttpClientModule,
-    MatTableModule,
-    MatSortModule,
-    MatTreeModule,
-    NgTournamentTreeModule,
-    DragScrollModule,
-    MatProgressBarModule,
-    DragDropModule,
-    MatDialogModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    NgxMaterialTimepickerModule,
-    FormsModule,
-    NgbModule,
-    NgbTimepickerModule,
-    MatRadioModule,
-    MatTabsModule,
-    NouisliderModule,
-    NgxSliderModule,
-  ],
+    imports: [
+        MatSidenavModule,
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule.forRoot(appRoutes),
+        MatMenuModule,
+        MatListModule,
+        BrowserAnimationsModule,
+        MatCheckboxModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatSelectModule,
+        HttpClientModule,
+        MatTableModule,
+        MatSortModule,
+        MatTreeModule,
+        NgTournamentTreeModule,
+        DragScrollModule,
+        MatProgressBarModule,
+        DragDropModule,
+        MatDialogModule,
+        MatAutocompleteModule,
+        ReactiveFormsModule,
+        NgxMaterialTimepickerModule,
+        FormsModule,
+        NgbModule,
+        NgbTimepickerModule,
+        MatRadioModule,
+        MatTabsModule,
+        NouisliderModule,
+        NgxSliderModule,
+        MatCarouselModule,
+      JwtModule.forRoot({
+        config: {
+          tokenGetter,
+          allowedDomains: environment.tokenWhiteListedDomains,
+        }
+      })
+    ],
   entryComponents: [SingleMatchOverviewComponent],
   providers:
     [FormBuilder, RouterModule, GeneralService, MatDrawerContainer, MatDialogConfig,
@@ -154,7 +178,7 @@ registerLocaleData(localeRu);
       {provide: MAT_DIALOG_DATA, useClass: Player},
       {provide: DateAdapter, useClass: CustomDateAdapter},
       {provide: LOCALE_ID, useValue: 'ru'},
-      TournamentService, PlayerService, BracketService, DragAndDropService],
+      TournamentService, PlayerService, BracketService, DragAndDropService, NewsService],
   bootstrap: [AppComponent]
 })
 
