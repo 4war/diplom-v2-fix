@@ -38,7 +38,7 @@
                       cdkDrag
                       [cdkDragData]="player"
                       class="my-1">
-              <mat-card-content [textContent]="player.surname"></mat-card-content>
+              <mat-card-content [textContent]="player.surname +' '+ player.name[0] + '.'"></mat-card-content>
             </mat-card>
           </mat-card-content>
         </mat-card>

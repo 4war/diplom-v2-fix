@@ -10,13 +10,15 @@ import {PlayerService} from "../../services/player.service";
 import {PlayerFilterOptions} from "../../shared/filter/PlayerFilterOptions";
 import {City} from "../../shared/City";
 import {CityService} from "../../services/city.service";
+import Enumerable from "linq";
+import from = Enumerable.from;
 
 @Component({
   selector: 'app-seek-player-dialog',
-  templateUrl: './seek-player-in-tournament-dialog.component.html',
-  styleUrls: ['./seek-player-in-tournament-dialog.component.scss']
+  templateUrl: './seek-player-dialog.component.html',
+  styleUrls: ['./seek-player-dialog.component.scss']
 })
-export class SeekPlayerInTournamentDialogComponent implements OnInit {
+export class SeekPlayerDialogComponent implements OnInit {
 
   tournamentId?: number;
 
@@ -42,7 +44,7 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
               public tournamentService: TournamentService,
               public playerService: PlayerService,
               private cityService: CityService,
-              private dialogRef: MatDialogRef<SeekPlayerInTournamentDialogComponent>,
+              private dialogRef: MatDialogRef<SeekPlayerDialogComponent>,
               private router: Router,
               @Inject(MAT_DIALOG_DATA) public seekSetting: SeekSettings) {
   }
@@ -56,11 +58,8 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let urlSplit = this.router.url.split('/');
-    this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
-
-    if (this.seekSetting.seekInOneTournament) {
-      this.tournamentService.getPlayerList(this.tournamentId)
+    if (this.seekSetting.tournamentId) {
+      this.tournamentService.getPlayerList(this.seekSetting.tournamentId)
         .subscribe(response => {
           this.playerList = response;
         });
@@ -68,14 +67,14 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
     }
   }
 
-  updatePlayerFilter(event: any): void {
+  updatePlayerFilter(event: string): void {
     if (!event) {
       this.filterOptions = new PlayerFilterOptions();
       return;
     }
 
-    if (!this.seekSetting.seekInOneTournament && event.length >= 3) {
-      this.filterOptions.surname = event.replaceAll(/\s/g,'');
+    if (!this.seekSetting.tournamentId && event.length >= 3) {
+      this.filterOptions.surname = from(event.split(' ')).where(x => x.length > 0).toArray().join('');
 
       let a = this.gender;
       this.playerService.getFilteredPlayerListAsync(this.filterOptions)
@@ -84,21 +83,21 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
           this.playerFilteredOptions = this.playerFormControl.valueChanges
             .pipe(
               startWith(''),
-              map(value => this._filterPlayer(this.playerFormControl.value.replaceAll(/\s/g,''), 3)));
+              map(value => this._filterPlayer(from((this.playerFormControl.value as string).split(' ')).where(x => x.length > 0).toArray().join(''), 1)));
         });
     }
   }
 
-  updateCityFilter(event: any){
+  updateCityFilter(event: string){
     if (!event || event.toString().length == 0) return;
-    this.filterOptions.city = event.replaceAll(/\s/g,'');
+    this.filterOptions.city = from(event.split(' ')).where(x => x.length > 0).toArray().join('');
 
     this.cityService.getCities(event).subscribe(response => {
       this.cityList = response;
       this.cityFilteredOptions = this.cityFormControl.valueChanges
         .pipe(
           startWith(''),
-          map(value => this._filterCity(this.cityFormControl.value.replaceAll(/\s/g,''), 1)));
+          map(value => this._filterCity(from((this.cityFormControl.value as string).split(' ')).where(x => x.length > 0).toArray().join(''), 1)));
     });
   }
 
@@ -131,7 +130,7 @@ export class SeekPlayerInTournamentDialogComponent implements OnInit {
 
 
 export class SeekSettings {
-  seekInOneTournament = false;
+  tournamentId?: number;
 }
 
 

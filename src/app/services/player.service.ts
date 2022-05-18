@@ -5,6 +5,7 @@ import {Player} from "../shared/Player";
 import {server} from "../../environments/environment";
 import {Tournament} from "../shared/Tournament";
 import {PlayerFilterOptions} from "../shared/filter/PlayerFilterOptions";
+import {TournamentResult} from "../shared/TournamentResult";
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,13 @@ export class PlayerService {
 
   getTournaments(rni: number): Observable<Tournament[]>{
     return this.httpClient.get<Tournament[]>(`${server}/player/${rni}/tournaments`);
+  }
+
+  getTournamentResults(rni: number): Observable<TournamentResult[]>{
+    return this.httpClient.get<TournamentResult[]>(`${server}/player/${rni}/tournamentResults`);
+  }
+
+  getPlayerWinRate(rni: number): Observable<number>{
+    return this.httpClient.get<number>(`${server}/player/winRate/${rni}`);
   }
 }

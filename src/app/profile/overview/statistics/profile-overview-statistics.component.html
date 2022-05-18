@@ -1,0 +1,151 @@
+<mat-card class="h-100 text-white">
+  <mat-card-content style="font-size: large">
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Всего матчей</div>
+      <div>
+        <span>3</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Побед</div>
+      <div class="green">
+        <span>2</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Поражений</div>
+      <div class="red">
+        <span>1</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Процент побед</div>
+      <div>
+        <span>{{winRate}}%</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Побед против сильных соперников</div>
+      <div>
+        <div>0/1 (0%)</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div *ngFor="let timeRange of timeRanges">
+      <div class="d-flex justify-content-evenly align-items-center">
+        <div class="shady-header">{{timeRange.min}}:00 - {{timeRange.max}}:00</div>
+        <div>
+          <span class="green">{{timeRange.won}}</span>
+          <span>/{{timeRange.played}}</span>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Текущая серия побед</div>
+      <div>
+        <span>0</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Лучшая серия побед</div>
+      <div>
+        <span>2</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Последний матч сыгран</div>
+      <div>
+        <span>1 год назад</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Средняя длительность матчей</div>
+      <div>
+        <span>1 <i class="shady-header">ч</i> 19 <i class="shady-header">мин</i></span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Самый длинный матч</div>
+      <div>
+        <span>1 <i class="shady-header">ч</i> 38 <i class="shady-header">мин</i></span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Самый быстрый матч</div>
+      <div>
+        <span>1 <i class="shady-header">ч</i> 3 <i class="shady-header">мин</i></span>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Рейтинг</div>
+      <div>
+        <span>1621</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">На харде</div>
+      <div>
+        <span>1471</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">На грунте</div>
+      <div>
+        <span>150</span>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Турниров сыграно всего</div>
+      <div>
+        <span>1</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Турниров сыграно за текущий год</div>
+      <div>
+        <span>0</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Турниров по своему возрасту</div>
+      <div>
+        <span>1</span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="shady-header">Турниров по старшему возрасту</div>
+      <div>
+        <span>0</span>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

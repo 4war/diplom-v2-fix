@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeekPlayerInTournamentDialogComponent } from './seek-player-in-tournament-dialog.component';
+import { SeekPlayerDialogComponent } from './seek-player-dialog.component';
 
 describe('SeekPlayerDialogComponent', () => {
-  let component: SeekPlayerInTournamentDialogComponent;
-  let fixture: ComponentFixture<SeekPlayerInTournamentDialogComponent>;
+  let component: SeekPlayerDialogComponent;
+  let fixture: ComponentFixture<SeekPlayerDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SeekPlayerInTournamentDialogComponent ]
+      declarations: [ SeekPlayerDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SeekPlayerInTournamentDialogComponent);
+    fixture = TestBed.createComponent(SeekPlayerDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

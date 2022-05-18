@@ -4,4 +4,6 @@ body{
 
 .custom-toolbar{
   background-color: #081e2c;
+  z-index: 100;
+  position: relative
 }

@@ -1,0 +1,39 @@
+.overview-container{
+  width: 1400px;
+  display: flex;
+  flex-direction: row;
+
+  .left-container{
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    margin: 20px;
+
+    .fio{
+      margin: 20px 0;
+      height: 150px;
+    }
+
+    .heatmap{
+      margin: 20px 0;
+      height: 890px;
+    }
+  }
+
+  .right-container{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 20px;
+
+    .statistics{
+      margin: 20px 0;
+      height: 640px;
+    }
+
+    .triangle{
+      margin: 20px 0;
+      height: 400px;
+    }
+  }
+}

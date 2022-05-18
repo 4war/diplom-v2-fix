@@ -3,10 +3,10 @@
     <div class="d-block mx-2 w-50 justify-content-center">
       <div class="shady-header">Начало</div>
       <ngb-timepicker class="d-flex justify-content-center"
-                      *ngIf="edit"
+                      *ngIf="edit && match.start"
                       [(ngModel)]="start"
                       (ngModelChange)="updateStart()"></ngb-timepicker>
-      <div class="bright-header text-center" *ngIf="!edit">{{startDate | date: 'HH:mm'}}</div>
+      <div class="bright-header text-center" *ngIf="!edit">{{match.start | date: 'HH:mm'}}</div>
       <a mat-button *ngIf="matchService.editMode" (click)="clearStart()">
         <mat-icon color="warn">clear</mat-icon>
       </a>
@@ -14,10 +14,13 @@
     <div class="d-block mx-2 w-50">
       <div class="shady-header">Конец</div>
       <ngb-timepicker class="d-flex justify-content-center"
-                      *ngIf="edit"
+                      *ngIf="edit && match.end"
                       [(ngModel)]="end"
                       (ngModelChange)="updateEnd()"></ngb-timepicker>
-      <div class="bright-header text-center" *ngIf="!edit">{{endDate | date: 'HH:mm'}}</div>
+      <div class="bright-header text-center" *ngIf="!edit">{{match.end | date: 'HH:mm'}}</div>
+      <a mat-button *ngIf="matchService.editMode" (click)="clearEnd()">
+        <mat-icon color="warn">clear</mat-icon>
+      </a>
     </div>
 
     <div *ngIf="matchService.editMode">
@@ -32,3 +35,4 @@
       {{duration?.hour}} ч {{duration?.minute}} мин</span></div>
   </div>
 </div>
+

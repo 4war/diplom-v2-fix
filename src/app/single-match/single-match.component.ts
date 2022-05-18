@@ -10,6 +10,7 @@ import from = Enumerable.from;
 import {Player} from "../shared/Player";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {BracketService} from "../services/bracket.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-single-match-overview',
@@ -30,16 +31,20 @@ export class SingleMatchOverviewComponent implements OnInit {
   });
 
   editDuration = false;
+  canEdit = false;
 
   constructor(public matchService: MatchService,
               private general: GeneralService,
               private bracketService: BracketService,
+              public authService: AuthService,
               private formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public match: Match,
               private dialog?: MatDialog,) {
 
     this.score = new Score(match);
     this.finished = !!this.match.winner;
+    let split = authService.account?.roles.split(' ');
+    this.canEdit = !!split && (split.includes('org') || split.includes('admin'));
   }
 
   ngOnInit(): void {

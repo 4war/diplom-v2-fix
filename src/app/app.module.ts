@@ -60,16 +60,15 @@ import {DigitComponent} from './single-match/digit/digit.component';
 import {WinDialogComponent} from "./single-match/win-dialog/win-dialog.component";
 import {PlayerInMatchDialogComponent} from "./single-match/player/player.component";
 import {
-  SeekPlayerInTournamentDialogComponent,
+  SeekPlayerDialogComponent,
   SeekSettings
-} from "./helpComponents/seek-player-dialog/seek-player-in-tournament-dialog.component";
+} from "./helpComponents/seek-player-dialog/seek-player-dialog.component";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {NgxMaterialTimepickerModule} from "ngx-material-timepicker";
 import {DurationComponent} from './single-match/duration/duration.component';
 import {NgbModule, NgbTimepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import { AlreadyExistDialogComponent } from './tournament/player-list/already-exist-dialog/already-exist-dialog.component';
 import {Player} from "./shared/Player";
-import { TournamentListComponent } from './tournament/player-list/tournament-list/tournament-list.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {MatTabsModule} from "@angular/material/tabs";
 import { MatchInScheduleComponent } from './tournament/schedule/match-in-schedule/match-in-schedule.component';
@@ -84,6 +83,16 @@ import {ACCESS_TOKEN_KEY} from "./services/auth.service";
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileUserSettingsComponent } from './profile/settings/profile-user-settings.component';
+import { ProfileUserMatchesComponent } from './profile/matches/profile-user-matches.component';
+import { ProfileUserTournamentsComponent } from './profile/tournaments/profile-user-tournaments.component';
+import { ProfileUserOverviewComponent } from './profile/overview/profile-user-overview.component';
+import { ProfileOverviewHeatmapComponent } from './profile/overview/heatmap/profile-overview-heatmap.component';
+import { ProfileOverviewTriangleComponent } from './profile/overview/triangle/profile-overview-triangle.component';
+import { ProfileOverviewFioComponent } from './profile/overview/fio/profile-overview-fio.component';
+import { ProfileOverviewStatisticsComponent } from './profile/overview/statistics/profile-overview-statistics.component';
+import { ProfileUserNotificationsComponent} from "./profile/notifications/profile-user-notifications.component";
+import {MatBadgeModule} from "@angular/material/badge";
 
 registerLocaleData(localeRu);
 
@@ -113,62 +122,71 @@ export function tokenGetter(){
     DigitComponent,
     PlayerInMatchDialogComponent,
     WinDialogComponent,
-    SeekPlayerInTournamentDialogComponent,
+    SeekPlayerDialogComponent,
     DurationComponent,
     AlreadyExistDialogComponent,
-    TournamentListComponent,
     MatchInScheduleComponent,
     NewsComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    ProfileUserSettingsComponent,
+    ProfileUserMatchesComponent,
+    ProfileUserTournamentsComponent,
+    ProfileUserOverviewComponent,
+    ProfileOverviewHeatmapComponent,
+    ProfileOverviewTriangleComponent,
+    ProfileOverviewFioComponent,
+    ProfileOverviewStatisticsComponent,
+    ProfileUserNotificationsComponent,
   ],
-    imports: [
-        MatSidenavModule,
-        BrowserModule,
-        AppRoutingModule,
-        RouterModule.forRoot(appRoutes),
-        MatMenuModule,
-        MatListModule,
-        BrowserAnimationsModule,
-        MatCheckboxModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatSelectModule,
-        HttpClientModule,
-        MatTableModule,
-        MatSortModule,
-        MatTreeModule,
-        NgTournamentTreeModule,
-        DragScrollModule,
-        MatProgressBarModule,
-        DragDropModule,
-        MatDialogModule,
-        MatAutocompleteModule,
-        ReactiveFormsModule,
-        NgxMaterialTimepickerModule,
-        FormsModule,
-        NgbModule,
-        NgbTimepickerModule,
-        MatRadioModule,
-        MatTabsModule,
-        NouisliderModule,
-        NgxSliderModule,
-        MatCarouselModule,
-      JwtModule.forRoot({
-        config: {
-          tokenGetter,
-          allowedDomains: environment.tokenWhiteListedDomains,
-        }
-      })
-    ],
+  imports: [
+    MatSidenavModule,
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes),
+    MatMenuModule,
+    MatListModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatSelectModule,
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatTreeModule,
+    NgTournamentTreeModule,
+    DragScrollModule,
+    MatProgressBarModule,
+    DragDropModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    NgxMaterialTimepickerModule,
+    FormsModule,
+    NgbModule,
+    NgbTimepickerModule,
+    MatRadioModule,
+    MatTabsModule,
+    NouisliderModule,
+    NgxSliderModule,
+    MatCarouselModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: environment.tokenWhiteListedDomains,
+      }
+    }),
+    MatBadgeModule
+  ],
   entryComponents: [SingleMatchOverviewComponent],
   providers:
     [FormBuilder, RouterModule, GeneralService, MatDrawerContainer, MatDialogConfig,

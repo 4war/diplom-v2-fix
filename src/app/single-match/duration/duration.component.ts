@@ -1,60 +1,66 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Match} from "../../shared/Match";
 import {MatchService} from "../../services/match.service";
+
+export const offset: number = new Date().getTimezoneOffset() * 60000;
+
 @Component({
   selector: 'app-duration',
   templateUrl: './duration.component.html',
   styleUrls: ['./duration.component.scss']
 })
-
-export class DurationComponent implements OnInit {
+export class DurationComponent implements OnInit, AfterViewInit {
 
   constructor(public matchService: MatchService) {
   }
 
   @Input() match!: Match;
+  day?: Date;
 
   start = {hour: 9, minute: 30} as Time;
-  end = {hour: 11, minute: 30} as Time;
+  end = {hour: 11, minute: 29} as Time;
   duration?: Time;
 
-  startDate?: Date;
-  endDate?: Date;
-  offset: number = new Date().getTimezoneOffset() * 60000;
-
   edit = false;
+
+  ngAfterViewInit() {
+    this.matchService.getDay(this.match.id!).subscribe(response => {
+      let input = new Date(response.toString()).getTime();
+      this.day = new Date(input - offset);
+    });
+  }
 
   ngOnInit(): void {
     if (this.match.start) {
       let input = new Date(this.match.start!.toString()).getTime();
-      this.startDate = new Date(input - this.offset);
-      this.start.hour = this.startDate.getHours();
-      this.start.minute = this.startDate.getMinutes();
+      this.match.start = new Date(input - offset);
+      this.start.hour = this.match.start.getHours();
+      this.start.minute = this.match.start.getMinutes();
     }
 
     if (this.match.end) {
       let input = new Date(this.match.end!.toString()).getTime();
-      this.endDate = new Date(input - this.offset);
-      this.end.hour = this.endDate.getHours();
-      this.end.minute = this.endDate.getMinutes();
+      this.match.end = new Date(input - offset);
+      this.end.hour = this.match.end.getHours();
+      this.end.minute = this.match.end.getMinutes();
     }
   }
 
   updateStart(): void {
-    if (this.startDate) {
-      this.startDate.setHours(this.start.hour);
-      this.startDate.setMinutes(this.start.minute);
-      this.startDate = new Date(JSON.parse(JSON.stringify(this.startDate)));
+    if (this.match.start) {
+      this.match.start.setHours(this.start.hour);
+      this.match.start.setMinutes(this.start.minute);
+      this.match.start = new Date(this.match.start.getTime());
     }
 
     this.updateDuration();
   }
 
   updateEnd(): void {
-    if (this.endDate) {
-      this.endDate.setHours(this.end.hour);
-      this.endDate.setMinutes(this.end.minute);
-      this.endDate = new Date(JSON.parse(JSON.stringify(this.endDate)));
+    if (this.match.end) {
+      this.match.end.setHours(this.end.hour);
+      this.match.end.setMinutes(this.end.minute);
+      this.match.end = new Date(this.match.end.getTime());
     }
 
     this.updateDuration();
@@ -75,23 +81,24 @@ export class DurationComponent implements OnInit {
   }
 
   changeEdit(): void {
-    if (this.edit) this.save();
+    if (!this.edit) {
+      this.match.start = new Date(this.day!.toDateString());
+      this.match.start?.setHours(this.start.hour);
+      this.match.start?.setMinutes(this.start.minute);
+      this.match.start = new Date(this.match.start.getTime());
+      this.match.end = new Date(this.day!.toDateString());
+      this.match.end?.setHours(this.end.hour);
+      this.match.end?.setMinutes(this.end.minute);
+      this.match.end = new Date(this.match.end.getTime());
+    }
     this.edit = !this.edit;
   }
 
-  save(): void {
-    if (this.startDate)
-      this.match.start = new Date(this.startDate.getTime());
-
-    if (this.endDate)
-      this.match.end = new Date(this.endDate.getTime());
-  }
-
-  clearStart(): void{
+  clearStart(): void {
     this.match.start = undefined;
   }
 
-  clearEnd(): void{
+  clearEnd(): void {
     this.match.end = undefined;
   }
 }

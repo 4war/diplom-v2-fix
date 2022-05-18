@@ -1,0 +1,31 @@
+<mat-card class="h-100">
+  <mat-card-header>Треугольник стилей игры</mat-card-header>
+  <hr>
+  <mat-card-content>
+    <svg [attr.viewBox]="'0 0 '+center.X * 2 + ' '+ center.Y * 2">
+      <circle r="4" [attr.cx]="center.X" [attr.cy]="center.Y" fill="white"></circle>
+      <line [attr.x1]="center.X" [attr.x2]="center.X" [attr.y1]="center.Y" [attr.y2]="center.Y - lineLength" stroke-width="2px" stroke="white"></line>
+      <line [attr.x1]="center.X" [attr.x2]="center.X - lineLength * 4 / 5" [attr.y1]="center.Y" [attr.y2]="center.Y + lineLength * 3 / 5" stroke-width="2px" stroke="white"></line>
+      <line [attr.x1]="center.X" [attr.x2]="center.X + lineLength * 4 / 5" [attr.y1]="center.Y" [attr.y2]="center.Y + lineLength * 3 / 5" stroke-width="2px" stroke="white"></line>
+
+      <circle [attr.r]="pointRadius" [attr.cx]="coordinates[0].X" [attr.cy]="coordinates[0].Y" fill="orange"></circle>
+      <circle [attr.r]="pointRadius" [attr.cx]="coordinates[1].X" [attr.cy]="coordinates[1].Y" fill="orange"></circle>
+      <circle [attr.r]="pointRadius" [attr.cx]="coordinates[2].X" [attr.cy]="coordinates[2].Y" fill="orange"></circle>
+
+      <line [attr.x1]="coordinates[0].X" [attr.x2]="coordinates[1].X" [attr.y1]="coordinates[0].Y" [attr.y2]="coordinates[1].Y" [attr.stroke-width]="strokeWidth" stroke="orange"></line>
+      <line [attr.x1]="coordinates[1].X" [attr.x2]="coordinates[2].X" [attr.y1]="coordinates[1].Y" [attr.y2]="coordinates[2].Y" [attr.stroke-width]="strokeWidth" stroke="orange"></line>
+      <line [attr.x1]="coordinates[2].X" [attr.x2]="coordinates[0].X" [attr.y1]="coordinates[2].Y" [attr.y2]="coordinates[0].Y" [attr.stroke-width]="strokeWidth" stroke="orange"></line>
+
+      <polygon [attr.points]="polygonPoints" fill="orange" fill-opacity="0.25"></polygon>
+
+      <text [attr.x]="coordinates[0].X + 15" [attr.y]="coordinates[0].Y - 15" class="play-style-value">{{playStyles[0].value/100 | number : '1.2-2'}}</text>
+      <text [attr.x]="coordinates[1].X - 75" [attr.y]="coordinates[1].Y - 15" class="play-style-value">{{playStyles[1].value/100 | number : '1.2-2'}}</text>
+      <text [attr.x]="coordinates[2].X + 25" [attr.y]="coordinates[1].Y + 15" class="play-style-value">{{playStyles[2].value/100 | number : '1.2-2'}}</text>
+
+      <text [attr.x]="center.X - 200" [attr.y]="center.Y - lineLength - textPadding" class="play-style">Оборонительный</text>
+      <text [attr.x]="center.X - lineLength * 4 / 5 - 130" [attr.y]="center.Y + lineLength * 3 / 5  + textPadding + 40" class="play-style">Активный</text>
+      <text [attr.x]="center.X + lineLength * 4 / 5 - 130" [attr.y]="center.Y + lineLength * 3 / 5  + textPadding + 40" class="play-style">Реактивный</text>
+
+    </svg>
+  </mat-card-content>
+</mat-card>

@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {GeneralService} from "../services/general.service";
 import {Tournament} from "../shared/Tournament";
 import {TournamentService} from "../services/tournament.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {TournamentFactory} from "../shared/TournamentFactory";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-get-single-tournament',
@@ -23,21 +24,19 @@ export class GetTournamentComponent implements OnInit {
 
     this.factory = general.currentFactory;
 
-    this.route.params.subscribe(response => {
-      this.tournamentId = response['id'];
-      if (this.factory.tournaments.length == 0){
-        this.tournamentService.getSingleFactoryFromTournament(this.tournamentId).
-          subscribe(response => {
-            this.general.currentFactory = response;
-            this.factory = response;
-        })
-      }
-      this.tournamentService.getTournament(this.tournamentId)
-        .subscribe(t => this.general.currentTournament = t);
-    });
+    let urlSplit = this.router.url.split('/');
+    this.tournamentId = parseInt(urlSplit[urlSplit.length - 2]);
+
+    if (this.factory.tournaments.length == 0) {
+      this.tournamentService.getSingleFactoryFromTournament(this.tournamentId).subscribe(response => {
+        this.general.currentFactory = response;
+        this.factory = response;
+      })
+    }
+
+    this.tournamentService.getTournament(this.tournamentId)
+      .subscribe(t => this.general.currentTournament = t);
   }
-
-
 
   ngOnInit(): void {
   }
@@ -47,10 +46,16 @@ export class GetTournamentComponent implements OnInit {
   }
 
   redirectToTournamentInFactory(id: number): void {
-    this.router.navigateByUrl(`tournament/${id}/${this.general.currentTournamentTab}`);
+    if (id == 0) return;
+    this.tournamentService.getTournament(id)
+      .subscribe(t => {
+        debugger
+        this.general.currentTournament = t;
+        this.router.navigateByUrl(`tournament/${id}/${this.general.currentTournamentTab}`);
+      });
   }
 
-  redirectToTab(tab: string): void{
+  redirectToTab(tab: string): void {
     this.general.currentTournamentTab = tab;
     this.router.navigateByUrl(`tournament/${this.tournamentId}/${tab}`);
   }

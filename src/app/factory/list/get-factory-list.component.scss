@@ -1,24 +1,17 @@
-.tournament-table-container {
-  margin: min(10%, 50px) min(20%, 100px);
-}
-
 .tournament-row-is-clicked {
   font-weight: bold;
 }
 
-.mat-row .mat-cell {
-  cursor: pointer;
+.factory-list-container {
+  margin-top: 40px;
+  width: 1300px;
 }
 
-.mat-row:hover .mat-cell {
-  background-color: #192a3d;
-}
-
-.create-button{
+.create-button {
   margin-top: 25px;
 }
 
-.cell{
+.cell {
   vertical-align: middle;
 }
 

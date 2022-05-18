@@ -1,0 +1,42 @@
+.profile-header {
+  width: 100%;
+  background: #081e2c;
+  height: 250px;
+
+  .profile-container {
+    width: 1200px;
+    height: 202px;
+  }
+
+  .image-container {
+    width: 128px;
+  }
+
+  .fio-container {
+    width: 600px;
+  }
+
+  .skill-container {
+    width: 400px;
+
+    .rating-container {
+
+    }
+
+    .rank-container {
+
+    }
+  }
+}
+
+img {
+  height: 128px;
+  width: 128px;
+  border-radius: 50%;
+}
+
+.tab-group {
+  .tab{
+    width: 200px;
+  }
+}

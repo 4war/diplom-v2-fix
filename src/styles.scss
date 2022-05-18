@@ -111,6 +111,10 @@ body {
   width: 33.33%;
 }
 
+.w-60{
+  width: 60%;
+}
+
 
 .timepicker-overlay{
   z-index: 5000 !important;
@@ -148,4 +152,22 @@ body {
 
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.menu-shadow{
+  box-shadow: 1px 3px 20px #49a4ff;
+}
+
+.div-shadow{
+  box-shadow: 1px 3px 20px #49a4ff;
+}
+
+.custom-table-animation {
+  .mat-row .mat-cell {
+    cursor: pointer;
+  }
+
+  .mat-row:hover .mat-cell {
+    background-color: #192a3d;
+  }
 }

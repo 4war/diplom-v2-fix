@@ -2,13 +2,13 @@
   <mat-card-content class="text-white h-100">
 
     <div class="d-flex justify-content-end margin-top">
-      <a mat-button *ngIf="!matchService.editMode" (click)="startEdit(match)">
+      <a mat-button *ngIf="canEdit && !matchService.editMode" (click)="startEdit(match)">
         <mat-icon color="accent">create</mat-icon>
       </a>
-      <a mat-button *ngIf="matchService.editMode" (click)="save()">
+      <a mat-button *ngIf="canEdit && matchService.editMode" (click)="save()">
         <mat-icon class="green">check</mat-icon>
       </a>
-      <a mat-button *ngIf="matchService.editMode" (click)="cancel()">
+      <a mat-button *ngIf="canEdit && matchService.editMode" (click)="cancel()">
         <mat-icon color="warn">clear</mat-icon>
       </a>
     </div>

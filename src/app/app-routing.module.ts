@@ -17,6 +17,11 @@ import {NewsComponent} from "./news/news.component";
 import {LoginComponent} from "./authentication/login/login.component";
 import {RegisterComponent} from "./authentication/register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {ProfileUserSettingsComponent} from "./profile/settings/profile-user-settings.component";
+import {ProfileUserMatchesComponent} from "./profile/matches/profile-user-matches.component";
+import {ProfileUserTournamentsComponent} from "./profile/tournaments/profile-user-tournaments.component";
+import {ProfileUserOverviewComponent} from "./profile/overview/profile-user-overview.component";
+import {ProfileUserNotificationsComponent} from "./profile/notifications/profile-user-notifications.component";
 
 export const appRoutes: Routes = [
 
@@ -37,6 +42,7 @@ export const appRoutes: Routes = [
       {path: 'playerList', component: PlayerListComponent},
       {path: 'schedule', component: ScheduleComponent},
       {path: 'overview', component: TournamentOverviewComponent},
+      {path: '', redirectTo: 'overview', pathMatch: 'full'},
     ],
   },
 
@@ -52,7 +58,16 @@ export const appRoutes: Routes = [
     ],
   },
 
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent,
+    children: [
+      {path: 'overview', component: ProfileUserOverviewComponent},
+      {path: 'matches', component: ProfileUserMatchesComponent},
+      {path: 'tournaments', component: ProfileUserTournamentsComponent},
+      {path: 'notifications', component: ProfileUserNotificationsComponent},
+      {path: 'settings', component: ProfileUserSettingsComponent},
+      {path: '', redirectTo: 'overview', pathMatch: 'full'},
+    ],},
+
 
   {path: '', redirectTo: '/factory/list', pathMatch: 'full'},
 ];
