@@ -18,6 +18,7 @@ import {Round} from "../../shared/Round";
 import {Role} from "../../profile/profile.component";
 import {AuthService} from "../../services/auth.service";
 import {Account} from "../../shared/Account";
+import {MatTabChangeEvent} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-schedule',
@@ -153,6 +154,11 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
     if (!matchDragArray || matchDragArray.length == 0) return false;
     let matchDrag = matchDragArray[0];
     return !!(matchDrag?.player1 && matchDrag?.player2);
+  }
+
+  onTabChanged(event: MatTabChangeEvent) {
+    if (this.days && this.days.length > 0)
+      this.showSchedule(this.days[event.index]);
   }
 
   showSchedule(day: Date): void {

@@ -26,7 +26,7 @@ export class Score {
     }
 
     let split = score.split(" ");
-    for (let i = split.length - 1; i >= 0; i--) {
+    for (let i = 0; i < split.length; i++) {
       let set = split[i];
 
       if (!(set.length >= 2)) {

@@ -44,6 +44,10 @@ export class DurationComponent implements OnInit, AfterViewInit {
       this.end.hour = this.match.end.getHours();
       this.end.minute = this.match.end.getMinutes();
     }
+
+    if (this.match.start && this.match.end){
+      this.updateDuration();
+    }
   }
 
   updateStart(): void {

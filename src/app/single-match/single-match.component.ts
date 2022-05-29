@@ -66,12 +66,20 @@ export class SingleMatchOverviewComponent implements OnInit {
         || playerNumber == 1 && !this.match.player1 && this.match.player2)
       || this.checkScore(playerNumber)) {
       this.finished = true;
+      if (playerNumber == 1) this.match.score = this.reverseScore(this.match.score);
       this.match.winner = playerNumber == 0 ? this.match.player1 : this.match.player2;
       this.bracketService.moveWinnerInBracket(this.match).subscribe();
       return;
     }
 
     this.openDialog(playerNumber);
+  }
+
+  reverseScore(score: string) : string{
+    let split = score.split(' ');
+    let result: string[] = [];
+    split.forEach(x => result.push(x[1] + x[0]));
+    return result.join(' ');
   }
 
 
