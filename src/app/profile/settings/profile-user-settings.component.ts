@@ -10,13 +10,17 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./profile-user-settings.component.scss']
 })
 export class ProfileUserSettingsComponent implements OnInit, AfterViewInit {
+  account?: Account;
 
   constructor(public authService: AuthService,
               private dialog: MatDialog) {
-    this.reInit();
+    this.authService.getCurrentAccount().subscribe(a => {
+      this.account = a;
+      this.reInit();
+    });
   }
 
-  reInit(): void{
+  reInit(): void {
   }
 
   ngOnInit(): void {
@@ -32,9 +36,9 @@ export class ProfileUserSettingsComponent implements OnInit, AfterViewInit {
       }
     })
       .afterClosed().subscribe(player => {
-        if (this.authService.account && player) {
-          this.authService.account!.player = player;
-          this.authService.bindPlayerToAccount(this.authService.account, player.rni).subscribe();
+        if (this.account && player) {
+          this.account!.player = player;
+          this.authService.bindPlayerToAccount(this.account, player.rni).subscribe();
         }
       }
     );

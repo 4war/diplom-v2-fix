@@ -4,12 +4,12 @@
       <span class="shady-header">Город </span>
       <span class="text-x-large">{{player?.city}}</span>
     </div>
-    <div class="bright-header">
+    <div class="bright-header" *ngIf="player">
       <span class="shady-header">Возраст </span>
-      <span class="text-x-large">{{getAge()}}</span>
+      <span class="text-x-large">{{playerService.getAge(player)}}</span>
     </div>
     <div class="bright-header">
-      <span class="shady-header">Процент побед </span>
+      <span class="shady-header">РНИ </span>
       <span class="text-x-large">{{player?.rni}}</span>
     </div>
   </mat-card-content>

@@ -14,7 +14,7 @@ import {server} from "../../environments/environment";
   providedIn: 'root'
 })
 
-export class GeneralService {
+export class GeneralTournamentService {
   currentFactory: TournamentFactory = new TournamentFactory();
   currentTournament: Tournament = new Tournament();
   currentPlayerRni: number = 0;
@@ -49,4 +49,5 @@ export class GeneralService {
 
     return this.httpClient.get<TournamentFactory>(`${server}/tournamentFactory/${tournamentId}`);
   }
+
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GeneralService} from "../../../services/general.service";
+import {GeneralTournamentService} from "../../../services/general-tournament.service";
 import {PlayerService} from "../../../services/player.service";
 import {Router} from "@angular/router";
 import {Stage, Tournament} from "../../../shared/Tournament";
@@ -17,7 +17,7 @@ export class GetPlayerTournamentsComponent implements OnInit {
   tournaments: Tournament[] = [];
   displayedColumns = ["Index", "Name", "Category", "Date", "City", "Age", "Point"];
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               private playerService: PlayerService,
               private router: Router) {
 

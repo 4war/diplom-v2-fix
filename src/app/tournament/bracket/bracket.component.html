@@ -9,13 +9,13 @@
         <div class="d-flex my-1 justify-content-between w-100">
           <div>Сетка</div>
           <div>
-            <a mat-button *ngIf="!bracketService.editMode" (click)="startEdit()">
+            <a mat-button *ngIf="!bracketService.editMode && canEdit" (click)="startEdit()">
               <mat-icon color="accent">create</mat-icon>
             </a>
-            <a mat-button *ngIf="bracketService.editMode" (click)="save()">
+            <a mat-button *ngIf="bracketService.editMode && canEdit" (click)="save()">
               <mat-icon class="green">check</mat-icon>
             </a>
-            <a mat-button *ngIf="bracketService.editMode" (click)="cancel()">
+            <a mat-button *ngIf="bracketService.editMode && canEdit" (click)="cancel()">
               <mat-icon color="warn">clear</mat-icon>
             </a>
           </div>
@@ -58,6 +58,7 @@
   </div>
   <ng-template #myMatchTemplate let-match>
     <app-single-match-preview [match]="match"
+                              [showPosition]="isFirstRound(match)"
                               *ngIf="match"
                               class="match"
                               (onMatchChange)="updateMatch($event)"

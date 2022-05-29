@@ -1,23 +1,23 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgttTournament} from "ng-tournament-tree";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {TournamentService} from "../../services/tournament.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {Tournament} from "../../shared/Tournament";
 import {ITab} from "../ITab";
 import {filter} from "rxjs";
 import {BracketService} from "../../services/bracket.service";
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Player} from "../../shared/Player";
 import {DragAndDropService} from "../../services/viewServices/drag-and-drop.service";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {SingleMatchOverviewComponent} from "../../single-match/single-match.component";
 import {Match} from "../../shared/Match";
 import {MatchService} from "../../services/match.service";
 import {Bracket} from "../../shared/Bracket";
-import Enumerable from "linq";
-import from = Enumerable.from;
-import {Round} from "../../shared/Round";
+import {AuthService} from "../../services/auth.service";
+import {Account} from "../../shared/Account";
+import {Role} from "../../profile/profile.component";
 
 @Component({
   selector: 'app-bracket',
@@ -25,7 +25,8 @@ import {Round} from "../../shared/Round";
   styleUrls: ['./bracket.component.scss']
 })
 export class BracketComponent implements OnInit, ITab {
-
+  Role: typeof Role = Role;
+  canEdit = false;
   @ViewChild(CdkDropList) dropList?: CdkDropList;
 
   bracket!: NgttTournament;
@@ -39,18 +40,24 @@ export class BracketComponent implements OnInit, ITab {
   ]
 
   currentOption = this.options[1];
-
+  account?: Account;
   playerList: Player[] = [];
+  firstRoundMatches: Set<number> = new Set<number>();
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               public dragDropService: DragAndDropService,
               public bracketService: BracketService,
               public matchService: MatchService,
+              public authService: AuthService,
               private tournamentService: TournamentService,
               private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog,
   ) {
+    this.authService.getCurrentAccount().subscribe(response => {
+      this.account = response;
+      this.canEdit = (this.authService.role == Role.Org || this.authService.role == Role.Admin) && authService.isAuthenticated();
+    });
 
     router.events.pipe(filter(e => e instanceof NavigationEnd
       && general.currentTournamentTab == "bracket"))
@@ -73,7 +80,6 @@ export class BracketComponent implements OnInit, ITab {
 
   save(): void {
     this.bracketService.editMode = false;
-    //todo: update every changed match instead of whole bracket
     this.bracketService.save(this.bracket as Bracket).subscribe(response => {
       this.reInit();
     });
@@ -95,6 +101,9 @@ export class BracketComponent implements OnInit, ITab {
 
       this.bracketService.getBracket(this.tournamentId).subscribe(response => {
         this.bracket = response;
+        if (this.bracket.rounds.length > 0){
+          this.bracket.rounds[0].matches.forEach(m => this.firstRoundMatches.add(m.id));
+        }
       });
 
       this.updatePlayerList();
@@ -113,6 +122,10 @@ export class BracketComponent implements OnInit, ITab {
         event.currentIndex,
       );
     }
+  }
+
+  isFirstRound(match: Match): boolean{
+    return !!match && this.firstRoundMatches.has(match!.id!);
   }
 
 

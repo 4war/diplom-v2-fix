@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {CdkDropList} from "@angular/cdk/drag-drop";
 
 import Enumerable from "linq";
-import {GeneralService} from "../../../services/general.service";
+import {GeneralTournamentService} from "../../../services/general-tournament.service";
 import {PlayerService} from "../../../services/player.service";
 import {DragAndDropService} from "../../../services/viewServices/drag-and-drop.service";
 import {Player} from "../../../shared/Player";
@@ -16,13 +16,14 @@ import {Digit, Score} from "../../../shared/Score";
 })
 export class SingleMatchComponent implements OnInit {
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               public dragDropService: DragAndDropService,
               private playerService: PlayerService) {
   }
 
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   @Input() match!: Match;
+  @Input() showPosition = false;
   @Output() onMatchChange = new EventEmitter<Match>();
   score1: Digit[] = [];
   score2: Digit[] = [];

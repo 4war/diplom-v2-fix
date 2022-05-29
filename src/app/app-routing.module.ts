@@ -22,55 +22,50 @@ import {ProfileUserMatchesComponent} from "./profile/matches/profile-user-matche
 import {ProfileUserTournamentsComponent} from "./profile/tournaments/profile-user-tournaments.component";
 import {ProfileUserOverviewComponent} from "./profile/overview/profile-user-overview.component";
 import {ProfileUserNotificationsComponent} from "./profile/notifications/profile-user-notifications.component";
+import {ProfileUserTestComponent} from "./profile/test/profile-user-test.component";
+import {TournamentRegisterComponent} from "./tournament/register/tournament-register.component";
 
-export const appRoutes: Routes = [
-
-  {path: 'news', component: NewsComponent},
-  {path: 'auth/login', component: LoginComponent},
-  {path: 'auth/register', component: RegisterComponent},
-  {path: 'factory/list', component: GetFactoryListComponent},
-  {path: 'factory/post', component: PostFactoryComponent},
-  {path: 'factory/:id', component: GetFactoryComponent},
-
-  {
-    path: 'tournament/:id',
-    component: GetTournamentComponent,
-    children: [
-      {path: 'bracket', component: BracketComponent, children: [
-          {path: 'match/:idMatch', component: SingleMatchOverviewComponent},
-        ]},
-      {path: 'playerList', component: PlayerListComponent},
-      {path: 'schedule', component: ScheduleComponent},
-      {path: 'overview', component: TournamentOverviewComponent},
-      {path: '', redirectTo: 'overview', pathMatch: 'full'},
-    ],
-  },
-
-  {path: 'player/list', component: GetPlayerListComponent},
-  {
-    path: 'player/:rni',
-    component: GetPlayerComponent,
-    children: [
-      {path: 'overview', component: PlayerOverviewComponent},
-      //todo: {path: 'matches', component: GetPlayerMatchesComponent},
-      {path: 'tournaments', component: GetPlayerTournamentsComponent},
-      {path: '', redirectTo: 'overview', pathMatch: 'full'},
-    ],
-  },
-
-  {path: 'profile', component: ProfileComponent,
-    children: [
-      {path: 'overview', component: ProfileUserOverviewComponent},
-      {path: 'matches', component: ProfileUserMatchesComponent},
-      {path: 'tournaments', component: ProfileUserTournamentsComponent},
-      {path: 'notifications', component: ProfileUserNotificationsComponent},
-      {path: 'settings', component: ProfileUserSettingsComponent},
-      {path: '', redirectTo: 'overview', pathMatch: 'full'},
-    ],},
-
-
-  {path: '', redirectTo: '/factory/list', pathMatch: 'full'},
-];
+  export const appRoutes: Routes = [
+    {path: 'news', component: NewsComponent},
+    {path: 'auth/login', component: LoginComponent},
+    {path: 'auth/register', component: RegisterComponent},
+    {path: 'factory/list', component: GetFactoryListComponent},
+    {path: 'factory/post', component: PostFactoryComponent},
+    {path: 'factory/:id', component: GetFactoryComponent},
+    {path: 'tournament/:id', component: GetTournamentComponent,
+      children: [
+        {path: 'bracket', component: BracketComponent, children: [
+            {path: 'match/:idMatch', component: SingleMatchOverviewComponent},
+          ]},
+        {path: 'playerList', component: PlayerListComponent},
+        {path: 'schedule', component: ScheduleComponent},
+        {path: 'overview', component: TournamentOverviewComponent},
+        {path: 'register', component: TournamentRegisterComponent},
+        {path: '', redirectTo: 'overview', pathMatch: 'full'},
+        {path: 'get', redirectTo: 'overview', pathMatch: 'full'},
+      ],
+    },
+    {path: 'player/list', component: GetPlayerListComponent},
+    {path: 'player/:rni', component: GetPlayerComponent,
+      children: [
+        {path: 'overview', component: PlayerOverviewComponent},
+        {path: 'matches', component: ProfileUserMatchesComponent},
+        {path: 'tournaments', component: GetPlayerTournamentsComponent},
+        {path: '', redirectTo: 'overview', pathMatch: 'full'},
+      ],
+    },
+    {path: 'profile', component: ProfileComponent,
+      children: [
+        {path: 'overview', component: ProfileUserOverviewComponent},
+        {path: 'matches', component: ProfileUserMatchesComponent},
+        {path: 'tournaments', component: ProfileUserTournamentsComponent},
+        {path: 'test', component: ProfileUserTestComponent},
+        {path: 'notifications', component: ProfileUserNotificationsComponent},
+        {path: 'settings', component: ProfileUserSettingsComponent},
+        {path: '', redirectTo: 'overview', pathMatch: 'full'},
+      ],},
+    {path: '', redirectTo: '/factory/list', pathMatch: 'full'},
+  ];
 
 
 @NgModule({

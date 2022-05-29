@@ -8,6 +8,8 @@ import {FormControl} from "@angular/forms";
 import Enumerable from "linq";
 import from = Enumerable.from;
 import {Player} from "../shared/Player";
+import {TestService} from "../services/test.service";
+import {ProfileService} from "../services/profile.service";
 
 const folder = "assets/Images";
 
@@ -25,6 +27,7 @@ export class ProfileComponent implements OnInit {
     {view: 'Обзор', link: 'overview'},
     {view: 'Матчи', link: 'matches'},
     {view: 'Турниры', link: 'tournaments'},
+    {view: 'Тест', link: 'test'},
     {view: 'Уведомления', link: 'notifications'},
     {view: 'Настройки', link: 'settings'}
   ];
@@ -38,69 +41,82 @@ export class ProfileComponent implements OnInit {
 
   userSelected = new FormControl(0);
   orgSelected = new FormControl(0);
+  account?: Account;
 
   public get Roles(): typeof Role {
     return Role;
   }
 
   constructor(public authService: AuthService,
+              private testService: TestService,
+              private profileService: ProfileService,
               private router: Router,
               private dialog: MatDialog) {
-    this.reInit();
+    this.authService.getCurrentAccount().subscribe(a => {
+      this.account = a;
+      this.reInit();
+    });
   }
 
   reInit(): void {
-    if (!this.authService.account) {
+    if (!this.account) {
       if (this.authService.isAuthenticated()) {
         let email = localStorage.getItem(CURRENT_USER_EMAIL);
         if (email) {
           this.authService.getAccount(email).subscribe(response => {
-            this.authService.account = response;
-            this.defineAccount(this.authService.account);
+            this.account = response;
+            this.defineAccount(this.account);
+            this.checkTest();
           });
         }
       }
     }
 
-    if (this.authService.account) {
-      this.defineAccount(this.authService.account);
+    if (this.account) {
+      this.defineAccount(this.account);
     }
 
     this.defineTab();
   }
 
-  defineTab(): void{
+  checkTest(): void {
+    if (this.account?.player) {
+      this.testService.get(this.account.player.rni)
+        .subscribe(list => {
+          this.testService.testResults = list;
+          if (list.length == 0) {
+            this.profileService.notifications.push({
+              read: false,
+              message: 'Вы можете пройти тест',
+              date: new Date(Date.now())
+            })
+          }
+        })
+    }
+  }
+
+  defineTab(): void {
     let tabLink = from(this.router.url.split('/')).last();
-    if (this.role == Role.User){
+    if (this.role == Role.User) {
       let tabIndex = from(this.userTabs).indexOf(t => t.link == tabLink);
       if (tabIndex >= 0)
         this.userSelected.setValue(tabIndex);
     }
-    if (this.role == Role.Org){
+    if (this.role == Role.Org) {
       let tabIndex = from(this.orgTabs).indexOf(t => t.link == tabLink);
       if (tabIndex >= 0)
         this.orgSelected.setValue(tabIndex);
     }
   }
 
-  defineAccount(account: Account): void{
-    this.role = this.defineRole(account.roles);
+  defineAccount(account: Account): void {
+    this.role = this.authService.defineRole(account.roles);
     this.imageSrc = this.defineImage(this.role, account.player);
   }
 
   ngOnInit(): void {
   }
 
-  private defineRole(roles: string): Role {
-    let split = roles.split(' ');
-    if (split.includes("admin"))
-      return Role.Admin;
-
-    if (split.includes("org"))
-      return Role.Org;
-
-    return Role.User;
-  }
 
   private defineImage(role: Role, player?: Player): string {
     if (role == Role.Admin)
@@ -109,7 +125,7 @@ export class ProfileComponent implements OnInit {
     if (role == Role.Org)
       return `${folder}/org.png`;
 
-    if (role == Role.User){
+    if (role == Role.User) {
       if (!player) return `${folder}/missing.png`;
       if (player.gender == 0) return `${folder}/man.png`;
       if (player.gender == 1) return `${folder}/woman.png`;
@@ -125,9 +141,9 @@ export class ProfileComponent implements OnInit {
       }
     })
       .afterClosed().subscribe(player => {
-        if (this.authService.account && player) {
-          this.authService.account!.player = player;
-          this.authService.bindPlayerToAccount(this.authService.account, player.rni).subscribe();
+        if (this.account && player) {
+          this.account!.player = player;
+          this.authService.bindPlayerToAccount(this.account, player.rni).subscribe();
         }
       }
     );
@@ -143,7 +159,7 @@ class Tab {
   link!: string;
 }
 
-enum Role {
+export enum Role {
   User,
   Org,
   Admin

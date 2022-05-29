@@ -5,20 +5,20 @@
         <img src="{{imageSrc}}" alt="no avatar">
       </div>
       <div class="fio-container">
-        <div *ngIf="role == Roles.User && !authService.account?.player">
+        <div *ngIf="role == Roles.User && !account?.player">
           <div>Если Вы участник РТТ, то можете привязать свою статистику к этому аккаунту</div>
           <a mat-button (click)="findPlayer()">Найти себя</a>
         </div>
-        <div class="bright-header" *ngIf="authService.account?.player">
-          <div class="text-xxx-large col-6">{{authService.account?.player?.surname}}</div>
+        <div class="bright-header" *ngIf="account?.player">
+          <div class="text-xxx-large col-6">{{account?.player?.surname}}</div>
           <div
-            class="text-x-large col-6">{{authService.account?.player?.name}} {{authService.account?.player?.patronymic}}</div>
+            class="text-x-large col-6">{{account?.player?.name}} {{account?.player?.patronymic}}</div>
         </div>
       </div>
       <div class="skill-container d-block bright-header">
-        <div *ngIf="role == Roles.User && authService.account?.player">
+        <div *ngIf="role == Roles.User && account?.player">
           <div class="rating-container text-xx-large"><span
-            class="shady-header">Рейтинг РТТ </span>{{authService.account?.player?.point}}</div>
+            class="shady-header">Рейтинг РТТ </span>{{account?.player?.point}}</div>
           <div class="rank-container text-x-large"><span class="shady-header">Разряд </span>II Взрослый</div>
         </div>
         <div *ngIf="role == Roles.Org" class="bright-header">
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div *ngIf="role == Roles.User && authService.account?.player" class="d-flex justify-content-center">
+  <div *ngIf="role == Roles.User && account?.player" class="d-flex justify-content-center">
     <mat-tab-group [selectedIndex]="userSelected.value"
                    (selectedIndexChange)="openTab(userTabs[$event])"
                    color="accent" dynamicHeight class="tab-group">
@@ -54,7 +54,7 @@
   </div>
 </div>
 <div>
-  <router-outlet *ngIf="authService.account"></router-outlet>
+  <router-outlet *ngIf="account"></router-outlet>
 </div>
 
 

@@ -9,11 +9,12 @@ import {
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
-import {GeneralService} from "../../../../services/general.service";
+import {GeneralTournamentService} from "../../../../services/general-tournament.service";
 import {DragAndDropService} from "../../../../services/viewServices/drag-and-drop.service";
 import {BracketService} from "../../../../services/bracket.service";
 import {Player} from "../../../../shared/Player";
 import {Match} from "../../../../shared/Match";
+import {Round} from "../../../../shared/Round";
 
 
 @Component({
@@ -25,14 +26,15 @@ export class PlayerComponent implements OnInit {
 
   @ViewChild(CdkDropList) dropList?: CdkDropList;
   @Input() player?: Player;
-  @Input() match!: Match;
+  @Input() orderInBracket = 0;
+  @Input() showPosition = false;
   @Output() onAdd = new EventEmitter<Player | undefined>();
 
   playerArray: Player[] = [];
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               public dragDropService: DragAndDropService,
-              public bracketService: BracketService) {
+              public bracketService: BracketService){
   }
 
   ngOnInit(): void {

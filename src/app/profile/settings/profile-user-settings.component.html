@@ -5,20 +5,20 @@
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <span class="shady-header">Почта </span>
-            <span>{{authService.account?.email}}</span>
+            <span>{{account?.email}}</span>
           </div>
           <a mat-icon-button>
             <mat-icon>create</mat-icon>
           </a>
         </div>
         <div class="rni-container margin-top">
-          <div *ngIf="authService.account?.player" class="d-flex justify-content-between align-items-center">
-            <div>РНИ: {{authService.account?.player?.rni}}</div>
+          <div *ngIf="account?.player" class="d-flex justify-content-between align-items-center">
+            <div>РНИ: {{account?.player?.rni}}</div>
             <a mat-icon-button>
               <mat-icon>create</mat-icon>
             </a>
           </div>
-          <div *ngIf="!authService.account?.player" (click)="findPlayer()">Привязать себя</div>
+          <div *ngIf="!account?.player" (click)="findPlayer()">Привязать себя</div>
         </div>
 
       </mat-card-content>

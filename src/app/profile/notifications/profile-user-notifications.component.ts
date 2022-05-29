@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {ProfileService} from "../../services/profile.service";
+import {Notification} from "../../shared/Notification";
+import Enumerable from "linq";
+import from = Enumerable.from;
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-user-notifications',
@@ -7,9 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileUserNotificationsComponent implements OnInit {
 
-  constructor() { }
+  notifications: Notification[] = [];
+
+  constructor(public profileService: ProfileService, private router: Router) {
+    this.notifications = from(profileService.notifications).where(x => !x.read).toArray();
+  }
 
   ngOnInit(): void {
+  }
+
+  removeNotification(notification: Notification) {
+    notification.read = true;
+  }
+
+  redirectToTest(): void {
+    this.router.navigateByUrl('profile/test');
   }
 
 }

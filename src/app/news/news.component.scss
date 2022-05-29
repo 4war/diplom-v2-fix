@@ -1,0 +1,13 @@
+.carousel-container{
+  width: 1200px;
+}
+
+.tournament-list-container{
+}
+
+::ng-deep{
+  .carousel-indicators{
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+  <div class="test-container margin-top">
+    <div *ngFor="let question of test.questions; let i = index" class="my-5">
+      <mat-card>
+        <mat-card-content>
+          <div class="d-flex justify-content-start align-items-center">
+            <span class="shady-header mx-2">{{i + 1}}</span>
+            <span>{{question.question}}</span>
+          </div>
+          <hr>
+          <div *ngIf="question.type=='multiple'">
+            <mat-checkbox *ngFor="let variant of question.variants" class="d-block"
+                          [(ngModel)]="variant.checked">
+              <div>{{variant.answer}}</div>
+            </mat-checkbox>
+          </div>
+          <div *ngIf="question.type=='single'">
+            <mat-radio-group [formControl]="fakeControl"
+                             (change)="change(question, $event)">
+              <mat-radio-button *ngFor="let variant of question.variants"
+                                [value]="variant" class="d-block my-2">
+                <div style="width: 1000px">
+                  {{variant.answer}}
+                </div>
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="my-5 d-flex justify-content-end">
+      <a mat-button *ngIf="allQuestionsAnswered()" color="accent" (click)="confirm()">Завершить</a>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import {MatchService} from "../../services/match.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SingleMatchOverviewComponent} from "../../single-match/single-match.component";
 import {offset} from "../../single-match/duration/duration.component";
+import {Account} from "../../shared/Account";
 
 @Component({
   selector: 'app-matches',
@@ -16,17 +17,22 @@ export class ProfileUserMatchesComponent implements OnInit {
 
   matches: Match[] = [];
   player?: Player;
+  account?: Account;
 
   displayedColumns = ["Self", "Score", "Enemy", "Date", "Duration"]
 
   constructor(public authService: AuthService,
               private matchService: MatchService,
               private dialog: MatDialog) {
-    this.reInit();
+
+    this.authService.getCurrentAccount().subscribe(a => {
+      this.account = a;
+      this.reInit();
+    });
   }
 
   reInit(): void {
-    this.player = this.authService.account?.player;
+    this.player = this.account?.player;
     if (this.player)
       this.matchService.getPlayerMatches(this.player).subscribe(response => this.matches = response);
   }

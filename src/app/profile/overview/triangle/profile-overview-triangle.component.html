@@ -18,9 +18,9 @@
 
       <polygon [attr.points]="polygonPoints" fill="orange" fill-opacity="0.25"></polygon>
 
-      <text [attr.x]="coordinates[0].X + 15" [attr.y]="coordinates[0].Y - 15" class="play-style-value">{{playStyles[0].value/100 | number : '1.2-2'}}</text>
-      <text [attr.x]="coordinates[1].X - 75" [attr.y]="coordinates[1].Y - 15" class="play-style-value">{{playStyles[1].value/100 | number : '1.2-2'}}</text>
-      <text [attr.x]="coordinates[2].X + 25" [attr.y]="coordinates[1].Y + 15" class="play-style-value">{{playStyles[2].value/100 | number : '1.2-2'}}</text>
+      <text [attr.x]="coordinates[0].X + 15" [attr.y]="coordinates[0].Y - 15" class="play-style-value">{{playStyles[0].value}}</text>
+      <text [attr.x]="coordinates[1].X - 75" [attr.y]="coordinates[1].Y - 15" class="play-style-value">{{playStyles[1].value}}</text>
+      <text [attr.x]="coordinates[2].X + 25" [attr.y]="coordinates[1].Y + 15" class="play-style-value">{{playStyles[2].value}}</text>
 
       <text [attr.x]="center.X - 200" [attr.y]="center.Y - lineLength - textPadding" class="play-style">Оборонительный</text>
       <text [attr.x]="center.X - lineLength * 4 / 5 - 130" [attr.y]="center.Y + lineLength * 3 / 5  + textPadding + 40" class="play-style">Активный</text>

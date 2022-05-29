@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Player} from "../../shared/Player";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {PlayerService} from "../../services/player.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -82,7 +82,7 @@ export class GetPlayerListComponent implements OnInit {
   searchMode = false;
   genderOptions = [{name: 'М', value: 0}, {name: 'Ж', value: 1},];
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               private playerService: PlayerService,
               private formBuilder: FormBuilder,
               private router: Router) {

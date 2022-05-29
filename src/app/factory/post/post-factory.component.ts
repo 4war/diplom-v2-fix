@@ -7,7 +7,7 @@ import {TournamentService} from "../../services/tournament.service";
 import {TennisCenterService} from "../../services/tennis-center.service";
 import {TennisCenter} from "../../shared/TennisCenter";
 import {TournamentFactory} from "../../shared/TournamentFactory";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {Router} from "@angular/router";
 
 
@@ -49,7 +49,7 @@ export class PostFactoryComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private tournamentService: TournamentService,
               private tennisCenterService: TennisCenterService,
-              private general: GeneralService,
+              private general: GeneralTournamentService,
               private router: Router) {
   }
 

@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ITab} from "../ITab";
 import {filter, map} from "rxjs";
 import {NavigationEnd, Router} from "@angular/router";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {Schedule} from "../../shared/Schedule";
 import {ScheduleService} from "../../services/schedule.service";
 import {Tournament} from "../../shared/Tournament";
@@ -15,6 +15,9 @@ import {DragAndDropService} from "../../services/viewServices/drag-and-drop.serv
 import {Player} from "../../shared/Player";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {Round} from "../../shared/Round";
+import {Role} from "../../profile/profile.component";
+import {AuthService} from "../../services/auth.service";
+import {Account} from "../../shared/Account";
 
 @Component({
   selector: 'app-schedule',
@@ -84,14 +87,21 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
     score: '63 62',
   }];
 
-
+  account?: Account;
+  canEdit = false;
   dictionary = new Map<number, Map<number, Match>>();
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               public dragDropService: DragAndDropService,
+              public authService: AuthService,
               public scheduleService: ScheduleService,
               private tournamentService: TournamentService,
               private router: Router) {
+
+    this.authService.getCurrentAccount().subscribe(response => {
+      this.account = response;
+      this.canEdit = (this.authService.role == Role.Org || this.authService.role == Role.Admin) && authService.isAuthenticated();
+    });
 
     router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "schedule"))
       .subscribe(response => this.reInit());
@@ -178,14 +188,14 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
   updateDictionary(schedule: Schedule): void {
     this.dictionary = new Map<number, Map<number, Match>>();
     let courtsNotSorted: Court[] = [];
-    let orderNotSorted: number[] = [];
 
+    let maxOrder = from(schedule.matches).where(x => !!x.orderInSchedule).max(x => x.orderInSchedule!);
+    Enumerable.rangeTo(1, maxOrder).forEach(x => this.dictionary.set(x, new Map<number, Match>()));
     for (let match of schedule.matches) {
       let court = match.court;
       let order = match.orderInSchedule;
       if (!order || !court) continue;
       courtsNotSorted.push(court);
-      orderNotSorted.push(order);
 
       if (!this.dictionary.has(order)) {
         this.dictionary.set(order, new Map<number, Match>());
@@ -200,10 +210,8 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
     }
 
     this.courts = from(courtsNotSorted).distinct(x => x.name).orderBy(c => c.name).toArray();
-    this.orders = from(orderNotSorted).distinct().orderBy(x => x).toArray();
+    this.orders = Enumerable.rangeTo(1, maxOrder).toArray();
   }
-
-  //todo: add and remove from dictionary
 
   addOrder(): void {
     if (this.orders.length == 0) {
@@ -240,6 +248,11 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
     }
   }
 
+  cancel(): void {
+    this.scheduleService.editMode = false;
+    this.reInit();
+  }
+
   getMatchesFromDictionary(): Match[] {
     let result: Match[] = [];
 
@@ -254,8 +267,16 @@ export class ScheduleComponent implements OnInit, ITab, AfterViewInit {
     return result;
   }
 
-  cancel(): void {
-    this.scheduleService.editMode = false;
-    this.reInit();
+  orderTimes = [
+    '08:00', '09:30',
+    '11:00', '12:30',
+    '14:00', '15:30',
+    '17:00', '18:30',
+    '20:00', '21:30',
+  ]
+
+  getTimeFromOrder(order: number): string {
+    if (order <= 0 || order >= this.orderTimes.length) return '';
+    return this.orderTimes[order - 1];
   }
 }

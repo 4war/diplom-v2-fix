@@ -27,7 +27,7 @@ import {TournamentService} from "./services/tournament.service";
 import {HttpClientModule} from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {CustomDateAdapter} from "./shared/viewModels/CustomDateAdapter";
-import {GeneralService} from "./services/general.service";
+import {GeneralTournamentService} from "./services/general-tournament.service";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTreeModule} from "@angular/material/tree";
 import {NgTournamentTreeModule} from "ng-tournament-tree";
@@ -93,6 +93,8 @@ import { ProfileOverviewFioComponent } from './profile/overview/fio/profile-over
 import { ProfileOverviewStatisticsComponent } from './profile/overview/statistics/profile-overview-statistics.component';
 import { ProfileUserNotificationsComponent} from "./profile/notifications/profile-user-notifications.component";
 import {MatBadgeModule} from "@angular/material/badge";
+import { ProfileUserTestComponent } from './profile/test/profile-user-test.component';
+import { TournamentRegisterComponent} from "./tournament/register/tournament-register.component";
 
 registerLocaleData(localeRu);
 
@@ -139,6 +141,8 @@ export function tokenGetter(){
     ProfileOverviewFioComponent,
     ProfileOverviewStatisticsComponent,
     ProfileUserNotificationsComponent,
+    ProfileUserTestComponent,
+    TournamentRegisterComponent,
   ],
   imports: [
     MatSidenavModule,
@@ -189,7 +193,7 @@ export function tokenGetter(){
   ],
   entryComponents: [SingleMatchOverviewComponent],
   providers:
-    [FormBuilder, RouterModule, GeneralService, MatDrawerContainer, MatDialogConfig,
+    [FormBuilder, RouterModule, GeneralTournamentService, MatDrawerContainer, MatDialogConfig,
       {provide: MAT_DATE_FORMATS, useValue: MyFormats},
       {provide: MAT_DIALOG_DATA, useClass: Match},
       {provide: MAT_DIALOG_DATA, useClass: SeekSettings},

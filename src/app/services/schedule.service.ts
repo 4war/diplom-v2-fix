@@ -47,5 +47,4 @@ export class ScheduleService {
   save(schedule: Schedule): Observable<Schedule>{
     return this.httpClient.patch<Schedule>(`${server}/schedule`, schedule);
   }
-
 }

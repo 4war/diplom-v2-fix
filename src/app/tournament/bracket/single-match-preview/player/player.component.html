@@ -4,7 +4,8 @@
      (cdkDropListDropped)="dropHandle($event)"
      [cdkDropListEnterPredicate]="predicate">
 
-  <div>
+  <div class="d-flex justify-content-start">
+    <span style="color: gold; margin-right: 20px" *ngIf="showPosition">{{orderInBracket}}</span>
     <div *ngIf="player"
          [cdkDragDisabled]="!bracketService.editMode"
          cdkDrag
@@ -12,13 +13,14 @@
          (cdkDragStarted)="dragStart($event)"
          (cdkDragDropped)="dragDrop($event)"
          (cdkDragEnded)="dragEnd($event)">
-      {{player.surname}} {{player.name[0]}}.
+      <span>{{player.surname}} {{player.name[0]}}.</span>
+    </div>
+    <div *ngIf="!player">
+      <div>
+        <mat-icon>clear</mat-icon>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="!player">
-    <div>
-      <mat-icon>clear</mat-icon>
-    </div>
-  </div>
+
 </div>

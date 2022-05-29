@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Enumerable from "linq";
 import {TournamentFactory} from "../../shared/TournamentFactory";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import from = Enumerable.from;
 import {ages} from "../../defaults";
 import {Router} from "@angular/router";
@@ -17,7 +17,7 @@ export class GetFactoryComponent implements OnInit {
   factory: TournamentFactory = new TournamentFactory();
   mainTournaments: Tournament[];
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               private router: Router) {
 
     this.factory = general.currentFactory;

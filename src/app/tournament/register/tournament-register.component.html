@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="register-container my-5">
+    <mat-card>
+      <mat-card-content>
+        <div class="bright-header">
+          Регистрация игрока {{account?.player?.rni}}
+          <span class="shady-header">
+            ({{account?.player?.surname}} {{account?.player?.name}} {{account?.player?.patronymic}})</span>
+        </div>
+        <hr>
+        <div>
+          <div *ngIf="general.currentTournament.age > 0">
+            <span
+              class="shady-header">Возрастная категория: </span>{{general.getAgeViewValue(general.currentTournament.age)}}
+          </div>
+          <div>
+            <span class="shady-header">Пол: </span>{{general.getGender(general.currentTournament.gender)}}
+          </div>
+        </div>
+        <hr>
+        <mat-label class="red" *ngIf="!playerFitsTournamentRules">Вы не можете принимать участие в этом турнире
+        </mat-label>
+        <div *ngIf="playerFitsTournamentRules">
+          <input type="file"
+                 (change)="confirm($event)"
+                 placeholder="Upload file" accept=".pdf,.doc,.docx">
+          <!-- todo: Медсправка -->
+          <!-- todo: Страховка -->
+          <!-- todo: Паспорт -->
+          <!-- todo: Взнос (онлайн/на месте) -->
+          <!-- todo: Кнопка Зарегистрироваться -->
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+</div>

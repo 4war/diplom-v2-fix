@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {GeneralService} from "../services/general.service";
+import {GeneralTournamentService} from "../services/general-tournament.service";
 import {Tournament} from "../shared/Tournament";
 import {TournamentService} from "../services/tournament.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {TournamentFactory} from "../shared/TournamentFactory";
 import {filter} from "rxjs";
+import {AuthService} from "../services/auth.service";
+import {Account} from "../shared/Account";
 
 @Component({
   selector: 'app-get-single-tournament',
@@ -16,11 +18,24 @@ export class GetTournamentComponent implements OnInit {
 
   tournamentId!: number;
   factory!: TournamentFactory;
+  canRegister = false;
+  account?: Account;
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               private tournamentService: TournamentService,
+              private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router) {
+
+    this.authService.getCurrentAccount().subscribe(response => {
+      this.account = response;
+      if (this.account) {
+        let split = this.account.roles.split(' ');
+        if (split && split.length == 1 && split[0] == 'user') {
+          this.canRegister = !!this.account.player;
+        }
+      }
+    });
 
     this.factory = general.currentFactory;
 
@@ -49,7 +64,6 @@ export class GetTournamentComponent implements OnInit {
     if (id == 0) return;
     this.tournamentService.getTournament(id)
       .subscribe(t => {
-        debugger
         this.general.currentTournament = t;
         this.router.navigateByUrl(`tournament/${id}/${this.general.currentTournamentTab}`);
       });

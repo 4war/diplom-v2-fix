@@ -1,10 +1,20 @@
 <div class="d-flex justify-content-center">
   <mat-card class="notification-container">
     <mat-card-header>
-     <span class="shady-header">Уведомлений</span> <span matBadge="{{0}}" matBadgeOverlap="false"></span>
+     <span class="shady-header">Уведомлений</span> <span matBadge="{{notifications.length}}" matBadgeOverlap="false"></span>
     </mat-card-header>
     <hr>
     <mat-card-content>
+      <div *ngFor="let notification of notifications; let i = index" class="animated">
+        <div *ngIf="!notification.read" class="d-flex justify-content-between align-items-center h-100 px-5" id="message" (click)="redirectToTest()">
+          <div>{{notification.message}}</div>
+          <div class="shady-header d-flex justify-content-end align-items-center">
+            <div class="mx-2">{{notification.date | date: 'dd MMMM'}}</div>
+            <a mat-icon-button (click)="removeNotification(notification)" class="mx-2 hidden-icon" id="icon" color="warn"><mat-icon>clear icon</mat-icon></a>
+         </div>
+        </div>
+        <hr *ngIf="i < notifications.length - 1">
+      </div>
 
     </mat-card-content>
   </mat-card>

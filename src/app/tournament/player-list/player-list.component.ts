@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Tournament} from "../../shared/Tournament";
 import {Player} from "../../shared/Player";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {TournamentService} from "../../services/tournament.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {filter} from "rxjs";
@@ -10,6 +10,9 @@ import {MatDialog} from "@angular/material/dialog";
 import {SeekPlayerDialogComponent} from "../../helpComponents/seek-player-dialog/seek-player-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AlreadyExistDialogComponent} from "./already-exist-dialog/already-exist-dialog.component";
+import {AuthService} from "../../services/auth.service";
+import {Role} from "../../profile/profile.component";
+import {Account} from "../../shared/Account";
 
 @Component({
   selector: 'app-player-list',
@@ -19,16 +22,23 @@ import {AlreadyExistDialogComponent} from "./already-exist-dialog/already-exist-
 export class PlayerListComponent implements OnInit, ITab {
 
   players: Player[] = [];
-
+  canEdit = false;
+  account?: Account;
   displayedColumns = ["Index", "RNI", "FIO", "DoB", "City", "Points", "Delete"];
 
   editMode = false;
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               public tournamentService: TournamentService,
               private route: ActivatedRoute,
+              public authService: AuthService,
               private router: Router,
               private dialog: MatDialog) {
+    this.authService.getCurrentAccount().subscribe(response => {
+      this.account = response;
+      this.canEdit = (this.authService.role == Role.Org || this.authService.role == Role.Admin) && authService.isAuthenticated();
+    });
+
     router.events.pipe(filter(e => e instanceof NavigationEnd && general.currentTournamentTab == "playerList"))
       .subscribe(response => this.reInit());
   }
@@ -51,11 +61,7 @@ export class PlayerListComponent implements OnInit, ITab {
   }
 
   openDialogFor(id: number): void {
-    this.dialog.open(SeekPlayerDialogComponent, {
-      data: {
-        tournamentId: this.general.currentTournament.id,
-      }
-    })
+    this.dialog.open(SeekPlayerDialogComponent)
       .afterClosed()
       .subscribe(playerResponse => {
         if (playerResponse) {

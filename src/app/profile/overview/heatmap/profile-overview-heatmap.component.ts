@@ -25,18 +25,19 @@ export class ProfileOverviewHeatmapComponent implements OnInit {
     Math.random();
     let amount = 100;
     let stepX = this.size / amount;
-    let stepY = (50 * this.ft) / amount;
+    let stepY = (55 * this.ft) / amount;
     for (let x = 0; x < amount; x++) {
       for (let y = 0; y < amount; y++) {
         let minXRandom = 0.7 - Math.pow((x - amount / 2) / 30, 2);
         let maxXRandom = 1 - Math.pow((x - amount / 2) / 35, 2);
 
-        let minYRandom = 0.2 - Math.pow((y - amount * 5 / 7) / 25, 2);
-        let maxYRandom = 1 - Math.pow((y - amount * 5 / 7) / 35, 2);
+        let minYRandom = 0.2 - Math.pow((y - amount * 5 / 10) / 50, 2);
+        let maxYRandom = 1 - Math.pow((y - amount * 9 / 10) / 35, 2);
 
         let valueX = Math.random() * (maxXRandom - minXRandom + 1) + minXRandom;
         let valueY = Math.random() * (maxYRandom - minYRandom + 1) + minYRandom;
         let value = (valueX + valueY)/2;
+        value = value < 0 ? 0 : value;
 
         let square = {X: x * stepX, Y: y * stepY, Width: stepX, Height: stepY, Value: value};
         this.rectangles.push(square);
@@ -45,8 +46,8 @@ export class ProfileOverviewHeatmapComponent implements OnInit {
   }
 
   getColor(value: number): string {
-    let color1 = [255, 0, 0];
-    let color2 = [0, 255, 0];
+    let color1 = [255, 160, 0];
+    let color2 = [255, 0, 0];
 
     let w1 = value;
     let w2 = 1 - w1;

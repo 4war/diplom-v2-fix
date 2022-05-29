@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Player} from "../shared/Player";
@@ -36,5 +36,12 @@ export class PlayerService {
 
   getPlayerWinRate(rni: number): Observable<number>{
     return this.httpClient.get<number>(`${server}/player/winRate/${rni}`);
+  }
+
+  getAge(player: Player): number | undefined {
+    if (!player) return undefined;
+    let dob = new Date(player!.dateOfBirth.toString());
+    let difference = Date.now() - dob.getTime();
+    return Math.abs(Math.round(difference / 1000 / 60 / 60 / 24 / 365.25));
   }
 }

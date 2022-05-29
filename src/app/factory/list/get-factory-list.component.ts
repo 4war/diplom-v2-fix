@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TournamentService} from "../../services/tournament.service";
 import {ages, Category} from "../../defaults";
 import Enumerable from "linq";
-import from = Enumerable.from;
 import {TournamentFactory} from "../../shared/TournamentFactory";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
+import {AuthService} from "../../services/auth.service";
+import {Account} from "../../shared/Account";
+import {Role} from "../../profile/profile.component";
+import from = Enumerable.from;
 
 @Component({
-  selector: 'app-get-tournament',
+  selector: 'app-get-tournament-list',
   templateUrl: './get-factory-list.component.html',
   styleUrls: ['./get-factory-list.component.scss']
 })
@@ -17,21 +20,37 @@ export class GetFactoryListComponent implements OnInit {
   response: any;
 
   editMode = false;
-
+  canEdit = false;
+  account?: Account;
   displayedColumns: string[] = ['Index', 'Name', 'City', 'Date', 'Category', 'Ages', 'Delete'];
 
   constructor(private tournamentService: TournamentService,
-              private general: GeneralService) {
+              public authService: AuthService,
+              private general: GeneralTournamentService) {
   }
 
+  public ListSettings: typeof ListSettings = ListSettings;
+
+  @Input() listSettings?: ListSettings = ListSettings.None;
+
   ngOnInit(): void {
-    this.reInit();
+    this.authService.getCurrentAccount().subscribe(response => {
+      this.account = response;
+      this.canEdit = this.listSettings == ListSettings.None && this.authService.isAuthenticated() && this.authService.role == Role.Admin;
+      this.reInit();
+    })
   }
 
   reInit(): void {
-    this.tournamentService.getTournamentFactories().subscribe(response => {
-      this.factories = response;
-    });
+    if (this.listSettings == ListSettings.NearestFuture) {
+      this.tournamentService.getFutureTournamentFactories().subscribe(response => {
+        this.factories = response;
+      });
+    } else {
+      this.tournamentService.getTournamentFactories().subscribe(response => {
+        this.factories = response;
+      });
+    }
   }
 
   open(id: number): void {
@@ -49,14 +68,19 @@ export class GetFactoryListComponent implements OnInit {
       .select(a => from(ages).first(x => x.max == a).viewValue).toArray().join('; ');
   }
 
-  changeEdit(): void{
+  changeEdit(): void {
     this.editMode = !this.editMode;
   }
 
-  delete(factory: TournamentFactory){
+  delete(factory: TournamentFactory) {
     this.tournamentService.deleteFactory(factory).subscribe(response => {
       console.log(`Удалено ${response.name}`);
       this.reInit();
     })
   }
+}
+
+export enum ListSettings {
+  None,
+  NearestFuture,
 }

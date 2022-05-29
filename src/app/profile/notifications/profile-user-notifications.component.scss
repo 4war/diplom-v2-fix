@@ -1,5 +1,24 @@
-.notification-container{
+.notification-container {
   width: 1000px;
   margin-top: 40px;
   min-height: 300px;
 }
+
+.animated {
+  height: 40px;
+  cursor: pointer;
+
+  :hover {
+    background-color: #192a3d;
+  }
+}
+
+#message .hidden-icon{
+  visibility: hidden;
+}
+
+#message:hover .hidden-icon{
+  visibility: visible;
+}
+
+

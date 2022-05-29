@@ -6,6 +6,7 @@
         <mat-list-item (click)="redirectToTab('playerList')">Список участников</mat-list-item>
         <mat-list-item (click)="redirectToTab('schedule')">Расписание</mat-list-item>
         <mat-list-item (click)="redirectToTab('overview')">Обзор</mat-list-item>
+        <mat-list-item (click)="redirectToTab('register')" *ngIf="canRegister">Регистрация</mat-list-item>
         <mat-list-item (click)="redirectToFactory()" class="my-4">
           <mat-icon color="accent">keyboard_backspace</mat-icon>
         </mat-list-item>
@@ -29,7 +30,7 @@
         <div class="col-md-2 mx-lg-5">
           <div class="factory-container container-fluid my-2 col-11">
             <div class="row" *ngFor="let tournament of factory?.tournaments">
-              <mat-card class="other-tournament-card" [ngClass]="tournament.gender == 0 ? 'male' : 'female'">
+              <mat-card class="other-tournament-card" [ngClass]="tournament.id == general.currentTournament.id ? 'chosen' : tournament.gender == 0 ? 'male' : 'female'">
                 <mat-card-content>
                   <a mat-button color="accent" class="custom-button"
                      (click)="redirectToTournamentInFactory(tournament.id)">

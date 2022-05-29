@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {TournamentService} from "../../services/tournament.service";
 import {Tournament} from "../../shared/Tournament";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
@@ -20,7 +20,7 @@ export class TournamentOverviewComponent implements OnInit, ITab {
   players?: Player[];
   qualificationPlayers?: Player[];
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               private tournamentService: TournamentService,
               private router: Router) {
 

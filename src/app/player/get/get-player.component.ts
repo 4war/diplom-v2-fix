@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Player} from "../../shared/Player";
 
@@ -15,7 +15,7 @@ export class GetPlayerComponent implements OnInit {
   playerRni!: number;
 
   constructor(private playerService: PlayerService,
-              private general: GeneralService,
+              private general: GeneralTournamentService,
               private route: ActivatedRoute,
               private router: Router) {
 

@@ -21,7 +21,7 @@ import {
 export class MatchInScheduleComponent implements OnInit, AfterViewInit {
 
   @ViewChild(CdkDropList) dropList?: CdkDropList;
-  progressBarValue = 100;
+  progressBarValue!: number;
   matchArray: Match[] = [];
 
   constructor(public dragDropService: DragAndDropService,
@@ -34,6 +34,7 @@ export class MatchInScheduleComponent implements OnInit, AfterViewInit {
   @Output() onMatchRemove = new EventEmitter<Match>();
 
   ngOnInit(): void {
+    this.progressBarValue = this.getProgressBarValue();
   }
 
   ngAfterViewInit(): void {
@@ -84,10 +85,16 @@ export class MatchInScheduleComponent implements OnInit, AfterViewInit {
     this.dragDropService.isDraggingSchedule = false;
   }
 
-
   openMatch(): void {
     this.dialog.open(SingleMatchOverviewComponent, {
       data: this.match,
     });
+  }
+
+  getProgressBarValue(): number{
+    if (!this.match?.orderInSchedule) return 0;
+    if (this.match?.orderInSchedule <= 2) return 100;
+    if (this.match.orderInSchedule >= 4) return 0;
+    return Math.round(Math.random() * 100);
   }
 }

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, InjectionToken, Input, OnInit, Output} from '@angular/core';
 import {Match} from "../../shared/Match";
 import {Player} from "../../shared/Player";
-import {GeneralService} from "../../services/general.service";
+import {GeneralTournamentService} from "../../services/general-tournament.service";
 import {MatchService} from "../../services/match.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SeekPlayerDialogComponent} from "../../helpComponents/seek-player-dialog/seek-player-dialog.component";
@@ -15,7 +15,7 @@ export declare const MAT_SEEK_PLAYER_DIALOG_DATA: InjectionToken<any>;
 })
 export class PlayerInMatchDialogComponent implements OnInit {
 
-  constructor(public general: GeneralService,
+  constructor(public general: GeneralTournamentService,
               public matchService: MatchService,
               private dialog?: MatDialog,) {
   }

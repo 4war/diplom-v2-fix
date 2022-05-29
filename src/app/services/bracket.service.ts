@@ -11,7 +11,6 @@ import {Player} from "../shared/Player";
 @Injectable({
   providedIn: 'root'
 })
-
 export class BracketService {
 
   editMode = false;
@@ -42,5 +41,4 @@ export class BracketService {
   getMissingPlayer(id: number): Observable<Player[]>{
     return this.httpClient.get<Player[]>(`${server}/bracket/${id}/missingPlayers`);
   }
-
 }

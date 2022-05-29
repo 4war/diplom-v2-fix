@@ -7,6 +7,7 @@ import {SingleMatchOverviewComponent} from "../../single-match/single-match.comp
 import {TournamentResult} from "../../shared/TournamentResult";
 import {PlayerService} from "../../services/player.service";
 import {Router} from "@angular/router";
+import {Account} from "../../shared/Account";
 
 @Component({
   selector: 'app-tournaments',
@@ -17,17 +18,20 @@ export class ProfileUserTournamentsComponent implements OnInit {
 
   tournamentResults: TournamentResult[] = [];
   player?: Player;
-
+  account?: Account;
   displayedColumns = ["Name", "Category", "Age", "Date", "Place", "Points"];
 
   constructor(public authService: AuthService,
               private playerService: PlayerService,
               private router: Router) {
-    this.reInit();
+    this.authService.getCurrentAccount().subscribe(a => {
+      this.account = a;
+      this.reInit();
+    });
   }
 
   reInit(): void {
-    this.player = this.authService.account?.player;
+    this.player = this.account?.player;
     if (this.player)
       this.playerService.getTournamentResults(this.player.rni)
         .subscribe(response => this.tournamentResults = response);
@@ -36,7 +40,7 @@ export class ProfileUserTournamentsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  open(id: number){
+  open(id: number) {
     this.router.navigateByUrl(`tournament/${id}`);
   }
 }

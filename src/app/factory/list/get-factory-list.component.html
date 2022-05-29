@@ -2,10 +2,10 @@
   <div class="custom-table-animation">
     <mat-card>
       <div class="d-flex justify-content-end margin-top">
-        <a mat-button routerLink="../post" *ngIf="editMode">
+        <a mat-button routerLink="../post" *ngIf="editMode && canEdit">
           <mat-icon color="accent">add</mat-icon>
         </a>
-        <a mat-button (click)="changeEdit()">
+        <a mat-button (click)="changeEdit()" *ngIf="canEdit">
           <mat-icon color="accent">create</mat-icon>
         </a>
       </div>
@@ -79,6 +79,8 @@
         </table>
       </mat-card-content>
     </mat-card>
-    <a mat-button color="accent" routerLink="../post" class="create-button">Создать Турнир</a>
+    <a mat-button color="accent" routerLink="../post"
+       *ngIf="editMode && listSettings == ListSettings.None && authService.isAuthenticated()"
+       class="create-button">Создать Турнир</a>
   </div>
 </div>

@@ -16,15 +16,15 @@
   <mat-card class="margin-top bright-header">
     <mat-card-content>
       <div class="d-flex my-1 justify-content-between w-100">
-        <div>Сетка</div>
+        <div>Расписание</div>
         <div>
-          <a mat-button *ngIf="!scheduleService.editMode" (click)="startEdit()">
+          <a mat-button *ngIf="!scheduleService.editMode && canEdit" (click)="startEdit()">
             <mat-icon color="accent">create</mat-icon>
           </a>
-          <a mat-button *ngIf="scheduleService.editMode" (click)="save()">
+          <a mat-button *ngIf="scheduleService.editMode && canEdit" (click)="save()">
             <mat-icon class="green">check</mat-icon>
           </a>
-          <a mat-button *ngIf="scheduleService.editMode" (click)="cancel()">
+          <a mat-button *ngIf="scheduleService.editMode && canEdit" (click)="cancel()">
             <mat-icon color="warn">clear</mat-icon>
           </a>
         </div>
@@ -74,7 +74,7 @@
             <td class="vertical-center">
                 <div class="match-order d-block justify-content-center">
                   <div>{{order}} запуск</div>
-                  <div class="shady-header">09:36</div>
+                  <div class="shady-header">{{getTimeFromOrder(order)}}</div>
                 </div>
             </td>
             <td *ngFor="let court of courts" class="vertical-center">
@@ -88,7 +88,7 @@
             </td>
           </tr>
         </table>
-        <a mat-button *ngIf="scheduleService.editMode"
+        <a mat-button *ngIf="scheduleService.editMode && canEdit"
            (click)="addOrder()"
            color="accent"
            class="add-order-button d-flex justify-content-center align-items-center">

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Player} from "../../../shared/Player";
 import {PlayerService} from "../../../services/player.service";
-import {GeneralService} from "../../../services/general.service";
+import {GeneralTournamentService} from "../../../services/general-tournament.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -13,7 +13,7 @@ export class PlayerOverviewComponent implements OnInit {
 
   player!: Player;
 
-  constructor(private general: GeneralService, private playerService: PlayerService) {
+  constructor(private general: GeneralTournamentService, private playerService: PlayerService) {
     this.playerService.getPlayer(this.general.currentPlayerRni).subscribe(response =>
       this.player = response
     );
